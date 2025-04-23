@@ -1,9 +1,9 @@
-import { prisma } from '@/lib/db' 
+import { prisma } from '@/lib/db'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
-    const { correo, nombreUsuario, contraseña, nombre, imagenPerfil } = await req.json()
+    const { correo, nombreUsuario, contraseña, nombre } = await req.json()
 
     const usuarioExistente = await prisma.usuario.findFirst({
       where: {
@@ -21,7 +21,6 @@ export async function POST(req: Request) {
         nombreUsuario,
         contraseña,
         nombre,
-        imagenPerfil,
       }
     })
 
@@ -32,11 +31,11 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-    try {
-      const usuarios = await prisma.usuario.findMany()
-  
-      return NextResponse.json(usuarios)
-    } catch (error) {
-      return NextResponse.json({ error: 'Error al obtener los usuarios' }, { status: 500 })
-    }
+  try {
+    const usuarios = await prisma.usuario.findMany()
+
+    return NextResponse.json(usuarios)
+  } catch (error) {
+    return NextResponse.json({ error: 'Error al obtener los usuarios' }, { status: 500 })
   }
+}
