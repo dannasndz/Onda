@@ -29,7 +29,6 @@ model Usuario {
 model Genero {
   id        Int              @id @default(autoincrement())
   nombre    String           @unique
-  spotifyId String?          @unique
   usuarios  UsuarioGenero[]
   artistas  ArtistaGenero[]
   albums    AlbumGenero[]

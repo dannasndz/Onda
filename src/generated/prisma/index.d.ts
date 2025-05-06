@@ -3328,19 +3328,16 @@ export namespace Prisma {
   export type GeneroMinAggregateOutputType = {
     id: number | null
     nombre: string | null
-    spotifyId: string | null
   }
 
   export type GeneroMaxAggregateOutputType = {
     id: number | null
     nombre: string | null
-    spotifyId: string | null
   }
 
   export type GeneroCountAggregateOutputType = {
     id: number
     nombre: number
-    spotifyId: number
     _all: number
   }
 
@@ -3356,19 +3353,16 @@ export namespace Prisma {
   export type GeneroMinAggregateInputType = {
     id?: true
     nombre?: true
-    spotifyId?: true
   }
 
   export type GeneroMaxAggregateInputType = {
     id?: true
     nombre?: true
-    spotifyId?: true
   }
 
   export type GeneroCountAggregateInputType = {
     id?: true
     nombre?: true
-    spotifyId?: true
     _all?: true
   }
 
@@ -3461,7 +3455,6 @@ export namespace Prisma {
   export type GeneroGroupByOutputType = {
     id: number
     nombre: string
-    spotifyId: string | null
     _count: GeneroCountAggregateOutputType | null
     _avg: GeneroAvgAggregateOutputType | null
     _sum: GeneroSumAggregateOutputType | null
@@ -3486,7 +3479,6 @@ export namespace Prisma {
   export type GeneroSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nombre?: boolean
-    spotifyId?: boolean
     usuarios?: boolean | Genero$usuariosArgs<ExtArgs>
     artistas?: boolean | Genero$artistasArgs<ExtArgs>
     albums?: boolean | Genero$albumsArgs<ExtArgs>
@@ -3497,22 +3489,19 @@ export namespace Prisma {
   export type GeneroSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nombre?: boolean
-    spotifyId?: boolean
   }, ExtArgs["result"]["genero"]>
 
   export type GeneroSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nombre?: boolean
-    spotifyId?: boolean
   }, ExtArgs["result"]["genero"]>
 
   export type GeneroSelectScalar = {
     id?: boolean
     nombre?: boolean
-    spotifyId?: boolean
   }
 
-  export type GeneroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "spotifyId", ExtArgs["result"]["genero"]>
+  export type GeneroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre", ExtArgs["result"]["genero"]>
   export type GeneroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarios?: boolean | Genero$usuariosArgs<ExtArgs>
     artistas?: boolean | Genero$artistasArgs<ExtArgs>
@@ -3534,7 +3523,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nombre: string
-      spotifyId: string | null
     }, ExtArgs["result"]["genero"]>
     composites: {}
   }
@@ -3964,7 +3952,6 @@ export namespace Prisma {
   interface GeneroFieldRefs {
     readonly id: FieldRef<"Genero", 'Int'>
     readonly nombre: FieldRef<"Genero", 'String'>
-    readonly spotifyId: FieldRef<"Genero", 'String'>
   }
     
 
@@ -15788,8 +15775,7 @@ export namespace Prisma {
 
   export const GeneroScalarFieldEnum: {
     id: 'id',
-    nombre: 'nombre',
-    spotifyId: 'spotifyId'
+    nombre: 'nombre'
   };
 
   export type GeneroScalarFieldEnum = (typeof GeneroScalarFieldEnum)[keyof typeof GeneroScalarFieldEnum]
@@ -16093,7 +16079,6 @@ export namespace Prisma {
     NOT?: GeneroWhereInput | GeneroWhereInput[]
     id?: IntFilter<"Genero"> | number
     nombre?: StringFilter<"Genero"> | string
-    spotifyId?: StringNullableFilter<"Genero"> | string | null
     usuarios?: UsuarioGeneroListRelationFilter
     artistas?: ArtistaGeneroListRelationFilter
     albums?: AlbumGeneroListRelationFilter
@@ -16103,7 +16088,6 @@ export namespace Prisma {
   export type GeneroOrderByWithRelationInput = {
     id?: SortOrder
     nombre?: SortOrder
-    spotifyId?: SortOrderInput | SortOrder
     usuarios?: UsuarioGeneroOrderByRelationAggregateInput
     artistas?: ArtistaGeneroOrderByRelationAggregateInput
     albums?: AlbumGeneroOrderByRelationAggregateInput
@@ -16113,7 +16097,6 @@ export namespace Prisma {
   export type GeneroWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     nombre?: string
-    spotifyId?: string
     AND?: GeneroWhereInput | GeneroWhereInput[]
     OR?: GeneroWhereInput[]
     NOT?: GeneroWhereInput | GeneroWhereInput[]
@@ -16121,12 +16104,11 @@ export namespace Prisma {
     artistas?: ArtistaGeneroListRelationFilter
     albums?: AlbumGeneroListRelationFilter
     canciones?: CancionGeneroListRelationFilter
-  }, "id" | "nombre" | "spotifyId">
+  }, "id" | "nombre">
 
   export type GeneroOrderByWithAggregationInput = {
     id?: SortOrder
     nombre?: SortOrder
-    spotifyId?: SortOrderInput | SortOrder
     _count?: GeneroCountOrderByAggregateInput
     _avg?: GeneroAvgOrderByAggregateInput
     _max?: GeneroMaxOrderByAggregateInput
@@ -16140,7 +16122,6 @@ export namespace Prisma {
     NOT?: GeneroScalarWhereWithAggregatesInput | GeneroScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Genero"> | number
     nombre?: StringWithAggregatesFilter<"Genero"> | string
-    spotifyId?: StringNullableWithAggregatesFilter<"Genero"> | string | null
   }
 
   export type UsuarioGeneroWhereInput = {
@@ -16826,7 +16807,6 @@ export namespace Prisma {
 
   export type GeneroCreateInput = {
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroCreateNestedManyWithoutGeneroInput
@@ -16836,7 +16816,6 @@ export namespace Prisma {
   export type GeneroUncheckedCreateInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroUncheckedCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroUncheckedCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroUncheckedCreateNestedManyWithoutGeneroInput
@@ -16845,7 +16824,6 @@ export namespace Prisma {
 
   export type GeneroUpdateInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUpdateManyWithoutGeneroNestedInput
@@ -16855,7 +16833,6 @@ export namespace Prisma {
   export type GeneroUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUncheckedUpdateManyWithoutGeneroNestedInput
@@ -16865,18 +16842,15 @@ export namespace Prisma {
   export type GeneroCreateManyInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
   }
 
   export type GeneroUpdateManyMutationInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GeneroUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UsuarioGeneroCreateInput = {
@@ -17604,7 +17578,6 @@ export namespace Prisma {
   export type GeneroCountOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
-    spotifyId?: SortOrder
   }
 
   export type GeneroAvgOrderByAggregateInput = {
@@ -17614,13 +17587,11 @@ export namespace Prisma {
   export type GeneroMaxOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
-    spotifyId?: SortOrder
   }
 
   export type GeneroMinOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
-    spotifyId?: SortOrder
   }
 
   export type GeneroSumOrderByAggregateInput = {
@@ -19686,7 +19657,6 @@ export namespace Prisma {
 
   export type GeneroCreateWithoutUsuariosInput = {
     nombre: string
-    spotifyId?: string | null
     artistas?: ArtistaGeneroCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroCreateNestedManyWithoutGeneroInput
@@ -19695,7 +19665,6 @@ export namespace Prisma {
   export type GeneroUncheckedCreateWithoutUsuariosInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
     artistas?: ArtistaGeneroUncheckedCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroUncheckedCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroUncheckedCreateNestedManyWithoutGeneroInput
@@ -19751,7 +19720,6 @@ export namespace Prisma {
 
   export type GeneroUpdateWithoutUsuariosInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     artistas?: ArtistaGeneroUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUpdateManyWithoutGeneroNestedInput
@@ -19760,7 +19728,6 @@ export namespace Prisma {
   export type GeneroUncheckedUpdateWithoutUsuariosInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     artistas?: ArtistaGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUncheckedUpdateManyWithoutGeneroNestedInput
@@ -19951,7 +19918,6 @@ export namespace Prisma {
 
   export type GeneroCreateWithoutArtistasInput = {
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroCreateNestedManyWithoutGeneroInput
@@ -19960,7 +19926,6 @@ export namespace Prisma {
   export type GeneroUncheckedCreateWithoutArtistasInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroUncheckedCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroUncheckedCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroUncheckedCreateNestedManyWithoutGeneroInput
@@ -20012,7 +19977,6 @@ export namespace Prisma {
 
   export type GeneroUpdateWithoutArtistasInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUpdateManyWithoutGeneroNestedInput
@@ -20021,7 +19985,6 @@ export namespace Prisma {
   export type GeneroUncheckedUpdateWithoutArtistasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUncheckedUpdateManyWithoutGeneroNestedInput
@@ -20275,7 +20238,6 @@ export namespace Prisma {
 
   export type GeneroCreateWithoutAlbumsInput = {
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroCreateNestedManyWithoutGeneroInput
@@ -20284,7 +20246,6 @@ export namespace Prisma {
   export type GeneroUncheckedCreateWithoutAlbumsInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroUncheckedCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroUncheckedCreateNestedManyWithoutGeneroInput
     canciones?: CancionGeneroUncheckedCreateNestedManyWithoutGeneroInput
@@ -20346,7 +20307,6 @@ export namespace Prisma {
 
   export type GeneroUpdateWithoutAlbumsInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUpdateManyWithoutGeneroNestedInput
@@ -20355,7 +20315,6 @@ export namespace Prisma {
   export type GeneroUncheckedUpdateWithoutAlbumsInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     canciones?: CancionGeneroUncheckedUpdateManyWithoutGeneroNestedInput
@@ -20626,7 +20585,6 @@ export namespace Prisma {
 
   export type GeneroCreateWithoutCancionesInput = {
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroCreateNestedManyWithoutGeneroInput
@@ -20635,7 +20593,6 @@ export namespace Prisma {
   export type GeneroUncheckedCreateWithoutCancionesInput = {
     id?: number
     nombre: string
-    spotifyId?: string | null
     usuarios?: UsuarioGeneroUncheckedCreateNestedManyWithoutGeneroInput
     artistas?: ArtistaGeneroUncheckedCreateNestedManyWithoutGeneroInput
     albums?: AlbumGeneroUncheckedCreateNestedManyWithoutGeneroInput
@@ -20691,7 +20648,6 @@ export namespace Prisma {
 
   export type GeneroUpdateWithoutCancionesInput = {
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUpdateManyWithoutGeneroNestedInput
@@ -20700,7 +20656,6 @@ export namespace Prisma {
   export type GeneroUncheckedUpdateWithoutCancionesInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
-    spotifyId?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios?: UsuarioGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     artistas?: ArtistaGeneroUncheckedUpdateManyWithoutGeneroNestedInput
     albums?: AlbumGeneroUncheckedUpdateManyWithoutGeneroNestedInput

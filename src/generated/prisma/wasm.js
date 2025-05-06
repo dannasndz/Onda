@@ -128,8 +128,7 @@ exports.Prisma.UsuarioScalarFieldEnum = {
 
 exports.Prisma.GeneroScalarFieldEnum = {
   id: 'id',
-  nombre: 'nombre',
-  spotifyId: 'spotifyId'
+  nombre: 'nombre'
 };
 
 exports.Prisma.UsuarioGeneroScalarFieldEnum = {

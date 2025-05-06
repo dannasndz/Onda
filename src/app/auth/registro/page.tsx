@@ -14,6 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import Link from "next/link"
+
 
 const formSchema = z.object({
   correo: z.string().email({
@@ -44,7 +46,7 @@ export default function ProfileForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await fetch('/api/registro', {
+    const res = await fetch('/api/auth/registro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
@@ -52,7 +54,7 @@ export default function ProfileForm() {
 
     if (res.ok) {
       alert('¡Registro exitoso!')
-      router.push('/login')
+      router.push('/test')
     } else {
       const data = await res.json()
       alert(data.error)
@@ -153,6 +155,12 @@ export default function ProfileForm() {
           >
             Registrarse
           </Button>
+          <div className="text-center text-sm text-gray-400">
+            ¿Ya tienes una cuenta?{" "}
+            <Link href="/auth/login" className="text-violet-400 hover:underline">
+              Inicia sesión
+            </Link>
+          </div>
         </form>
       </Form>
     )
