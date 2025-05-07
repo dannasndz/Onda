@@ -1,8 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/db';
-import { JWT } from 'next-auth/jwt';
-import { Session } from 'next-auth';
 import bcrypt from 'bcryptjs';
 
 // Define interfaces para tus tipos personalizados
@@ -61,34 +59,30 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: usuarioExistente.id.toString(),
-          name: usuarioExistente.nombreUsuario, 
-          email: usuarioExistente.correo, 
+          name: usuarioExistente.nombreUsuario,
+          email: usuarioExistente.correo,
         };
       }
     }),
   ],
-  // callbacks: {
-  //   jwt: async ({ token, user }) => {
-  //     if (user) {
-  //       token.id = user.id;
-  //       token.nombre = user.name;
-  //       token.correo = user.email; // Asegúrate de usar 'correo' aquí
-  //     }
-  //     return token;
-  //   },
-
-  //   session: async ({ session, token }: { session: any; token: JWT }) => {
-  //     if (token) {
-  //       session.user = {
-  //         id: token.id as string,
-  //         nombre: token.nombre as string,
-  //         correo: token.correo as string, // Asegúrate de que el correo esté asignado correctamente
-  //         email: token.correo as string,  // Para compatibilidad
-  //       };
-  //     }
-  //     return session as CustomSession;
-  //   }
-  // },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.nombre = user.name;
+        token.correo = user.email;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => {
+      if (token && session.user) {
+        session.user.name = token.nombre as string;
+        session.user.email = token.correo as string;
+      }
+      return session;
+    }
+    
+  },
   pages: {
     signIn: "/auth/login",
     signOut: '/',

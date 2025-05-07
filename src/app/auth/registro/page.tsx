@@ -15,6 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import Link from "next/link"
+import { signIn } from 'next-auth/react'
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 
 const formSchema = z.object({
@@ -50,16 +52,28 @@ export default function ProfileForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-    })
+    });
 
     if (res.ok) {
-      alert('¡Registro exitoso!')
-      router.push('/extras/bienvenida')
+      alert('¡Registro exitoso!');
+
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: values.correo,       
+        password: values.contraseña 
+      });
+
+      if (result?.ok) {
+        router.push('/extras/bienvenida');
+      } else {
+        alert("Error al iniciar sesión después del registro");
+      }
     } else {
-      const data = await res.json()
-      alert(data.error)
+      const data = await res.json();
+      alert(data.error || "Error durante el registro");
     }
   }
+
   return (
     (
       <Form {...form}>

@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  // Si está autenticado, dejar continuar
   return NextResponse.next()
 }
 
