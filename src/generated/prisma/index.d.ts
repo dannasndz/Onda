@@ -376,8 +376,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -4482,18 +4482,21 @@ export namespace Prisma {
     id: number | null
     usuarioId: number | null
     generoId: number | null
+    tipo: string | null
   }
 
   export type UsuarioGeneroMaxAggregateOutputType = {
     id: number | null
     usuarioId: number | null
     generoId: number | null
+    tipo: string | null
   }
 
   export type UsuarioGeneroCountAggregateOutputType = {
     id: number
     usuarioId: number
     generoId: number
+    tipo: number
     _all: number
   }
 
@@ -4514,18 +4517,21 @@ export namespace Prisma {
     id?: true
     usuarioId?: true
     generoId?: true
+    tipo?: true
   }
 
   export type UsuarioGeneroMaxAggregateInputType = {
     id?: true
     usuarioId?: true
     generoId?: true
+    tipo?: true
   }
 
   export type UsuarioGeneroCountAggregateInputType = {
     id?: true
     usuarioId?: true
     generoId?: true
+    tipo?: true
     _all?: true
   }
 
@@ -4619,6 +4625,7 @@ export namespace Prisma {
     id: number
     usuarioId: number
     generoId: number
+    tipo: string
     _count: UsuarioGeneroCountAggregateOutputType | null
     _avg: UsuarioGeneroAvgAggregateOutputType | null
     _sum: UsuarioGeneroSumAggregateOutputType | null
@@ -4644,6 +4651,7 @@ export namespace Prisma {
     id?: boolean
     usuarioId?: boolean
     generoId?: boolean
+    tipo?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
@@ -4652,6 +4660,7 @@ export namespace Prisma {
     id?: boolean
     usuarioId?: boolean
     generoId?: boolean
+    tipo?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
@@ -4660,6 +4669,7 @@ export namespace Prisma {
     id?: boolean
     usuarioId?: boolean
     generoId?: boolean
+    tipo?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
@@ -4668,9 +4678,10 @@ export namespace Prisma {
     id?: boolean
     usuarioId?: boolean
     generoId?: boolean
+    tipo?: boolean
   }
 
-  export type UsuarioGeneroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usuarioId" | "generoId", ExtArgs["result"]["usuarioGenero"]>
+  export type UsuarioGeneroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usuarioId" | "generoId" | "tipo", ExtArgs["result"]["usuarioGenero"]>
   export type UsuarioGeneroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
@@ -4694,6 +4705,7 @@ export namespace Prisma {
       id: number
       usuarioId: number
       generoId: number
+      tipo: string
     }, ExtArgs["result"]["usuarioGenero"]>
     composites: {}
   }
@@ -5122,6 +5134,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UsuarioGenero", 'Int'>
     readonly usuarioId: FieldRef<"UsuarioGenero", 'Int'>
     readonly generoId: FieldRef<"UsuarioGenero", 'Int'>
+    readonly tipo: FieldRef<"UsuarioGenero", 'String'>
   }
     
 
@@ -15784,7 +15797,8 @@ export namespace Prisma {
   export const UsuarioGeneroScalarFieldEnum: {
     id: 'id',
     usuarioId: 'usuarioId',
-    generoId: 'generoId'
+    generoId: 'generoId',
+    tipo: 'tipo'
   };
 
   export type UsuarioGeneroScalarFieldEnum = (typeof UsuarioGeneroScalarFieldEnum)[keyof typeof UsuarioGeneroScalarFieldEnum]
@@ -16131,6 +16145,7 @@ export namespace Prisma {
     id?: IntFilter<"UsuarioGenero"> | number
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
+    tipo?: StringFilter<"UsuarioGenero"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     genero?: XOR<GeneroScalarRelationFilter, GeneroWhereInput>
   }
@@ -16139,26 +16154,29 @@ export namespace Prisma {
     id?: SortOrder
     usuarioId?: SortOrder
     generoId?: SortOrder
+    tipo?: SortOrder
     usuario?: UsuarioOrderByWithRelationInput
     genero?: GeneroOrderByWithRelationInput
   }
 
   export type UsuarioGeneroWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    usuarioId_generoId?: UsuarioGeneroUsuarioIdGeneroIdCompoundUniqueInput
+    usuarioId_generoId_tipo?: UsuarioGeneroUsuarioIdGeneroIdTipoCompoundUniqueInput
     AND?: UsuarioGeneroWhereInput | UsuarioGeneroWhereInput[]
     OR?: UsuarioGeneroWhereInput[]
     NOT?: UsuarioGeneroWhereInput | UsuarioGeneroWhereInput[]
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
+    tipo?: StringFilter<"UsuarioGenero"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     genero?: XOR<GeneroScalarRelationFilter, GeneroWhereInput>
-  }, "id" | "usuarioId_generoId">
+  }, "id" | "usuarioId_generoId_tipo">
 
   export type UsuarioGeneroOrderByWithAggregationInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     generoId?: SortOrder
+    tipo?: SortOrder
     _count?: UsuarioGeneroCountOrderByAggregateInput
     _avg?: UsuarioGeneroAvgOrderByAggregateInput
     _max?: UsuarioGeneroMaxOrderByAggregateInput
@@ -16173,6 +16191,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"UsuarioGenero"> | number
     usuarioId?: IntWithAggregatesFilter<"UsuarioGenero"> | number
     generoId?: IntWithAggregatesFilter<"UsuarioGenero"> | number
+    tipo?: StringWithAggregatesFilter<"UsuarioGenero"> | string
   }
 
   export type ArtistaWhereInput = {
@@ -16854,6 +16873,7 @@ export namespace Prisma {
   }
 
   export type UsuarioGeneroCreateInput = {
+    tipo: string
     usuario: UsuarioCreateNestedOneWithoutGenerosInput
     genero: GeneroCreateNestedOneWithoutUsuariosInput
   }
@@ -16862,9 +16882,11 @@ export namespace Prisma {
     id?: number
     usuarioId: number
     generoId: number
+    tipo: string
   }
 
   export type UsuarioGeneroUpdateInput = {
+    tipo?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutGenerosNestedInput
     genero?: GeneroUpdateOneRequiredWithoutUsuariosNestedInput
   }
@@ -16873,22 +16895,25 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     usuarioId?: IntFieldUpdateOperationsInput | number
     generoId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UsuarioGeneroCreateManyInput = {
     id?: number
     usuarioId: number
     generoId: number
+    tipo: string
   }
 
   export type UsuarioGeneroUpdateManyMutationInput = {
-
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UsuarioGeneroUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     usuarioId?: IntFieldUpdateOperationsInput | number
     generoId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type ArtistaCreateInput = {
@@ -17608,15 +17633,17 @@ export namespace Prisma {
     isNot?: GeneroWhereInput
   }
 
-  export type UsuarioGeneroUsuarioIdGeneroIdCompoundUniqueInput = {
+  export type UsuarioGeneroUsuarioIdGeneroIdTipoCompoundUniqueInput = {
     usuarioId: number
     generoId: number
+    tipo: string
   }
 
   export type UsuarioGeneroCountOrderByAggregateInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     generoId?: SortOrder
+    tipo?: SortOrder
   }
 
   export type UsuarioGeneroAvgOrderByAggregateInput = {
@@ -17629,12 +17656,14 @@ export namespace Prisma {
     id?: SortOrder
     usuarioId?: SortOrder
     generoId?: SortOrder
+    tipo?: SortOrder
   }
 
   export type UsuarioGeneroMinOrderByAggregateInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     generoId?: SortOrder
+    tipo?: SortOrder
   }
 
   export type UsuarioGeneroSumOrderByAggregateInput = {
@@ -19313,12 +19342,14 @@ export namespace Prisma {
   }
 
   export type UsuarioGeneroCreateWithoutUsuarioInput = {
+    tipo: string
     genero: GeneroCreateNestedOneWithoutUsuariosInput
   }
 
   export type UsuarioGeneroUncheckedCreateWithoutUsuarioInput = {
     id?: number
     generoId: number
+    tipo: string
   }
 
   export type UsuarioGeneroCreateOrConnectWithoutUsuarioInput = {
@@ -19404,6 +19435,7 @@ export namespace Prisma {
     id?: IntFilter<"UsuarioGenero"> | number
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
+    tipo?: StringFilter<"UsuarioGenero"> | string
   }
 
   export type ReseñaUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -19463,12 +19495,14 @@ export namespace Prisma {
   }
 
   export type UsuarioGeneroCreateWithoutGeneroInput = {
+    tipo: string
     usuario: UsuarioCreateNestedOneWithoutGenerosInput
   }
 
   export type UsuarioGeneroUncheckedCreateWithoutGeneroInput = {
     id?: number
     usuarioId: number
+    tipo: string
   }
 
   export type UsuarioGeneroCreateOrConnectWithoutGeneroInput = {
@@ -21036,6 +21070,7 @@ export namespace Prisma {
   export type UsuarioGeneroCreateManyUsuarioInput = {
     id?: number
     generoId: number
+    tipo: string
   }
 
   export type ReseñaCreateManyUsuarioInput = {
@@ -21055,17 +21090,20 @@ export namespace Prisma {
   }
 
   export type UsuarioGeneroUpdateWithoutUsuarioInput = {
+    tipo?: StringFieldUpdateOperationsInput | string
     genero?: GeneroUpdateOneRequiredWithoutUsuariosNestedInput
   }
 
   export type UsuarioGeneroUncheckedUpdateWithoutUsuarioInput = {
     id?: IntFieldUpdateOperationsInput | number
     generoId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UsuarioGeneroUncheckedUpdateManyWithoutUsuarioInput = {
     id?: IntFieldUpdateOperationsInput | number
     generoId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReseñaUpdateWithoutUsuarioInput = {
@@ -21117,6 +21155,7 @@ export namespace Prisma {
   export type UsuarioGeneroCreateManyGeneroInput = {
     id?: number
     usuarioId: number
+    tipo: string
   }
 
   export type ArtistaGeneroCreateManyGeneroInput = {
@@ -21135,17 +21174,20 @@ export namespace Prisma {
   }
 
   export type UsuarioGeneroUpdateWithoutGeneroInput = {
+    tipo?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutGenerosNestedInput
   }
 
   export type UsuarioGeneroUncheckedUpdateWithoutGeneroInput = {
     id?: IntFieldUpdateOperationsInput | number
     usuarioId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type UsuarioGeneroUncheckedUpdateManyWithoutGeneroInput = {
     id?: IntFieldUpdateOperationsInput | number
     usuarioId?: IntFieldUpdateOperationsInput | number
+    tipo?: StringFieldUpdateOperationsInput | string
   }
 
   export type ArtistaGeneroUpdateWithoutGeneroInput = {

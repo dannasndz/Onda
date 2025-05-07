@@ -18,17 +18,17 @@ model Usuario {
   id             Int             @id @default(autoincrement())
   correo         String          @unique
   nombreUsuario  String          @unique
-  contraseña     String
+  contraseña    String
   nombre         String?
   imagenPerfil   String?
   generos        UsuarioGenero[]
-  reseñas        Reseña[]
+  reseñas       Reseña[]
   calificaciones Calificacion[]
 }
 
 model Genero {
-  id        Int              @id @default(autoincrement())
-  nombre    String           @unique
+  id        Int             @id @default(autoincrement())
+  nombre    String          @unique
   usuarios  UsuarioGenero[]
   artistas  ArtistaGenero[]
   albums    AlbumGenero[]
@@ -36,49 +36,50 @@ model Genero {
 }
 
 model UsuarioGenero {
-  id         Int     @id @default(autoincrement())
-  usuarioId  Int
-  generoId   Int
-  usuario    Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  genero     Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  usuarioId Int
+  generoId  Int
+  tipo      String 
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
 
-  @@unique([usuarioId, generoId])
+  @@unique([usuarioId, generoId, tipo])
 }
 
 model Artista {
-  id         Int             @id @default(autoincrement())
-  nombre     String
-  spotifyId  String          @unique
-  imagenUrl  String?
-  generos    ArtistaGenero[]
-  albums     Album[]
-  canciones  Cancion[]
+  id        Int             @id @default(autoincrement())
+  nombre    String
+  spotifyId String          @unique
+  imagenUrl String?
+  generos   ArtistaGenero[]
+  albums    Album[]
+  canciones Cancion[]
 }
 
 model ArtistaGenero {
-  id         Int     @id @default(autoincrement())
-  artistaId  Int
-  generoId   Int
-  artista    Artista @relation(fields: [artistaId], references: [id], onDelete: Cascade)
-  genero     Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  artistaId Int
+  generoId  Int
+  artista   Artista @relation(fields: [artistaId], references: [id], onDelete: Cascade)
+  genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
 
   @@unique([artistaId, generoId])
 }
 
 model Album {
-  id              Int             @id @default(autoincrement())
-  titulo          String
-  spotifyId       String          @unique
+  id               Int            @id @default(autoincrement())
+  titulo           String
+  spotifyId        String         @unique
   fechaLanzamiento DateTime
-  imagenUrl       String?
-  tipoAlbum       String
-  totalCanciones  Int
-  artistaId       Int
-  artista         Artista         @relation(fields: [artistaId], references: [id])
-  canciones       Cancion[]
-  generos         AlbumGenero[]
+  imagenUrl        String?
+  tipoAlbum        String
+  totalCanciones   Int
+  artistaId        Int
+  artista          Artista        @relation(fields: [artistaId], references: [id])
+  canciones        Cancion[]
+  generos          AlbumGenero[]
   reseñas         Reseña[]
-  calificaciones  Calificacion[]
+  calificaciones   Calificacion[]
 }
 
 model AlbumGenero {
@@ -92,15 +93,15 @@ model AlbumGenero {
 }
 
 model Cancion {
-  id            Int             @id @default(autoincrement())
-  titulo        String
-  spotifyId     String          @unique
-  duracionMs    Int
-  albumId       Int
-  artistaId     Int
-  album         Album           @relation(fields: [albumId], references: [id])
-  artista       Artista         @relation(fields: [artistaId], references: [id])
-  generos       CancionGenero[]
+  id             Int             @id @default(autoincrement())
+  titulo         String
+  spotifyId      String          @unique
+  duracionMs     Int
+  albumId        Int
+  artistaId      Int
+  album          Album           @relation(fields: [albumId], references: [id])
+  artista        Artista         @relation(fields: [artistaId], references: [id])
+  generos        CancionGenero[]
   reseñas       Reseña[]
   calificaciones Calificacion[]
 }
@@ -116,37 +117,37 @@ model CancionGenero {
 }
 
 model Reseña {
-  id          Int       @id @default(autoincrement())
-  contenido   String
-  usuarioId   Int
-  cancionId   Int?
-  albumId     Int?
-  creadoEn    DateTime  @default(now())
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
-  cancion     Cancion?  @relation(fields: [cancionId], references: [id])
-  album       Album?    @relation(fields: [albumId], references: [id])
+  id        Int      @id @default(autoincrement())
+  contenido String
+  usuarioId Int
+  cancionId Int?
+  albumId   Int?
+  creadoEn  DateTime @default(now())
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+  cancion   Cancion? @relation(fields: [cancionId], references: [id])
+  album     Album?   @relation(fields: [albumId], references: [id])
 
   @@unique([usuarioId, cancionId])
   @@unique([usuarioId, albumId])
 }
 
 model Calificacion {
-  id          Int       @id @default(autoincrement())
-  estrellas   Int
-  usuarioId   Int
-  cancionId   Int?
-  albumId     Int?
-  creadoEn    DateTime  @default(now())
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
-  cancion     Cancion?  @relation(fields: [cancionId], references: [id])
-  album       Album?    @relation(fields: [albumId], references: [id])
+  id        Int      @id @default(autoincrement())
+  estrellas Int
+  usuarioId Int
+  cancionId Int?
+  albumId   Int?
+  creadoEn  DateTime @default(now())
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+  cancion   Cancion? @relation(fields: [cancionId], references: [id])
+  album     Album?   @relation(fields: [albumId], references: [id])
 
   @@unique([usuarioId, cancionId])
   @@unique([usuarioId, albumId])
 }
 
 model TestMusical {
-  id         Int     @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   pregunta   String
   opciones   Json
   respuestas Json

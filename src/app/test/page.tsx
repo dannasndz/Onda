@@ -11,8 +11,14 @@ interface Genero {
 
 export default function GenerosPage() {
   const [generos, setGeneros] = useState<Genero[]>([]);
-  const [seleccionados, setSeleccionados] = useState<number[]>([]);
+  const [actuales, setActuales] = useState<number[]>([]);
+  const [gustaria, setGustaria] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [pagina, setPagina] = useState(0);
+  const [search, setSearch] = useState('');
+
+  const generosPorPagina = 10;
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -25,12 +31,7 @@ export default function GenerosPage() {
     if (status !== "loading") {
       fetchGeneros();
     }
-  }, [status, router]);
-
-  useEffect(() => {
-    console.log("Estado de sesión:", status);
-    console.log("Datos de sesión:", session);
-  }, [session, status]);
+  }, [status]);
 
   async function fetchGeneros() {
     try {
@@ -44,85 +45,164 @@ export default function GenerosPage() {
     }
   }
 
+  const seleccionados = step === 1 ? actuales : gustaria;
+
   const toggleSeleccion = (id: number) => {
-    setSeleccionados((prev) =>
-      prev.includes(id) ? prev.filter((gid) => gid !== id) : [...prev, id]
+    const setFn = step === 1 ? setActuales : setGustaria;
+    setFn((prev) =>
+      prev.includes(id) ? prev.filter(gid => gid !== id) : [...prev, id]
     );
   };
 
+  const handleNextStep = () => {
+    if (step === 1) {
+      if (actuales.length === 0) return alert("Selecciona al menos un género actual");
+      setStep(2);
+      setPagina(0);
+    } else {
+      handleSubmit();
+    }
+  };
+
   const handleSubmit = async () => {
-    if (seleccionados.length === 0) {
-      alert('Por favor, selecciona al menos un género musical');
+    if (gustaria.length === 0) {
+      alert('Selecciona al menos un género que te gustaría escuchar');
       return;
     }
 
     try {
-      console.log('Sesión actual:', session);
-
       const res = await fetch('/api/usuarioGeneros', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ generos: seleccionados }),
+        body: JSON.stringify({ actuales, gustaria }),
       });
 
-      const data = await res.json().catch(e => {
-        console.error('Error al parsear respuesta JSON:', e);
-        return null;
-      });
-
-      console.log('Respuesta completa:', { status: res.status, data });
+      const data = await res.json();
 
       if (res.ok) {
         alert('¡Géneros guardados correctamente!');
-        router.push('/dashboard');
+        router.push('/extras/agradecimiento');
       } else {
-        const errorMsg = data?.error || 'No se pudieron guardar los géneros';
-        console.error('Error respuesta:', errorMsg, data);
-        alert(`Error: ${errorMsg}`);
+        alert(`Error: ${data?.error || 'No se pudieron guardar los géneros'}`);
       }
     } catch (error) {
-      console.error('Error al enviar géneros:', error);
-      alert('Ocurrió un error al procesar tu solicitud. Por favor intenta nuevamente.');
+      console.error('Error al guardar géneros:', error);
+      alert('Error al procesar tu solicitud');
     }
   };
 
+  // Búsqueda y paginación
+  const generosFiltrados = search.trim()
+    ? generos.filter(g =>
+      g.nombre.toLowerCase().includes(search.toLowerCase())
+    )
+    : generos;
+
+  const totalPaginas = Math.ceil(generosFiltrados.length / generosPorPagina);
+  const inicio = pagina * generosPorPagina;
+  const generosPagina = search.trim()
+    ? generosFiltrados
+    : generosFiltrados.slice(inicio, inicio + generosPorPagina);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#121212]">
-      <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-white mb-6 text-center">
-          ¿Qué géneros escuchas actualmente?
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 text-white">
+      <div className="w-full max-w-3xl">
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">
+          {step === 1
+            ? "¿Qué géneros escuchas actualmente?"
+            : "¿Qué géneros te gustaría escuchar más?"}
         </h1>
 
-        <div className="grid grid-cols-2 gap-3 mb-8">
-          {generos.map((genero) => {
-            const isSelected = seleccionados.includes(genero.id);
-            return (
-              <button
-                key={genero.id}
-                onClick={() => toggleSeleccion(genero.id)}
-                className={`py-3 rounded-xl font-semibold transition-colors ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
-                    : 'bg-[#1e1f2b] text-white hover:bg-[#2c2d3f]'
-                }`}
-              >
-                {genero.nombre}
-              </button>
-            );
-          })}
+        {/* Búsqueda + Chips seleccionados en una sola fila */}
+        <div className="mb-3 flex flex-wrap justify-between items-center gap-4 w-full">
+          {/* 🔍 Input de búsqueda */}
+          <input
+            type="text"
+            placeholder=" Buscar género..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="px-4 py-2 w-full  text-sm sm:w-[250px] h-[35px] rounded-xl bg-[#1f1f2b] border border-[#2c2d3f] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6C63FF]"
+          />
+
+          <div className="flex flex-wrap gap-2 justify-end">
+            {seleccionados.map((id) => {
+              const genero = generos.find((g) => g.id === id);
+              return (
+                <span
+                  key={id}
+                  className="bg-[#6C63FF] opacity-70 px-3 py-1 rounded-full text-white text-sm flex items-center justify-between gap-2 h-[30px] w-[130px]"
+                >
+                  <span className="truncate">{genero?.nombre}</span>
+                  <button
+                    onClick={() => toggleSeleccion(id)}
+                    className="text-white text-xs hover:text-red-300 opacity-80"
+                    aria-label={`Quitar ${genero?.nombre}`}
+                  >
+                    ✕
+                  </button>
+                </span>
+              );
+            })}
+          </div>
         </div>
 
-        {loading ? (
-          <p className="text-white text-center">Cargando géneros...</p>
-        ) : (
-          <button
-            onClick={handleSubmit}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold"
-          >
-            Continuar
-          </button>
+
+        {/* Grid de géneros */}
+        <div className="w-full flex justify-center">
+          <div className="mb-4 bg-[#1A1D2E] rounded-2xl p-8 sm:p-5 shadow-lg max-w-7xl mx-auto w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-2 justify-items-center">
+              {generosPagina.map((genero) => {
+                const isSelected = seleccionados.includes(genero.id);
+                return (
+                  <div key={genero.id} className="h-[60px] w-[150px] p-1">
+                    <button
+                      onClick={() => toggleSeleccion(genero.id)}
+                      className={`w-full h-full text-sm rounded-xl font-medium transition-all flex items-center justify-center
+                        ${isSelected
+                          ? 'bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white border-2 border-white'
+                          : 'bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white border border-transparent'
+                        }`}
+                    >
+                      {genero.nombre}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Navegación solo si no hay búsqueda */}
+        {!search.trim() && (
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <button
+              disabled={pagina === 0}
+              onClick={() => setPagina(p => Math.max(0, p - 1))}
+              className="px-4 py-2 bg-[#1f2937] rounded disabled:opacity-50"
+            >
+              ←
+            </button>
+            <span className="text-sm text-gray-400">
+              Página {pagina + 1} de {totalPaginas}
+            </span>
+            <button
+              disabled={pagina >= totalPaginas - 1}
+              onClick={() => setPagina(p => Math.min(totalPaginas - 1, p + 1))}
+              className="px-4 py-2 bg-[#1f2937] rounded disabled:opacity-50"
+            >
+              →
+            </button>
+          </div>
         )}
       </div>
+
+      {/* Botón continuar */}
+      <button
+        onClick={handleNextStep}
+        className="w-[500px] flex justify-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold hover:scale-105 transition"
+      >
+        {step === 1 ? "Siguiente" : "Finalizar"}
+      </button>
     </div>
   );
 }

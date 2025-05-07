@@ -39,10 +39,11 @@ model UsuarioGenero {
   id        Int     @id @default(autoincrement())
   usuarioId Int
   generoId  Int
+  tipo      String
   usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
 
-  @@unique([usuarioId, generoId])
+  @@unique([usuarioId, generoId, tipo])
 }
 
 model Artista {

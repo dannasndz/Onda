@@ -27,8 +27,8 @@ const formSchema = z.object({
   contraseña: z.string().min(6, { message: "Contraseña inválida, ingresa al menos 6 caracteres." }),
   nombre: z.string().min(2, {
     message: "El nombre debe contener al menos 2 caracteres.",
-  }).max(20, {
-    message: "El nombre debe contener menos de 20 caracteres.",
+  }).max(30, {
+    message: "El nombre debe contener menos de 30 caracteres.",
   }),
 })
 
@@ -54,7 +54,7 @@ export default function ProfileForm() {
 
     if (res.ok) {
       alert('¡Registro exitoso!')
-      router.push('/test')
+      router.push('/extras/bienvenida')
     } else {
       const data = await res.json()
       alert(data.error)

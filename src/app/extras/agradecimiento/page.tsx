@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 
 export default function Bienvenida() {
   const router = useRouter()
@@ -11,7 +10,7 @@ export default function Bienvenida() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/auth/registro') // ajusta a tu ruta real de login
+      router.push('/auth/registro') 
     }
   }, [status, router])
 
@@ -24,20 +23,18 @@ export default function Bienvenida() {
       <div className="bg-[#111827] text-white p-8 rounded-2xl shadow-lg max-w-md w-full text-center border border-[#48506F]">
 
         <div className="flex items-center justify-center">
-          <h1 className="text-white text-6xl font-bold">Onda</h1>
-          <Image src="/logo.svg" alt="logo" width={120} height={120} />
+          <h1 className="text-white text-6xl font-bold py-3">Gracias!</h1>
         </div>
 
-        <h2 className="text-2xl font-semibold mb-2">¡Nos alegra que estés aquí!</h2>
-        <p className="text-[#CBD5E1] mb-6">
-          Antes de comenzar ayúdanos respondiendo un test para conocerte mejor.
+        <p className="text-[#CBD5E1] mb-6  py-3 text-2xl">
+          Ya estamos preparando música que va con tu onda.
         </p>
 
         <button
-          onClick={() => router.push('/test')}
-          className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
+          onClick={() => router.push('/inicio')}
+          className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6  rounded-full font-semibold hover:opacity-90 transition"
         >
-          Comenzar
+          Ir a explorar
         </button>
       </div>
     </div>
