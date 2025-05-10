@@ -14,3 +14,10 @@ export async function getTopTracksByGenre(genero: string, limit = 25) {
   const data = await res.json();
   return data.tracks?.track || [];
 }
+
+export async function searchArtists(nombre: string, limit = 25) {
+  const url = `${BASE_URL}?method=artist.search&artist=${encodeURIComponent(nombre)}&api_key=${API_KEY}&format=json&limit=${limit}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results?.artistmatches?.artist || [];
+}
