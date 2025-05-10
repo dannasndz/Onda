@@ -160,7 +160,7 @@ export default function GenerosPage() {
                       className={`w-full h-full text-sm rounded-xl font-medium transition-all flex items-center justify-center
                         ${isSelected
                           ? 'bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white border-2 border-white'
-                          : 'bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white border border-transparent'
+                          : 'bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white border hover:opacity-90 border-transparent'
                         }`}
                     >
                       {genero.nombre}
@@ -196,10 +196,10 @@ export default function GenerosPage() {
         )}
       </div>
 
-      {/* Botón continuar */}
       <button
         onClick={handleNextStep}
-        className="w-[500px] flex justify-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold hover:scale-105 transition"
+        className="w-[500px] bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
+        // className="w-[500px] flex justify-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold hover:scale-105 transition"
       >
         {step === 1 ? "Siguiente" : "Finalizar"}
       </button>

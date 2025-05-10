@@ -16,6 +16,7 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form'
+import Link from 'next/link'
 
 const loginSchema = z.object({
     correo: z.string().email({ message: 'Ingresa un correo válido' }),
@@ -38,7 +39,7 @@ export default function LoginForm() {
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         setIsLoading(true)
         Seterror(null)
-        
+
         try {
             const res = await signIn('credentials', {
                 redirect: false,
@@ -122,11 +123,17 @@ export default function LoginForm() {
                 <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-[#6C63FF] hover:bg-violet-700 text-white"
+                    className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
                     disabled={isLoading}
                 >
                     {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
                 </Button>
+                <div className="text-center text-sm text-gray-400">
+                    ¿Aún no tienes una cuenta?{" "}
+                    <Link href="/auth/registro" className="text-violet-400 hover:underline">
+                        Registrate
+                    </Link>
+                </div>
             </form>
         </Form>
     )

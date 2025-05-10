@@ -28,7 +28,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
     }
 
-    // Borrar selecciones previas del usuario (por tipo)
     await prisma.usuarioGenero.deleteMany({
       where: {
         usuarioId: usuario.id,
@@ -65,4 +64,37 @@ export async function POST(req: Request) {
     console.error('Error al guardar géneros:', error);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
+}
+
+export async function GET() {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.email) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+  }
+
+  const usuario = await prisma.usuario.findUnique({
+    where: { correo: session.user.email },
+    select: {
+      generos: {
+        include: {
+          genero: true
+        }
+      }
+    }
+  });
+
+  if (!usuario) {
+    return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
+  }
+
+  const actuales = usuario.generos
+    .filter((g) => g.tipo === 'actual')
+    .map((g) => ({ id: g.genero.id, nombre: g.genero.nombre }));
+
+  const gustaria = usuario.generos
+    .filter((g) => g.tipo === 'gustaria')
+    .map((g) => ({ id: g.genero.id, nombre: g.genero.nombre }));
+
+  return NextResponse.json({ actuales, gustaria });
 }

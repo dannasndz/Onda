@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
 
   const isAuthenticated = !!token
 
-  // Si no está autenticado, redirigir a /auth/registro
   if (!isAuthenticated) {
     const loginUrl = new URL('/auth/registro', request.url)
     return NextResponse.redirect(loginUrl)
