@@ -1,25 +1,6 @@
-// app/api/spotify/artist/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import axios from 'axios'
-
-async function getAccessToken(): Promise<string> {
-  const clientId = process.env.SPOTIFY_CLIENT_ID!
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET!
-  const authHeader = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
-
-  const response = await axios.post(
-    'https://accounts.spotify.com/api/token',
-    new URLSearchParams({ grant_type: 'client_credentials' }),
-    {
-      headers: {
-        Authorization: `Basic ${authHeader}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  )
-
-  return response.data.access_token
-}
+import { getSpotifyAccessToken } from '@/lib/spotify'
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params
@@ -29,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 
   try {
-    const token = await getAccessToken()
+    const token = await getSpotifyAccessToken()
 
     const response = await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
       headers: {
@@ -46,3 +27,4 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     )
   }
 }
+
