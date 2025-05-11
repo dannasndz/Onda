@@ -103,61 +103,62 @@ export default function Inicio() {
     }
 
     return (
-        <div className="pl-[80px] pr-4 pt-6 min-h-screen text-white bg-transparent overflow-x-hidden max-w-screen">
+        <div className="min-h-screen bg-transparent text-white overflow-x-hidden">
             <Navbar />
-            <div className="ml-[80px]">
+            <div className="ml-[80px] px-6 max-w-full">
 
                 <SearchBar onSearch={handleSearch} />
             </div>
+            <div className="ml-[80px] mr-[70px] px-6 max-w-full">
 
-            <div className="pl-[25px] pr-[5px] max-w-[1600px] mx-auto">
-                <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="flex gap-5 "
-                    columnClassName="masonry-column"
-                >
-                    {recomendaciones.map((item, index) => (
-                        <div
-                            key={`${item.nombre}-${index}`}
-                            className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-full max-w-[240px]"
-                        >
-                            <Image
-                                src={item.imagen || '/placeholder-music.png'}
-                                alt={item.nombre}
-                                width={240}
-                                height={240}
-                                className="w-full h-[240px] object-cover"
-                                onError={handleImageError}
-                                unoptimized
-                            />
-                            <div className="p-4">
-                                <p className="text-md font-semibold truncate">{item.nombre}</p>
-                                <p className="text-sm text-violet-400 truncate">{item.artista}</p>
-                                <div className="flex justify-between items-center mt-2">
-                                    <span className="text-xs text-gray-400">{item.genero}</span>
-                                    <span className="text-xs px-2 py-1 bg-violet-900 rounded-full">
-                                        {item.tipo === 'album' ? 'Álbum' : 'Canción'}
-                                    </span>
+                <div className="pt-10">
+                    <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className="flex gap-5"
+                        columnClassName="masonry-column"
+                    >
+                        {recomendaciones.map((item, index) => (
+                            <div
+                                key={`${item.nombre}-${index}`}
+                                className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-full max-w-[250px]"
+                            >
+                                <Image
+                                    src={item.imagen || '/placeholder-music.png'}
+                                    alt={item.nombre}
+                                    width={200}
+                                    height={200}
+                                    className="w-full h-auto object-cover"
+                                    onError={handleImageError}
+                                    unoptimized
+                                />
+                                <div className="p-4">
+                                    <p className="text-md font-semibold truncate">{item.nombre}</p>
+                                    <p className="text-sm text-violet-400 truncate">{item.artista}</p>
+                                    <div className="flex justify-between items-center mt-2">
+                                        <span className="text-xs text-gray-400">{item.genero}</span>
+                                        <span className="text-xs px-2 py-1 bg-violet-900 rounded-full">
+                                            {item.tipo === 'album' ? 'Álbum' : 'Canción'}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+                        ))}
+                    </Masonry>
+
+                    {hasMore && (
+                        <div ref={loaderRef} className="text-center text-bold text-sm text-gray-400 mt-8">
+                            Estamos preparando tu onda...
                         </div>
+                    )}
 
-                    ))}
-                </Masonry>
-
-
-                {hasMore && (
-                    <div ref={loaderRef} className="text-center text-bold text-sm text-gray-400 mt-8">
-                        Estamos preparando tu onda...
-                    </div>
-                )}
-
-                {!hasMore && (
-                    <div className="text-center text-sm text-gray-500 mt-8">
-                        No hay más recomendaciones.
-                    </div>
-                )}
+                    {!hasMore && (
+                        <div className="text-center text-sm text-gray-500 mt-8">
+                            No hay más recomendaciones.
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
+
 }

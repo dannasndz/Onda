@@ -50,7 +50,7 @@ export async function GET(req: Request) {
 
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get('page') || '1', 10);
-  const limit = parseInt(searchParams.get('limit') || '20', 10);
+  const limit = parseInt(searchParams.get('limit') || '20', 20);
 
   const usuario = await prisma.usuario.findUnique({
     where: { correo: session.user.email },
@@ -65,21 +65,24 @@ export async function GET(req: Request) {
   if (!usuario) return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
 
   const generos = usuario.generos.map((g) => g.genero.nombre);
-  let recomendaciones: any[] = [];
+  const recomendaciones: any[] = [];
+  const seenItems = new Set<string>(); 
 
   for (const genero of generos) {
     const albums = await getTopAlbumsByGenre(genero, 50);
     const tracks = await getTopTracksByGenre(genero, 50);
 
     for (const album of albums) {
-      let imagen = album.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
+      const key = `album-${album.name}-${album.artist.name}`.toLowerCase();
+      if (seenItems.has(key)) continue;
 
+      let imagen = album.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
       if (isDefaultImage(imagen)) {
         const itunesCover = await getItunesCover(album.artist.name, '', album.name);
         if (itunesCover) {
           imagen = itunesCover;
         } else {
-          continue; 
+          continue;
         }
       }
 
@@ -90,17 +93,20 @@ export async function GET(req: Request) {
         imagen,
         genero,
       });
+      seenItems.add(key);
     }
 
     for (const track of tracks) {
-      let imagen = track.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
+      const key = `track-${track.name}-${track.artist.name}`.toLowerCase();
+      if (seenItems.has(key)) continue;
 
+      let imagen = track.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
       if (isDefaultImage(imagen)) {
         const itunesCover = await getItunesCover(track.artist.name, track.name);
         if (itunesCover) {
           imagen = itunesCover;
         } else {
-          continue; 
+          continue;
         }
       }
 
@@ -111,10 +117,11 @@ export async function GET(req: Request) {
         imagen,
         genero,
       });
+      seenItems.add(key);
     }
   }
 
-  recomendaciones = recomendaciones.sort(() => Math.random() - 0.5);
+  recomendaciones.sort(() => Math.random() - 0.5);
   const start = (page - 1) * limit;
   const end = start + limit;
   const paginated = recomendaciones.slice(start, end);
