@@ -13,6 +13,7 @@ interface Recomendacion {
     artista: string;
     imagen: string;
     genero: string;
+    tipo: 'album' | 'cancion';
 }
 
 export default function Inicio() {
@@ -27,9 +28,14 @@ export default function Inicio() {
     const loaderRef = useRef<HTMLDivElement | null>(null);
     const observer = useRef<IntersectionObserver | null>(null);
 
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+        const target = e.target as HTMLImageElement;
+        target.src = '/placeholder-music.png'; // Imagen de respaldo local
+    };
+
     useEffect(() => {
         if (status === 'unauthenticated') {
-            router.push('/registro');
+            router.push('/auth/registro');
         }
     }, [status, router]);
 
@@ -78,7 +84,7 @@ export default function Inicio() {
             const res = await fetch(`/api/busqueda?tipo=${tipo}&q=${encodeURIComponent(query)}`);
             const data = await res.json();
             setRecomendaciones(data.resultados);
-            setHasMore(false); // Detenemos el scroll infinito si se está filtrando
+            setHasMore(false);
         } catch (err) {
             console.error("Error en búsqueda:", err);
         }
@@ -97,40 +103,48 @@ export default function Inicio() {
     }
 
     return (
-        <div className="p-6 min-h-screen text-white bg-transparent">
+        <div className="pl-[80px] pr-4 pt-6 min-h-screen text-white bg-transparent overflow-x-hidden max-w-screen">
             <Navbar />
             <div className="ml-[80px]">
 
                 <SearchBar onSearch={handleSearch} />
             </div>
 
-            <div className="pt-10">
+            <div className="pl-[25px] pr-[5px] max-w-[1600px] mx-auto">
                 <Masonry
                     breakpointCols={breakpointColumnsObj}
-                    className="flex gap-5 ml-[80px]"
+                    className="flex gap-5 "
                     columnClassName="masonry-column"
                 >
                     {recomendaciones.map((item, index) => (
                         <div
                             key={`${item.nombre}-${index}`}
-                            className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer"
+                            className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-full max-w-[240px]"
                         >
                             <Image
-                                src={item.imagen}
+                                src={item.imagen || '/placeholder-music.png'}
                                 alt={item.nombre}
-                                width={300}
-                                height={300}
-                                className="w-full h-auto object-cover"
-                                unoptimized // Asegúrate de configurar correctamente si usas dominios externos
+                                width={240}
+                                height={240}
+                                className="w-full h-[240px] object-cover"
+                                onError={handleImageError}
+                                unoptimized
                             />
                             <div className="p-4">
-                                <p className="text-md font-semibold">{item.nombre}</p>
-                                <p className="text-sm text-violet-400">{item.artista}</p>
-                                <span className="text-xs text-gray-400">{item.genero}</span>
+                                <p className="text-md font-semibold truncate">{item.nombre}</p>
+                                <p className="text-sm text-violet-400 truncate">{item.artista}</p>
+                                <div className="flex justify-between items-center mt-2">
+                                    <span className="text-xs text-gray-400">{item.genero}</span>
+                                    <span className="text-xs px-2 py-1 bg-violet-900 rounded-full">
+                                        {item.tipo === 'album' ? 'Álbum' : 'Canción'}
+                                    </span>
+                                </div>
                             </div>
                         </div>
+
                     ))}
                 </Masonry>
+
 
                 {hasMore && (
                     <div ref={loaderRef} className="text-center text-bold text-sm text-gray-400 mt-8">

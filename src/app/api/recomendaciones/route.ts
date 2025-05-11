@@ -14,9 +14,32 @@ function isDefaultImage(url: string): boolean {
   return DEFAULT_IMAGE_URLS.includes(url) || url.includes('2a96cbd8b46e442fc41c2b86b821562f');
 }
 
-function getRandomSample<T>(array: T[], size: number): T[] {
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, size);
+async function getItunesCover(artist: string, track: string, album?: string): Promise<string | null> {
+  try {
+
+    const query = `${artist} ${track} ${album || ''}`.trim();
+    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=1`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      console.warn('iTunes API error:', response.status);
+      return null;
+    }
+
+    const text = await response.text();
+    if (!text) return null;
+
+    const data = JSON.parse(text);
+
+    if (data.results?.length > 0) {
+      return data.results[0].artworkUrl100.replace('100x100', '300x300');
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error fetching iTunes cover:', error);
+    return null;
+  }
 }
 
 export async function GET(req: Request) {
@@ -45,35 +68,53 @@ export async function GET(req: Request) {
   let recomendaciones: any[] = [];
 
   for (const genero of generos) {
-    const albums = await getTopAlbumsByGenre(genero, 500);
-    const tracks = await getTopTracksByGenre(genero, 500);
+    const albums = await getTopAlbumsByGenre(genero, 50);
+    const tracks = await getTopTracksByGenre(genero, 50);
 
-    const albumRecs = albums.map((album: any) => ({
-      tipo: 'album',
-      nombre: album.name,
-      artista: album.artist.name,
-      imagen: album.image?.find((img: any) => img.size === 'extralarge')?.['#text'] || '',
-      genero,
-    }));
+    for (const album of albums) {
+      let imagen = album.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
 
-    const trackRecs = tracks.map((track: any) => ({
-      tipo: 'cancion',
-      nombre: track.name,
-      artista: track.artist.name,
-      imagen: track.image?.find((img: any) => img.size === 'extralarge')?.['#text'] || '',
-      genero,
-    }));
+      if (isDefaultImage(imagen)) {
+        const itunesCover = await getItunesCover(album.artist.name, '', album.name);
+        if (itunesCover) {
+          imagen = itunesCover;
+        } else {
+          continue; 
+        }
+      }
 
-    recomendaciones.push(
-      ...albumRecs.filter((item: { imagen: string; }) => !isDefaultImage(item.imagen)),
-      ...trackRecs.filter((item: { imagen: string; }) => !isDefaultImage(item.imagen))
-    );
+      recomendaciones.push({
+        tipo: 'album',
+        nombre: album.name,
+        artista: album.artist.name,
+        imagen,
+        genero,
+      });
+    }
+
+    for (const track of tracks) {
+      let imagen = track.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
+
+      if (isDefaultImage(imagen)) {
+        const itunesCover = await getItunesCover(track.artist.name, track.name);
+        if (itunesCover) {
+          imagen = itunesCover;
+        } else {
+          continue; 
+        }
+      }
+
+      recomendaciones.push({
+        tipo: 'cancion',
+        nombre: track.name,
+        artista: track.artist.name,
+        imagen,
+        genero,
+      });
+    }
   }
 
-  // Mezcla total
   recomendaciones = recomendaciones.sort(() => Math.random() - 0.5);
-
-  // Aplica paginación
   const start = (page - 1) * limit;
   const end = start + limit;
   const paginated = recomendaciones.slice(start, end);
