@@ -14,6 +14,7 @@ interface Recomendacion {
   imagen: string;
   genero?: string;
   tipo: 'album' | 'cancion' | 'artista';
+  usaPlaceholder?: boolean;
 }
 
 export default function Inicio() {
@@ -59,7 +60,13 @@ export default function Inicio() {
       if (data.recomendaciones.length === 0) {
         setHasMore(false);
       } else {
-        setRecomendaciones((prev) => [...prev, ...data.recomendaciones]);
+        const ordenadas = [...data.recomendaciones].sort((a, b) => {
+          if ((a.imagen === '/placeholder-music.png') && (b.imagen !== '/placeholder-music.png')) return 1;
+          if ((a.imagen !== '/placeholder-music.png') && (b.imagen === '/placeholder-music.png')) return -1;
+          return 0;
+        });
+
+        setRecomendaciones((prev) => [...prev, ...ordenadas]);
       }
     } catch (error) {
       console.error("Error al obtener recomendaciones:", error);
@@ -108,7 +115,11 @@ export default function Inicio() {
         return true;
       });
 
-      const resultadosOrdenados = nuevosResultados.sort(() => Math.random() - 0.5);
+      const resultadosOrdenados = nuevosResultados.sort((a, b) => {
+        if (a.usaPlaceholder && !b.usaPlaceholder) return 1;
+        if (!a.usaPlaceholder && b.usaPlaceholder) return -1;
+        return Math.random() - 0.5;
+      });
 
       if (resultadosOrdenados.length === 0) {
         setHasMore(false);
@@ -128,7 +139,7 @@ export default function Inicio() {
     setPage(1);
     setSearchPage(1);
     setHasMore(true);
-    setSearchQuery(""); 
+    setSearchQuery("");
   };
 
   useEffect(() => {
