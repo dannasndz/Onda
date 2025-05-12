@@ -9,7 +9,7 @@ const DEFAULT_IMAGE_URLS = [
   'https://lastfm.freetls.fastly.net/i/u/ar0/2a96cbd8b46e442fc41c2b86b821562f.png',
 ];
 
-const PLACEHOLDER_IMAGE = '/images/placeholder-musica.png';
+const PLACEHOLDER_IMAGE = '/placeholder-music.png';
 
 const itunesCache = new Map<string, string | null>();
 
