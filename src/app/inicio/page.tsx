@@ -122,14 +122,13 @@ export default function Inicio() {
     }
   };
 
-
   const clearSearch = () => {
     setIsSearching(false);
     setRecomendaciones([]);
     setPage(1);
     setSearchPage(1);
     setHasMore(true);
-    setSearchQuery("");
+    setSearchQuery(""); 
   };
 
   useEffect(() => {
@@ -169,12 +168,15 @@ export default function Inicio() {
 
   return (
     <div className="p-6 min-h-screen text-white bg-transparent overflow-x-hidden">
-      <div className="ml-[80px]  px-6 max-w-full">
-        <SearchBar onSearch={(query) => handleSearch(query)} />
+      <div className="ml-[80px] px-6 max-w-full">
+        <SearchBar
+          onSearch={handleSearch}
+          query={searchQuery}
+          onClear={() => setSearchQuery("")}
+        />
       </div>
       <Navbar />
       <div className="ml-[80px]">
-
         {isSearching && (
           <button
             onClick={clearSearch}
