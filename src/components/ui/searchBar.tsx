@@ -14,18 +14,18 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 items-center mb-6">
+    <form onSubmit={handleSubmit} className="flex gap-4 items-center mb-10">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Buscar..."
-        className="p-2 rounded-md flex-1 bg-[#1f1f2b] text-white placeholder-gray-400"
+        placeholder="Buscar canción, álbum o artista..."
+        className="p-2 rounded-md flex-1  bg-[#1f1f2b] border border-[#2c2d3f] text-white  placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6C63FF]"
       />
-      
+
       <button
         type="submit"
-        className="px-4 py-2 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition"
+        className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-md  font-semibold hover:opacity-90 transition"
       >
         Buscar
       </button>

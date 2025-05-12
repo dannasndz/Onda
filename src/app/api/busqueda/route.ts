@@ -1,4 +1,3 @@
-// /app/api/busqueda/route.ts
 import { NextResponse } from 'next/server';
 
 const API_KEY = process.env.LASTFM_API_KEY!;

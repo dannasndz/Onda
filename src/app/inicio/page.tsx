@@ -169,9 +169,11 @@ export default function Inicio() {
 
   return (
     <div className="p-6 min-h-screen text-white bg-transparent overflow-x-hidden">
+      <div className="ml-[80px]  px-6 max-w-full">
+        <SearchBar onSearch={(query) => handleSearch(query)} />
+      </div>
       <Navbar />
       <div className="ml-[80px]">
-        <SearchBar onSearch={(query) => handleSearch(query)} />
 
         {isSearching && (
           <button
@@ -229,7 +231,7 @@ export default function Inicio() {
 
         {!hasMore && (
           <div className="text-center text-sm text-gray-500 mt-8">
-            Uy! creo que terminaste con las recomendaciones.
+            Uy! terminaste con las recomendaciones.
           </div>
         )}
       </div>
