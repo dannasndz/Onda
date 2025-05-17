@@ -15,24 +15,20 @@ datasource db {
 }
 
 model Usuario {
-  id             Int             @id @default(autoincrement())
-  correo         String          @unique
-  nombreUsuario  String          @unique
-  contraseña    String
-  nombre         String?
-  imagenPerfil   String?
-  generos        UsuarioGenero[]
-  reseñas       Reseña[]
-  calificaciones Calificacion[]
+  id            Int             @id @default(autoincrement())
+  correo        String          @unique
+  nombreUsuario String          @unique
+  contraseña   String
+  nombre        String?
+  imagenPerfil  String?
+  generos       UsuarioGenero[]
+  reseñas      Reseña[]
 }
 
 model Genero {
-  id        Int             @id @default(autoincrement())
-  nombre    String          @unique
-  usuarios  UsuarioGenero[]
-  artistas  ArtistaGenero[]
-  albums    AlbumGenero[]
-  canciones CancionGenero[]
+  id       Int             @id @default(autoincrement())
+  nombre   String          @unique
+  usuarios UsuarioGenero[]
 }
 
 model UsuarioGenero {
@@ -46,104 +42,24 @@ model UsuarioGenero {
   @@unique([usuarioId, generoId, tipo])
 }
 
-model Artista {
-  id        Int             @id @default(autoincrement())
-  nombre    String
-  spotifyId String          @unique
-  imagenUrl String?
-  generos   ArtistaGenero[]
-  albums    Album[]
-  canciones Cancion[]
-}
-
-model ArtistaGenero {
-  id        Int     @id @default(autoincrement())
-  artistaId Int
-  generoId  Int
-  artista   Artista @relation(fields: [artistaId], references: [id], onDelete: Cascade)
-  genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
-
-  @@unique([artistaId, generoId])
-}
-
-model Album {
-  id               Int            @id @default(autoincrement())
-  titulo           String
-  spotifyId        String         @unique
-  fechaLanzamiento DateTime
-  imagenUrl        String?
-  tipoAlbum        String
-  totalCanciones   Int
-  artistaId        Int
-  artista          Artista        @relation(fields: [artistaId], references: [id])
-  canciones        Cancion[]
-  generos          AlbumGenero[]
-  reseñas         Reseña[]
-  calificaciones   Calificacion[]
-}
-
-model AlbumGenero {
-  id       Int    @id @default(autoincrement())
-  albumId  Int
-  generoId Int
-  album    Album  @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  genero   Genero @relation(fields: [generoId], references: [id], onDelete: Cascade)
-
-  @@unique([albumId, generoId])
-}
-
-model Cancion {
-  id             Int             @id @default(autoincrement())
-  titulo         String
-  spotifyId      String          @unique
-  duracionMs     Int
-  albumId        Int
-  artistaId      Int
-  album          Album           @relation(fields: [albumId], references: [id])
-  artista        Artista         @relation(fields: [artistaId], references: [id])
-  generos        CancionGenero[]
-  reseñas       Reseña[]
-  calificaciones Calificacion[]
-}
-
-model CancionGenero {
-  id        Int     @id @default(autoincrement())
-  cancionId Int
-  generoId  Int
-  cancion   Cancion @relation(fields: [cancionId], references: [id], onDelete: Cascade)
-  genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
-
-  @@unique([cancionId, generoId])
-}
-
 model Reseña {
-  id        Int      @id @default(autoincrement())
-  contenido String
-  usuarioId Int
-  cancionId Int?
-  albumId   Int?
-  creadoEn  DateTime @default(now())
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
-  cancion   Cancion? @relation(fields: [cancionId], references: [id])
-  album     Album?   @relation(fields: [albumId], references: [id])
-
-  @@index([usuarioId, cancionId])
-  @@index([usuarioId, albumId])
-}
-
-model Calificacion {
-  id        Int      @id @default(autoincrement())
+  id        String @id @default(uuid())
+  titulo    String
+  contenido String @db.VarChar(500)
   estrellas Int
-  usuarioId Int
-  cancionId Int?
-  albumId   Int?
-  creadoEn  DateTime @default(now())
-  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
-  cancion   Cancion? @relation(fields: [cancionId], references: [id])
-  album     Album?   @relation(fields: [albumId], references: [id])
 
-  @@unique([usuarioId, cancionId])
-  @@unique([usuarioId, albumId])
+  name     String
+  artist   String
+  album    String?
+  genre    String?
+  coverUrl String?
+  tipo     String
+
+  userId Int
+  user   Usuario @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TestMusical {

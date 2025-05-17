@@ -17,13 +17,34 @@ export default function Inicio() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const [selectedSong, setSelectedSong] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
+  type Song = {
+    coverUrl: string;
+    name: string;
+    artist: string;
+    genre: string;
+    album?: string | null;
+    tipo: 'cancion' | 'album' | 'otro';
+  };
+
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+
   const handleCardClick = (item: any) => {
-    setSelectedSong(item);
+    const normalizedSong: Song = {
+      coverUrl: item.coverUrl || item.imagen || '',
+      name: item.name || item.nombre || 'Sin nombre',
+      artist: item.artist || item.artista || 'Artista desconocido',
+      genre: item.genre || item.genero || 'Género desconocido',
+      album: item.album || null,
+      tipo: item.tipo || 'otro',
+    };
+
+    setSelectedSong(normalizedSong);
     setModalOpen(true);
   };
+
+
 
   const closeModal = () => {
     setModalOpen(false);

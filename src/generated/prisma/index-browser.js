@@ -141,67 +141,20 @@ exports.Prisma.UsuarioGeneroScalarFieldEnum = {
   tipo: 'tipo'
 };
 
-exports.Prisma.ArtistaScalarFieldEnum = {
-  id: 'id',
-  nombre: 'nombre',
-  spotifyId: 'spotifyId',
-  imagenUrl: 'imagenUrl'
-};
-
-exports.Prisma.ArtistaGeneroScalarFieldEnum = {
-  id: 'id',
-  artistaId: 'artistaId',
-  generoId: 'generoId'
-};
-
-exports.Prisma.AlbumScalarFieldEnum = {
-  id: 'id',
-  titulo: 'titulo',
-  spotifyId: 'spotifyId',
-  fechaLanzamiento: 'fechaLanzamiento',
-  imagenUrl: 'imagenUrl',
-  tipoAlbum: 'tipoAlbum',
-  totalCanciones: 'totalCanciones',
-  artistaId: 'artistaId'
-};
-
-exports.Prisma.AlbumGeneroScalarFieldEnum = {
-  id: 'id',
-  albumId: 'albumId',
-  generoId: 'generoId'
-};
-
-exports.Prisma.CancionScalarFieldEnum = {
-  id: 'id',
-  titulo: 'titulo',
-  spotifyId: 'spotifyId',
-  duracionMs: 'duracionMs',
-  albumId: 'albumId',
-  artistaId: 'artistaId'
-};
-
-exports.Prisma.CancionGeneroScalarFieldEnum = {
-  id: 'id',
-  cancionId: 'cancionId',
-  generoId: 'generoId'
-};
-
 exports.Prisma.ReseñaScalarFieldEnum = {
   id: 'id',
+  titulo: 'titulo',
   contenido: 'contenido',
-  usuarioId: 'usuarioId',
-  cancionId: 'cancionId',
-  albumId: 'albumId',
-  creadoEn: 'creadoEn'
-};
-
-exports.Prisma.CalificacionScalarFieldEnum = {
-  id: 'id',
   estrellas: 'estrellas',
-  usuarioId: 'usuarioId',
-  cancionId: 'cancionId',
-  albumId: 'albumId',
-  creadoEn: 'creadoEn'
+  name: 'name',
+  artist: 'artist',
+  album: 'album',
+  genre: 'genre',
+  coverUrl: 'coverUrl',
+  tipo: 'tipo',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.TestMusicalScalarFieldEnum = {
@@ -241,14 +194,7 @@ exports.Prisma.ModelName = {
   Usuario: 'Usuario',
   Genero: 'Genero',
   UsuarioGenero: 'UsuarioGenero',
-  Artista: 'Artista',
-  ArtistaGenero: 'ArtistaGenero',
-  Album: 'Album',
-  AlbumGenero: 'AlbumGenero',
-  Cancion: 'Cancion',
-  CancionGenero: 'CancionGenero',
   Reseña: 'Reseña',
-  Calificacion: 'Calificacion',
   TestMusical: 'TestMusical'
 };
 
