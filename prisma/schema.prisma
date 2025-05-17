@@ -39,7 +39,7 @@ model UsuarioGenero {
   id        Int     @id @default(autoincrement())
   usuarioId Int
   generoId  Int
-  tipo      String 
+  tipo      String
   usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
 
@@ -127,8 +127,8 @@ model Reseña {
   cancion   Cancion? @relation(fields: [cancionId], references: [id])
   album     Album?   @relation(fields: [albumId], references: [id])
 
-  @@unique([usuarioId, cancionId])
-  @@unique([usuarioId, albumId])
+  @@index([usuarioId, cancionId])
+  @@index([usuarioId, albumId])
 }
 
 model Calificacion {

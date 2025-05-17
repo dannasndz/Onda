@@ -1,13 +1,18 @@
 import Image from "next/image";
 
-export default function RecomendacionCard({ item }: { item: any }) {
+type RecomendacionCardProps = {
+  item: any;
+  onClick: (item: any) => void;
+};
+
+export default function RecomendacionCard({ item, onClick }: RecomendacionCardProps) {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
     target.src = '/placeholder-music.png';
   };
 
   return (
-    <div className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-[100%] max-w-[240px]">
+    <div onClick={() => onClick(item)} className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-[100%] max-w-[240px]">
       <Image
         src={item.imagen || '/placeholder-music.png'}
         alt={item.nombre}

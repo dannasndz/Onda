@@ -10,10 +10,25 @@ import SearchBar from "@/components/ui/searchBar";
 import RecomendacionCard from "@/components/ui/RecomendacionCard";
 import SkeletonCard from "@/components/ui/SkeletonCard";
 import Loader from "@/components/ui/Loader";
+import { useState } from "react";
+import ReviewModal from "@/components/ui/ReviewModal";
 
 export default function Inicio() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleCardClick = (item: any) => {
+    setSelectedSong(item);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedSong(null);
+  };
 
   const {
     recomendaciones,
@@ -72,7 +87,7 @@ export default function Inicio() {
           columnClassName="masonry-column"
         >
           {recomendaciones.map((item, index) => (
-            <RecomendacionCard key={index} item={item} />
+            <RecomendacionCard key={index} item={item} onClick={handleCardClick} />
           ))}
 
           {isLoading &&
@@ -81,6 +96,9 @@ export default function Inicio() {
             ))}
         </Masonry>
 
+        {selectedSong && (
+          <ReviewModal isOpen={isModalOpen} onClose={closeModal} song={selectedSong} />
+        )}
         <Loader loaderRef={loaderRef} hasMore={hasMore} />
       </div>
     </div>
