@@ -1,10 +1,12 @@
-export interface Song {
-  album: any;
+export type Song = {
+  coverUrl: string;
   name: string;
   artist: string;
-  tipo: string;
-  coverUrl?: string;
-}
+  genre: string;
+  album?: string | null;
+  tipo: 'cancion' | 'album' | 'otro';
+};
+
 
 export interface Review {
   id: string;

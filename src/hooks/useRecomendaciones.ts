@@ -54,7 +54,7 @@ export function useRecomendaciones(status: string) {
     if (isLoading) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/recomendaciones?page=${page}&limit=20`);
+      const res = await fetch(`/api/recomendaciones?page=${page}&limit=50`);
       const data = await res.json();
 
       if (data.recomendaciones.length === 0) setHasMore(false);

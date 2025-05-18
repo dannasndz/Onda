@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { IconClose } from './icons';
 import { ReviewForm } from './ReviewForm';
-import { ReviewReadOnly } from './ReviewReadOnly'; // Importa el modo lectura
+import { ReviewReadOnly } from './ReviewReadOnly'; 
 import { Song, Review } from './types';
 
 interface ReviewModalProps {
@@ -33,7 +33,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
         const data = await res.json();
         if (data?.id) {
           setExistingReview(data);
-          setIsEditingReview(false); // Aquí ponemos false para que inicie en modo lectura si ya hay reseña
+          setIsEditingReview(false); 
         } else {
           setExistingReview(null);
           setIsEditingReview(false);
@@ -73,14 +73,12 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
         </button>
 
         {existingReview && !isEditingReview ? (
-          // Modo solo lectura con botón editar
           <ReviewReadOnly
             review={existingReview}
             song={song}
             onEdit={() => setIsEditingReview(true)}
           />
         ) : (
-          // Si no hay reseña o estamos editando, mostramos el formulario o la opción de crear reseña
           <>
             {!existingReview && !isEditingReview && (
               <div className="flex flex-col md:flex-row gap-6 md:gap-8">

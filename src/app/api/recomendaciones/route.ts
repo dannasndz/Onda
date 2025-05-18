@@ -30,7 +30,7 @@ async function getItunesCover(artist: string, track: string, album?: string): Pr
     const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=1`;
     
     const response = await fetch(url, { 
-      signal: AbortSignal.timeout(3000)
+      signal: AbortSignal.timeout(7000)
     });
 
     if (!response.ok) {
@@ -86,8 +86,8 @@ export async function GET(req: Request) {
     const allRecomendaciones = await Promise.all(
       generos.map(async (genero) => {
         const [albums, tracks] = await Promise.all([
-          getTopAlbumsByGenre(genero, 25), 
-          getTopTracksByGenre(genero, 25)  
+          getTopAlbumsByGenre(genero, 100), 
+          getTopTracksByGenre(genero, 100)  
         ]);
         
         const recomendacionesGenero: any[] = [];
