@@ -65,7 +65,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)]  w-full max-w-3xl md:max-w-4xl p-6 md:p-8 transform transition-all"
+        className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)]  border-[#191c2c8d] border-1 w-full max-w-3xl md:max-w-4xl p-6 md:p-8 transform transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">

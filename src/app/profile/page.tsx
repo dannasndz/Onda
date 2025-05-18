@@ -5,7 +5,7 @@ import Navbar from "@/components/ui/navbar";
 
 export default function PerfilPage() {
   return (
-    <div className="p-4">
+    <div className="min-h-screen w-full overflow-x-hidden px-15">
       <Navbar />
       <PerfilUsuario />
     </div>

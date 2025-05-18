@@ -21,7 +21,6 @@ export function usePerfil() {
 
         const data = await res.json();
 
-        // Adaptamos la estructura del perfil al formato que espera el componente
         const perfilAdaptado: Perfil = {
           id: data.id,
           nombreUsuario: data.nombreUsuario,

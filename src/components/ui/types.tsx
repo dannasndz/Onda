@@ -17,4 +17,10 @@ export interface Review {
   songId?: string;
   createdAt?: string;
   updatedAt?: string;
+  album?:     string;
+  artist?:    string;
+  coverUrl?:  string;
+  genre?:     string;
+  name?:      string;
+  tipo?:      string;
 }
