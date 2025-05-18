@@ -1,4 +1,5 @@
 export interface Song {
+  album: any;
   name: string;
   artist: string;
   tipo: string;
