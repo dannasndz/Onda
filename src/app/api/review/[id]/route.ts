@@ -3,8 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/db";
 
-// PUT: Actualizar una reseña existente
-export async function PUT(
+export async function PUT( // actualizar resenia
   req: Request,
   { params }: { params: { id: string } }
 ) {
@@ -22,7 +21,6 @@ export async function PUT(
   }
 
   try {
-    // Asegurarse de que la reseña pertenezca al usuario autenticado
     const existingReview = await prisma.reseña.findUnique({
       where: { id },
       include: { user: true },

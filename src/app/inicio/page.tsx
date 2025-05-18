@@ -11,7 +11,7 @@ import RecomendacionCard from "@/components/ui/RecomendacionCard";
 import SkeletonCard from "@/components/ui/SkeletonCard";
 import Loader from "@/components/ui/Loader";
 import { useState } from "react";
-import ReviewModal from "@/components/ui/ReviewModal";
+import {ReviewModal} from "@/components/ui/ReviewModal";
 
 export default function Inicio() {
   const { data: session, status } = useSession();

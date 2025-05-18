@@ -32,7 +32,6 @@ export async function POST(req: Request) {
   }
 }
 
-// GET: Buscar reseña existente del usuario autenticado por name + artist + tipo
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
