@@ -126,7 +126,8 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   nombreUsuario: 'nombreUsuario',
   contraseña: 'contraseña',
   nombre: 'nombre',
-  imagenPerfil: 'imagenPerfil'
+  imagenPerfil: 'imagenPerfil',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.GeneroScalarFieldEnum = {
@@ -143,18 +144,18 @@ exports.Prisma.UsuarioGeneroScalarFieldEnum = {
 
 exports.Prisma.ReseñaScalarFieldEnum = {
   id: 'id',
-  titulo: 'titulo',
   contenido: 'contenido',
-  estrellas: 'estrellas',
-  name: 'name',
-  artist: 'artist',
   album: 'album',
-  genre: 'genre',
+  artist: 'artist',
   coverUrl: 'coverUrl',
-  tipo: 'tipo',
-  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  estrellas: 'estrellas',
+  genre: 'genre',
+  name: 'name',
+  tipo: 'tipo',
+  titulo: 'titulo',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 };
 
 exports.Prisma.TestMusicalScalarFieldEnum = {

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -21,8 +15,9 @@ model Usuario {
   contraseña   String
   nombre        String?
   imagenPerfil  String?
-  generos       UsuarioGenero[]
   reseñas      Reseña[]
+  generos       UsuarioGenero[]
+  createdAt     DateTime        @default(now())
 }
 
 model Genero {
@@ -36,30 +31,27 @@ model UsuarioGenero {
   usuarioId Int
   generoId  Int
   tipo      String
-  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   genero    Genero  @relation(fields: [generoId], references: [id], onDelete: Cascade)
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@unique([usuarioId, generoId, tipo])
 }
 
 model Reseña {
-  id        String @id @default(uuid())
-  titulo    String
-  contenido String @db.VarChar(500)
-  estrellas Int
-
-  name     String
-  artist   String
-  album    String?
-  genre    String?
-  coverUrl String?
-  tipo     String
-
-  userId Int
-  user   Usuario @relation(fields: [userId], references: [id])
-
+  id        String   @id @default(uuid())
+  contenido String   @db.VarChar(500)
+  album     String?
+  artist    String
+  coverUrl  String?
   createdAt DateTime @default(now())
+  estrellas Int
+  genre     String?
+  name      String
+  tipo      String
+  titulo    String
   updatedAt DateTime @updatedAt
+  userId    Int
+  user      Usuario  @relation(fields: [userId], references: [id])
 }
 
 model TestMusical {

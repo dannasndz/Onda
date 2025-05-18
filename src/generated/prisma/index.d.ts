@@ -1233,13 +1233,13 @@ export namespace Prisma {
    */
 
   export type UsuarioCountOutputType = {
-    generos: number
     reseñas: number
+    generos: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    generos?: boolean | UsuarioCountOutputTypeCountGenerosArgs
     reseñas?: boolean | UsuarioCountOutputTypeCountReseñasArgs
+    generos?: boolean | UsuarioCountOutputTypeCountGenerosArgs
   }
 
   // Custom InputTypes
@@ -1256,15 +1256,15 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountGenerosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsuarioGeneroWhereInput
+  export type UsuarioCountOutputTypeCountReseñasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReseñaWhereInput
   }
 
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountReseñasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReseñaWhereInput
+  export type UsuarioCountOutputTypeCountGenerosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsuarioGeneroWhereInput
   }
 
 
@@ -1330,6 +1330,7 @@ export namespace Prisma {
     contraseña: string | null
     nombre: string | null
     imagenPerfil: string | null
+    createdAt: Date | null
   }
 
   export type UsuarioMaxAggregateOutputType = {
@@ -1339,6 +1340,7 @@ export namespace Prisma {
     contraseña: string | null
     nombre: string | null
     imagenPerfil: string | null
+    createdAt: Date | null
   }
 
   export type UsuarioCountAggregateOutputType = {
@@ -1348,6 +1350,7 @@ export namespace Prisma {
     contraseña: number
     nombre: number
     imagenPerfil: number
+    createdAt: number
     _all: number
   }
 
@@ -1367,6 +1370,7 @@ export namespace Prisma {
     contraseña?: true
     nombre?: true
     imagenPerfil?: true
+    createdAt?: true
   }
 
   export type UsuarioMaxAggregateInputType = {
@@ -1376,6 +1380,7 @@ export namespace Prisma {
     contraseña?: true
     nombre?: true
     imagenPerfil?: true
+    createdAt?: true
   }
 
   export type UsuarioCountAggregateInputType = {
@@ -1385,6 +1390,7 @@ export namespace Prisma {
     contraseña?: true
     nombre?: true
     imagenPerfil?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -1481,6 +1487,7 @@ export namespace Prisma {
     contraseña: string
     nombre: string | null
     imagenPerfil: string | null
+    createdAt: Date
     _count: UsuarioCountAggregateOutputType | null
     _avg: UsuarioAvgAggregateOutputType | null
     _sum: UsuarioSumAggregateOutputType | null
@@ -1509,8 +1516,9 @@ export namespace Prisma {
     contraseña?: boolean
     nombre?: boolean
     imagenPerfil?: boolean
-    generos?: boolean | Usuario$generosArgs<ExtArgs>
+    createdAt?: boolean
     reseñas?: boolean | Usuario$reseñasArgs<ExtArgs>
+    generos?: boolean | Usuario$generosArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -1521,6 +1529,7 @@ export namespace Prisma {
     contraseña?: boolean
     nombre?: boolean
     imagenPerfil?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["usuario"]>
 
   export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1530,6 +1539,7 @@ export namespace Prisma {
     contraseña?: boolean
     nombre?: boolean
     imagenPerfil?: boolean
+    createdAt?: boolean
   }, ExtArgs["result"]["usuario"]>
 
   export type UsuarioSelectScalar = {
@@ -1539,12 +1549,13 @@ export namespace Prisma {
     contraseña?: boolean
     nombre?: boolean
     imagenPerfil?: boolean
+    createdAt?: boolean
   }
 
-  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "correo" | "nombreUsuario" | "contraseña" | "nombre" | "imagenPerfil", ExtArgs["result"]["usuario"]>
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "correo" | "nombreUsuario" | "contraseña" | "nombre" | "imagenPerfil" | "createdAt", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    generos?: boolean | Usuario$generosArgs<ExtArgs>
     reseñas?: boolean | Usuario$reseñasArgs<ExtArgs>
+    generos?: boolean | Usuario$generosArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1553,8 +1564,8 @@ export namespace Prisma {
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
     objects: {
-      generos: Prisma.$UsuarioGeneroPayload<ExtArgs>[]
       reseñas: Prisma.$ReseñaPayload<ExtArgs>[]
+      generos: Prisma.$UsuarioGeneroPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1563,6 +1574,7 @@ export namespace Prisma {
       contraseña: string
       nombre: string | null
       imagenPerfil: string | null
+      createdAt: Date
     }, ExtArgs["result"]["usuario"]>
     composites: {}
   }
@@ -1957,8 +1969,8 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    generos<T extends Usuario$generosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$generosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioGeneroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reseñas<T extends Usuario$reseñasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$reseñasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReseñaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    generos<T extends Usuario$generosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$generosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioGeneroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1994,6 +2006,7 @@ export namespace Prisma {
     readonly contraseña: FieldRef<"Usuario", 'String'>
     readonly nombre: FieldRef<"Usuario", 'String'>
     readonly imagenPerfil: FieldRef<"Usuario", 'String'>
+    readonly createdAt: FieldRef<"Usuario", 'DateTime'>
   }
     
 
@@ -2382,30 +2395,6 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.generos
-   */
-  export type Usuario$generosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UsuarioGenero
-     */
-    select?: UsuarioGeneroSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UsuarioGenero
-     */
-    omit?: UsuarioGeneroOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UsuarioGeneroInclude<ExtArgs> | null
-    where?: UsuarioGeneroWhereInput
-    orderBy?: UsuarioGeneroOrderByWithRelationInput | UsuarioGeneroOrderByWithRelationInput[]
-    cursor?: UsuarioGeneroWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UsuarioGeneroScalarFieldEnum | UsuarioGeneroScalarFieldEnum[]
-  }
-
-  /**
    * Usuario.reseñas
    */
   export type Usuario$reseñasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2427,6 +2416,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReseñaScalarFieldEnum | ReseñaScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario.generos
+   */
+  export type Usuario$generosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsuarioGenero
+     */
+    select?: UsuarioGeneroSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UsuarioGenero
+     */
+    omit?: UsuarioGeneroOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsuarioGeneroInclude<ExtArgs> | null
+    where?: UsuarioGeneroWhereInput
+    orderBy?: UsuarioGeneroOrderByWithRelationInput | UsuarioGeneroOrderByWithRelationInput[]
+    cursor?: UsuarioGeneroWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsuarioGeneroScalarFieldEnum | UsuarioGeneroScalarFieldEnum[]
   }
 
   /**
@@ -3711,8 +3724,8 @@ export namespace Prisma {
     usuarioId?: boolean
     generoId?: boolean
     tipo?: boolean
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
 
   export type UsuarioGeneroSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3720,8 +3733,8 @@ export namespace Prisma {
     usuarioId?: boolean
     generoId?: boolean
     tipo?: boolean
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
 
   export type UsuarioGeneroSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3729,8 +3742,8 @@ export namespace Prisma {
     usuarioId?: boolean
     generoId?: boolean
     tipo?: boolean
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarioGenero"]>
 
   export type UsuarioGeneroSelectScalar = {
@@ -3742,23 +3755,23 @@ export namespace Prisma {
 
   export type UsuarioGeneroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usuarioId" | "generoId" | "tipo", ExtArgs["result"]["usuarioGenero"]>
   export type UsuarioGeneroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
   export type UsuarioGeneroIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
   export type UsuarioGeneroIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     genero?: boolean | GeneroDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
 
   export type $UsuarioGeneroPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UsuarioGenero"
     objects: {
-      usuario: Prisma.$UsuarioPayload<ExtArgs>
       genero: Prisma.$GeneroPayload<ExtArgs>
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4159,8 +4172,8 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioGeneroClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     genero<T extends GeneroDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GeneroDefaultArgs<ExtArgs>>): Prisma__GeneroClient<$Result.GetResult<Prisma.$GeneroPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4632,50 +4645,50 @@ export namespace Prisma {
 
   export type ReseñaMinAggregateOutputType = {
     id: string | null
-    titulo: string | null
     contenido: string | null
-    estrellas: number | null
-    name: string | null
-    artist: string | null
     album: string | null
-    genre: string | null
+    artist: string | null
     coverUrl: string | null
-    tipo: string | null
-    userId: number | null
     createdAt: Date | null
+    estrellas: number | null
+    genre: string | null
+    name: string | null
+    tipo: string | null
+    titulo: string | null
     updatedAt: Date | null
+    userId: number | null
   }
 
   export type ReseñaMaxAggregateOutputType = {
     id: string | null
-    titulo: string | null
     contenido: string | null
-    estrellas: number | null
-    name: string | null
-    artist: string | null
     album: string | null
-    genre: string | null
+    artist: string | null
     coverUrl: string | null
-    tipo: string | null
-    userId: number | null
     createdAt: Date | null
+    estrellas: number | null
+    genre: string | null
+    name: string | null
+    tipo: string | null
+    titulo: string | null
     updatedAt: Date | null
+    userId: number | null
   }
 
   export type ReseñaCountAggregateOutputType = {
     id: number
-    titulo: number
     contenido: number
-    estrellas: number
-    name: number
-    artist: number
     album: number
-    genre: number
+    artist: number
     coverUrl: number
-    tipo: number
-    userId: number
     createdAt: number
+    estrellas: number
+    genre: number
+    name: number
+    tipo: number
+    titulo: number
     updatedAt: number
+    userId: number
     _all: number
   }
 
@@ -4692,50 +4705,50 @@ export namespace Prisma {
 
   export type ReseñaMinAggregateInputType = {
     id?: true
-    titulo?: true
     contenido?: true
-    estrellas?: true
-    name?: true
-    artist?: true
     album?: true
-    genre?: true
+    artist?: true
     coverUrl?: true
-    tipo?: true
-    userId?: true
     createdAt?: true
+    estrellas?: true
+    genre?: true
+    name?: true
+    tipo?: true
+    titulo?: true
     updatedAt?: true
+    userId?: true
   }
 
   export type ReseñaMaxAggregateInputType = {
     id?: true
-    titulo?: true
     contenido?: true
-    estrellas?: true
-    name?: true
-    artist?: true
     album?: true
-    genre?: true
+    artist?: true
     coverUrl?: true
-    tipo?: true
-    userId?: true
     createdAt?: true
+    estrellas?: true
+    genre?: true
+    name?: true
+    tipo?: true
+    titulo?: true
     updatedAt?: true
+    userId?: true
   }
 
   export type ReseñaCountAggregateInputType = {
     id?: true
-    titulo?: true
     contenido?: true
-    estrellas?: true
-    name?: true
-    artist?: true
     album?: true
-    genre?: true
+    artist?: true
     coverUrl?: true
-    tipo?: true
-    userId?: true
     createdAt?: true
+    estrellas?: true
+    genre?: true
+    name?: true
+    tipo?: true
+    titulo?: true
     updatedAt?: true
+    userId?: true
     _all?: true
   }
 
@@ -4827,18 +4840,18 @@ export namespace Prisma {
 
   export type ReseñaGroupByOutputType = {
     id: string
-    titulo: string
     contenido: string
-    estrellas: number
-    name: string
-    artist: string
     album: string | null
-    genre: string | null
+    artist: string
     coverUrl: string | null
-    tipo: string
-    userId: number
     createdAt: Date
+    estrellas: number
+    genre: string | null
+    name: string
+    tipo: string
+    titulo: string
     updatedAt: Date
+    userId: number
     _count: ReseñaCountAggregateOutputType | null
     _avg: ReseñaAvgAggregateOutputType | null
     _sum: ReseñaSumAggregateOutputType | null
@@ -4862,72 +4875,72 @@ export namespace Prisma {
 
   export type ReseñaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     contenido?: boolean
-    estrellas?: boolean
-    name?: boolean
-    artist?: boolean
     album?: boolean
-    genre?: boolean
+    artist?: boolean
     coverUrl?: boolean
-    tipo?: boolean
-    userId?: boolean
     createdAt?: boolean
+    estrellas?: boolean
+    genre?: boolean
+    name?: boolean
+    tipo?: boolean
+    titulo?: boolean
     updatedAt?: boolean
+    userId?: boolean
     user?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reseña"]>
 
   export type ReseñaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     contenido?: boolean
-    estrellas?: boolean
-    name?: boolean
-    artist?: boolean
     album?: boolean
-    genre?: boolean
+    artist?: boolean
     coverUrl?: boolean
-    tipo?: boolean
-    userId?: boolean
     createdAt?: boolean
+    estrellas?: boolean
+    genre?: boolean
+    name?: boolean
+    tipo?: boolean
+    titulo?: boolean
     updatedAt?: boolean
+    userId?: boolean
     user?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reseña"]>
 
   export type ReseñaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     contenido?: boolean
-    estrellas?: boolean
-    name?: boolean
-    artist?: boolean
     album?: boolean
-    genre?: boolean
+    artist?: boolean
     coverUrl?: boolean
-    tipo?: boolean
-    userId?: boolean
     createdAt?: boolean
+    estrellas?: boolean
+    genre?: boolean
+    name?: boolean
+    tipo?: boolean
+    titulo?: boolean
     updatedAt?: boolean
+    userId?: boolean
     user?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reseña"]>
 
   export type ReseñaSelectScalar = {
     id?: boolean
-    titulo?: boolean
     contenido?: boolean
-    estrellas?: boolean
-    name?: boolean
-    artist?: boolean
     album?: boolean
-    genre?: boolean
+    artist?: boolean
     coverUrl?: boolean
-    tipo?: boolean
-    userId?: boolean
     createdAt?: boolean
+    estrellas?: boolean
+    genre?: boolean
+    name?: boolean
+    tipo?: boolean
+    titulo?: boolean
     updatedAt?: boolean
+    userId?: boolean
   }
 
-  export type ReseñaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "contenido" | "estrellas" | "name" | "artist" | "album" | "genre" | "coverUrl" | "tipo" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["reseña"]>
+  export type ReseñaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contenido" | "album" | "artist" | "coverUrl" | "createdAt" | "estrellas" | "genre" | "name" | "tipo" | "titulo" | "updatedAt" | "userId", ExtArgs["result"]["reseña"]>
   export type ReseñaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
@@ -4945,18 +4958,18 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      titulo: string
       contenido: string
-      estrellas: number
-      name: string
-      artist: string
       album: string | null
-      genre: string | null
+      artist: string
       coverUrl: string | null
-      tipo: string
-      userId: number
       createdAt: Date
+      estrellas: number
+      genre: string | null
+      name: string
+      tipo: string
+      titulo: string
       updatedAt: Date
+      userId: number
     }, ExtArgs["result"]["reseña"]>
     composites: {}
   }
@@ -5382,18 +5395,18 @@ export namespace Prisma {
    */
   interface ReseñaFieldRefs {
     readonly id: FieldRef<"Reseña", 'String'>
-    readonly titulo: FieldRef<"Reseña", 'String'>
     readonly contenido: FieldRef<"Reseña", 'String'>
-    readonly estrellas: FieldRef<"Reseña", 'Int'>
-    readonly name: FieldRef<"Reseña", 'String'>
-    readonly artist: FieldRef<"Reseña", 'String'>
     readonly album: FieldRef<"Reseña", 'String'>
-    readonly genre: FieldRef<"Reseña", 'String'>
+    readonly artist: FieldRef<"Reseña", 'String'>
     readonly coverUrl: FieldRef<"Reseña", 'String'>
-    readonly tipo: FieldRef<"Reseña", 'String'>
-    readonly userId: FieldRef<"Reseña", 'Int'>
     readonly createdAt: FieldRef<"Reseña", 'DateTime'>
+    readonly estrellas: FieldRef<"Reseña", 'Int'>
+    readonly genre: FieldRef<"Reseña", 'String'>
+    readonly name: FieldRef<"Reseña", 'String'>
+    readonly tipo: FieldRef<"Reseña", 'String'>
+    readonly titulo: FieldRef<"Reseña", 'String'>
     readonly updatedAt: FieldRef<"Reseña", 'DateTime'>
+    readonly userId: FieldRef<"Reseña", 'Int'>
   }
     
 
@@ -6836,7 +6849,8 @@ export namespace Prisma {
     nombreUsuario: 'nombreUsuario',
     contraseña: 'contraseña',
     nombre: 'nombre',
-    imagenPerfil: 'imagenPerfil'
+    imagenPerfil: 'imagenPerfil',
+    createdAt: 'createdAt'
   };
 
   export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
@@ -6862,18 +6876,18 @@ export namespace Prisma {
 
   export const ReseñaScalarFieldEnum: {
     id: 'id',
-    titulo: 'titulo',
     contenido: 'contenido',
-    estrellas: 'estrellas',
-    name: 'name',
-    artist: 'artist',
     album: 'album',
-    genre: 'genre',
+    artist: 'artist',
     coverUrl: 'coverUrl',
-    tipo: 'tipo',
-    userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    estrellas: 'estrellas',
+    genre: 'genre',
+    name: 'name',
+    tipo: 'tipo',
+    titulo: 'titulo',
+    updatedAt: 'updatedAt',
+    userId: 'userId'
   };
 
   export type ReseñaScalarFieldEnum = (typeof ReseñaScalarFieldEnum)[keyof typeof ReseñaScalarFieldEnum]
@@ -7017,8 +7031,9 @@ export namespace Prisma {
     contraseña?: StringFilter<"Usuario"> | string
     nombre?: StringNullableFilter<"Usuario"> | string | null
     imagenPerfil?: StringNullableFilter<"Usuario"> | string | null
-    generos?: UsuarioGeneroListRelationFilter
+    createdAt?: DateTimeFilter<"Usuario"> | Date | string
     reseñas?: ReseñaListRelationFilter
+    generos?: UsuarioGeneroListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -7028,8 +7043,9 @@ export namespace Prisma {
     contraseña?: SortOrder
     nombre?: SortOrderInput | SortOrder
     imagenPerfil?: SortOrderInput | SortOrder
-    generos?: UsuarioGeneroOrderByRelationAggregateInput
+    createdAt?: SortOrder
     reseñas?: ReseñaOrderByRelationAggregateInput
+    generos?: UsuarioGeneroOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -7042,8 +7058,9 @@ export namespace Prisma {
     contraseña?: StringFilter<"Usuario"> | string
     nombre?: StringNullableFilter<"Usuario"> | string | null
     imagenPerfil?: StringNullableFilter<"Usuario"> | string | null
-    generos?: UsuarioGeneroListRelationFilter
+    createdAt?: DateTimeFilter<"Usuario"> | Date | string
     reseñas?: ReseñaListRelationFilter
+    generos?: UsuarioGeneroListRelationFilter
   }, "id" | "correo" | "nombreUsuario">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -7053,6 +7070,7 @@ export namespace Prisma {
     contraseña?: SortOrder
     nombre?: SortOrderInput | SortOrder
     imagenPerfil?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: UsuarioCountOrderByAggregateInput
     _avg?: UsuarioAvgOrderByAggregateInput
     _max?: UsuarioMaxOrderByAggregateInput
@@ -7070,6 +7088,7 @@ export namespace Prisma {
     contraseña?: StringWithAggregatesFilter<"Usuario"> | string
     nombre?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
     imagenPerfil?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   }
 
   export type GeneroWhereInput = {
@@ -7122,8 +7141,8 @@ export namespace Prisma {
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
     tipo?: StringFilter<"UsuarioGenero"> | string
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     genero?: XOR<GeneroScalarRelationFilter, GeneroWhereInput>
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
   export type UsuarioGeneroOrderByWithRelationInput = {
@@ -7131,8 +7150,8 @@ export namespace Prisma {
     usuarioId?: SortOrder
     generoId?: SortOrder
     tipo?: SortOrder
-    usuario?: UsuarioOrderByWithRelationInput
     genero?: GeneroOrderByWithRelationInput
+    usuario?: UsuarioOrderByWithRelationInput
   }
 
   export type UsuarioGeneroWhereUniqueInput = Prisma.AtLeast<{
@@ -7144,8 +7163,8 @@ export namespace Prisma {
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
     tipo?: StringFilter<"UsuarioGenero"> | string
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     genero?: XOR<GeneroScalarRelationFilter, GeneroWhereInput>
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id" | "usuarioId_generoId_tipo">
 
   export type UsuarioGeneroOrderByWithAggregationInput = {
@@ -7175,35 +7194,35 @@ export namespace Prisma {
     OR?: ReseñaWhereInput[]
     NOT?: ReseñaWhereInput | ReseñaWhereInput[]
     id?: StringFilter<"Reseña"> | string
-    titulo?: StringFilter<"Reseña"> | string
     contenido?: StringFilter<"Reseña"> | string
-    estrellas?: IntFilter<"Reseña"> | number
-    name?: StringFilter<"Reseña"> | string
-    artist?: StringFilter<"Reseña"> | string
     album?: StringNullableFilter<"Reseña"> | string | null
-    genre?: StringNullableFilter<"Reseña"> | string | null
+    artist?: StringFilter<"Reseña"> | string
     coverUrl?: StringNullableFilter<"Reseña"> | string | null
-    tipo?: StringFilter<"Reseña"> | string
-    userId?: IntFilter<"Reseña"> | number
     createdAt?: DateTimeFilter<"Reseña"> | Date | string
+    estrellas?: IntFilter<"Reseña"> | number
+    genre?: StringNullableFilter<"Reseña"> | string | null
+    name?: StringFilter<"Reseña"> | string
+    tipo?: StringFilter<"Reseña"> | string
+    titulo?: StringFilter<"Reseña"> | string
     updatedAt?: DateTimeFilter<"Reseña"> | Date | string
+    userId?: IntFilter<"Reseña"> | number
     user?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }
 
   export type ReseñaOrderByWithRelationInput = {
     id?: SortOrder
-    titulo?: SortOrder
     contenido?: SortOrder
-    estrellas?: SortOrder
-    name?: SortOrder
-    artist?: SortOrder
     album?: SortOrderInput | SortOrder
-    genre?: SortOrderInput | SortOrder
+    artist?: SortOrder
     coverUrl?: SortOrderInput | SortOrder
-    tipo?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
+    estrellas?: SortOrder
+    genre?: SortOrderInput | SortOrder
+    name?: SortOrder
+    tipo?: SortOrder
+    titulo?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
     user?: UsuarioOrderByWithRelationInput
   }
 
@@ -7212,35 +7231,35 @@ export namespace Prisma {
     AND?: ReseñaWhereInput | ReseñaWhereInput[]
     OR?: ReseñaWhereInput[]
     NOT?: ReseñaWhereInput | ReseñaWhereInput[]
-    titulo?: StringFilter<"Reseña"> | string
     contenido?: StringFilter<"Reseña"> | string
-    estrellas?: IntFilter<"Reseña"> | number
-    name?: StringFilter<"Reseña"> | string
-    artist?: StringFilter<"Reseña"> | string
     album?: StringNullableFilter<"Reseña"> | string | null
-    genre?: StringNullableFilter<"Reseña"> | string | null
+    artist?: StringFilter<"Reseña"> | string
     coverUrl?: StringNullableFilter<"Reseña"> | string | null
-    tipo?: StringFilter<"Reseña"> | string
-    userId?: IntFilter<"Reseña"> | number
     createdAt?: DateTimeFilter<"Reseña"> | Date | string
+    estrellas?: IntFilter<"Reseña"> | number
+    genre?: StringNullableFilter<"Reseña"> | string | null
+    name?: StringFilter<"Reseña"> | string
+    tipo?: StringFilter<"Reseña"> | string
+    titulo?: StringFilter<"Reseña"> | string
     updatedAt?: DateTimeFilter<"Reseña"> | Date | string
+    userId?: IntFilter<"Reseña"> | number
     user?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
   }, "id">
 
   export type ReseñaOrderByWithAggregationInput = {
     id?: SortOrder
-    titulo?: SortOrder
     contenido?: SortOrder
-    estrellas?: SortOrder
-    name?: SortOrder
-    artist?: SortOrder
     album?: SortOrderInput | SortOrder
-    genre?: SortOrderInput | SortOrder
+    artist?: SortOrder
     coverUrl?: SortOrderInput | SortOrder
-    tipo?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
+    estrellas?: SortOrder
+    genre?: SortOrderInput | SortOrder
+    name?: SortOrder
+    tipo?: SortOrder
+    titulo?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
     _count?: ReseñaCountOrderByAggregateInput
     _avg?: ReseñaAvgOrderByAggregateInput
     _max?: ReseñaMaxOrderByAggregateInput
@@ -7253,18 +7272,18 @@ export namespace Prisma {
     OR?: ReseñaScalarWhereWithAggregatesInput[]
     NOT?: ReseñaScalarWhereWithAggregatesInput | ReseñaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Reseña"> | string
-    titulo?: StringWithAggregatesFilter<"Reseña"> | string
     contenido?: StringWithAggregatesFilter<"Reseña"> | string
-    estrellas?: IntWithAggregatesFilter<"Reseña"> | number
-    name?: StringWithAggregatesFilter<"Reseña"> | string
-    artist?: StringWithAggregatesFilter<"Reseña"> | string
     album?: StringNullableWithAggregatesFilter<"Reseña"> | string | null
-    genre?: StringNullableWithAggregatesFilter<"Reseña"> | string | null
+    artist?: StringWithAggregatesFilter<"Reseña"> | string
     coverUrl?: StringNullableWithAggregatesFilter<"Reseña"> | string | null
-    tipo?: StringWithAggregatesFilter<"Reseña"> | string
-    userId?: IntWithAggregatesFilter<"Reseña"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Reseña"> | Date | string
+    estrellas?: IntWithAggregatesFilter<"Reseña"> | number
+    genre?: StringNullableWithAggregatesFilter<"Reseña"> | string | null
+    name?: StringWithAggregatesFilter<"Reseña"> | string
+    tipo?: StringWithAggregatesFilter<"Reseña"> | string
+    titulo?: StringWithAggregatesFilter<"Reseña"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Reseña"> | Date | string
+    userId?: IntWithAggregatesFilter<"Reseña"> | number
   }
 
   export type TestMusicalWhereInput = {
@@ -7322,8 +7341,9 @@ export namespace Prisma {
     contraseña: string
     nombre?: string | null
     imagenPerfil?: string | null
-    generos?: UsuarioGeneroCreateNestedManyWithoutUsuarioInput
+    createdAt?: Date | string
     reseñas?: ReseñaCreateNestedManyWithoutUserInput
+    generos?: UsuarioGeneroCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -7333,8 +7353,9 @@ export namespace Prisma {
     contraseña: string
     nombre?: string | null
     imagenPerfil?: string | null
-    generos?: UsuarioGeneroUncheckedCreateNestedManyWithoutUsuarioInput
+    createdAt?: Date | string
     reseñas?: ReseñaUncheckedCreateNestedManyWithoutUserInput
+    generos?: UsuarioGeneroUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
@@ -7343,8 +7364,9 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
-    generos?: UsuarioGeneroUpdateManyWithoutUsuarioNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reseñas?: ReseñaUpdateManyWithoutUserNestedInput
+    generos?: UsuarioGeneroUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -7354,8 +7376,9 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
-    generos?: UsuarioGeneroUncheckedUpdateManyWithoutUsuarioNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reseñas?: ReseñaUncheckedUpdateManyWithoutUserNestedInput
+    generos?: UsuarioGeneroUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -7365,6 +7388,7 @@ export namespace Prisma {
     contraseña: string
     nombre?: string | null
     imagenPerfil?: string | null
+    createdAt?: Date | string
   }
 
   export type UsuarioUpdateManyMutationInput = {
@@ -7373,6 +7397,7 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioUncheckedUpdateManyInput = {
@@ -7382,6 +7407,7 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GeneroCreateInput = {
@@ -7422,8 +7448,8 @@ export namespace Prisma {
 
   export type UsuarioGeneroCreateInput = {
     tipo: string
-    usuario: UsuarioCreateNestedOneWithoutGenerosInput
     genero: GeneroCreateNestedOneWithoutUsuariosInput
+    usuario: UsuarioCreateNestedOneWithoutGenerosInput
   }
 
   export type UsuarioGeneroUncheckedCreateInput = {
@@ -7435,8 +7461,8 @@ export namespace Prisma {
 
   export type UsuarioGeneroUpdateInput = {
     tipo?: StringFieldUpdateOperationsInput | string
-    usuario?: UsuarioUpdateOneRequiredWithoutGenerosNestedInput
     genero?: GeneroUpdateOneRequiredWithoutUsuariosNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutGenerosNestedInput
   }
 
   export type UsuarioGeneroUncheckedUpdateInput = {
@@ -7466,113 +7492,113 @@ export namespace Prisma {
 
   export type ReseñaCreateInput = {
     id?: string
-    titulo: string
     contenido: string
-    estrellas: number
-    name: string
-    artist: string
     album?: string | null
-    genre?: string | null
+    artist: string
     coverUrl?: string | null
-    tipo: string
     createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
     updatedAt?: Date | string
     user: UsuarioCreateNestedOneWithoutReseñasInput
   }
 
   export type ReseñaUncheckedCreateInput = {
     id?: string
-    titulo: string
     contenido: string
-    estrellas: number
-    name: string
-    artist: string
     album?: string | null
-    genre?: string | null
+    artist: string
     coverUrl?: string | null
-    tipo: string
-    userId: number
     createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
     updatedAt?: Date | string
+    userId: number
   }
 
   export type ReseñaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
     album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UsuarioUpdateOneRequiredWithoutReseñasNestedInput
   }
 
   export type ReseñaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
     album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ReseñaCreateManyInput = {
     id?: string
-    titulo: string
     contenido: string
-    estrellas: number
-    name: string
-    artist: string
     album?: string | null
-    genre?: string | null
+    artist: string
     coverUrl?: string | null
-    tipo: string
-    userId: number
     createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
     updatedAt?: Date | string
+    userId: number
   }
 
   export type ReseñaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
     album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReseñaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
     album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
     coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type TestMusicalCreateInput = {
@@ -7662,10 +7688,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type UsuarioGeneroListRelationFilter = {
-    every?: UsuarioGeneroWhereInput
-    some?: UsuarioGeneroWhereInput
-    none?: UsuarioGeneroWhereInput
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type ReseñaListRelationFilter = {
@@ -7674,16 +7705,22 @@ export namespace Prisma {
     none?: ReseñaWhereInput
   }
 
+  export type UsuarioGeneroListRelationFilter = {
+    every?: UsuarioGeneroWhereInput
+    some?: UsuarioGeneroWhereInput
+    none?: UsuarioGeneroWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
-  export type UsuarioGeneroOrderByRelationAggregateInput = {
+  export type ReseñaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ReseñaOrderByRelationAggregateInput = {
+  export type UsuarioGeneroOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7694,6 +7731,7 @@ export namespace Prisma {
     contraseña?: SortOrder
     nombre?: SortOrder
     imagenPerfil?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UsuarioAvgOrderByAggregateInput = {
@@ -7707,6 +7745,7 @@ export namespace Prisma {
     contraseña?: SortOrder
     nombre?: SortOrder
     imagenPerfil?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UsuarioMinOrderByAggregateInput = {
@@ -7716,6 +7755,7 @@ export namespace Prisma {
     contraseña?: SortOrder
     nombre?: SortOrder
     imagenPerfil?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UsuarioSumOrderByAggregateInput = {
@@ -7774,6 +7814,20 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type GeneroCountOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
@@ -7797,14 +7851,14 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type UsuarioScalarRelationFilter = {
-    is?: UsuarioWhereInput
-    isNot?: UsuarioWhereInput
-  }
-
   export type GeneroScalarRelationFilter = {
     is?: GeneroWhereInput
     isNot?: GeneroWhereInput
+  }
+
+  export type UsuarioScalarRelationFilter = {
+    is?: UsuarioWhereInput
+    isNot?: UsuarioWhereInput
   }
 
   export type UsuarioGeneroUsuarioIdGeneroIdTipoCompoundUniqueInput = {
@@ -7846,31 +7900,20 @@ export namespace Prisma {
     generoId?: SortOrder
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type ReseñaCountOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     contenido?: SortOrder
-    estrellas?: SortOrder
-    name?: SortOrder
-    artist?: SortOrder
     album?: SortOrder
-    genre?: SortOrder
+    artist?: SortOrder
     coverUrl?: SortOrder
-    tipo?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
+    estrellas?: SortOrder
+    genre?: SortOrder
+    name?: SortOrder
+    tipo?: SortOrder
+    titulo?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ReseñaAvgOrderByAggregateInput = {
@@ -7880,53 +7923,39 @@ export namespace Prisma {
 
   export type ReseñaMaxOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     contenido?: SortOrder
-    estrellas?: SortOrder
-    name?: SortOrder
-    artist?: SortOrder
     album?: SortOrder
-    genre?: SortOrder
+    artist?: SortOrder
     coverUrl?: SortOrder
-    tipo?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
+    estrellas?: SortOrder
+    genre?: SortOrder
+    name?: SortOrder
+    tipo?: SortOrder
+    titulo?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ReseñaMinOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     contenido?: SortOrder
-    estrellas?: SortOrder
-    name?: SortOrder
-    artist?: SortOrder
     album?: SortOrder
-    genre?: SortOrder
+    artist?: SortOrder
     coverUrl?: SortOrder
-    tipo?: SortOrder
-    userId?: SortOrder
     createdAt?: SortOrder
+    estrellas?: SortOrder
+    genre?: SortOrder
+    name?: SortOrder
+    tipo?: SortOrder
+    titulo?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ReseñaSumOrderByAggregateInput = {
     estrellas?: SortOrder
     userId?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -8003,13 +8032,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type UsuarioGeneroCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
-    createMany?: UsuarioGeneroCreateManyUsuarioInputEnvelope
-    connect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
-  }
-
   export type ReseñaCreateNestedManyWithoutUserInput = {
     create?: XOR<ReseñaCreateWithoutUserInput, ReseñaUncheckedCreateWithoutUserInput> | ReseñaCreateWithoutUserInput[] | ReseñaUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ReseñaCreateOrConnectWithoutUserInput | ReseñaCreateOrConnectWithoutUserInput[]
@@ -8017,7 +8039,7 @@ export namespace Prisma {
     connect?: ReseñaWhereUniqueInput | ReseñaWhereUniqueInput[]
   }
 
-  export type UsuarioGeneroUncheckedCreateNestedManyWithoutUsuarioInput = {
+  export type UsuarioGeneroCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
     createMany?: UsuarioGeneroCreateManyUsuarioInputEnvelope
@@ -8031,6 +8053,13 @@ export namespace Prisma {
     connect?: ReseñaWhereUniqueInput | ReseñaWhereUniqueInput[]
   }
 
+  export type UsuarioGeneroUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
+    createMany?: UsuarioGeneroCreateManyUsuarioInputEnvelope
+    connect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -8039,18 +8068,8 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type UsuarioGeneroUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
-    upsert?: UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: UsuarioGeneroCreateManyUsuarioInputEnvelope
-    set?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
-    disconnect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
-    delete?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
-    connect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
-    update?: UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput | UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: UsuarioGeneroScalarWhereInput | UsuarioGeneroScalarWhereInput[]
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type ReseñaUpdateManyWithoutUserNestedInput = {
@@ -8067,15 +8086,7 @@ export namespace Prisma {
     deleteMany?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type UsuarioGeneroUncheckedUpdateManyWithoutUsuarioNestedInput = {
+  export type UsuarioGeneroUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
     upsert?: UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput[]
@@ -8087,6 +8098,14 @@ export namespace Prisma {
     update?: UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput[]
     updateMany?: UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput | UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput[]
     deleteMany?: UsuarioGeneroScalarWhereInput | UsuarioGeneroScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ReseñaUncheckedUpdateManyWithoutUserNestedInput = {
@@ -8101,6 +8120,20 @@ export namespace Prisma {
     update?: ReseñaUpdateWithWhereUniqueWithoutUserInput | ReseñaUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReseñaUpdateManyWithWhereWithoutUserInput | ReseñaUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
+  }
+
+  export type UsuarioGeneroUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<UsuarioGeneroCreateWithoutUsuarioInput, UsuarioGeneroUncheckedCreateWithoutUsuarioInput> | UsuarioGeneroCreateWithoutUsuarioInput[] | UsuarioGeneroUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: UsuarioGeneroCreateOrConnectWithoutUsuarioInput | UsuarioGeneroCreateOrConnectWithoutUsuarioInput[]
+    upsert?: UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: UsuarioGeneroCreateManyUsuarioInputEnvelope
+    set?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
+    disconnect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
+    delete?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
+    connect?: UsuarioGeneroWhereUniqueInput | UsuarioGeneroWhereUniqueInput[]
+    update?: UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput | UsuarioGeneroUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput | UsuarioGeneroUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: UsuarioGeneroScalarWhereInput | UsuarioGeneroScalarWhereInput[]
   }
 
   export type UsuarioGeneroCreateNestedManyWithoutGeneroInput = {
@@ -8145,24 +8178,16 @@ export namespace Prisma {
     deleteMany?: UsuarioGeneroScalarWhereInput | UsuarioGeneroScalarWhereInput[]
   }
 
-  export type UsuarioCreateNestedOneWithoutGenerosInput = {
-    create?: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutGenerosInput
-    connect?: UsuarioWhereUniqueInput
-  }
-
   export type GeneroCreateNestedOneWithoutUsuariosInput = {
     create?: XOR<GeneroCreateWithoutUsuariosInput, GeneroUncheckedCreateWithoutUsuariosInput>
     connectOrCreate?: GeneroCreateOrConnectWithoutUsuariosInput
     connect?: GeneroWhereUniqueInput
   }
 
-  export type UsuarioUpdateOneRequiredWithoutGenerosNestedInput = {
+  export type UsuarioCreateNestedOneWithoutGenerosInput = {
     create?: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutGenerosInput
-    upsert?: UsuarioUpsertWithoutGenerosInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutGenerosInput, UsuarioUpdateWithoutGenerosInput>, UsuarioUncheckedUpdateWithoutGenerosInput>
   }
 
   export type GeneroUpdateOneRequiredWithoutUsuariosNestedInput = {
@@ -8173,14 +8198,18 @@ export namespace Prisma {
     update?: XOR<XOR<GeneroUpdateToOneWithWhereWithoutUsuariosInput, GeneroUpdateWithoutUsuariosInput>, GeneroUncheckedUpdateWithoutUsuariosInput>
   }
 
+  export type UsuarioUpdateOneRequiredWithoutGenerosNestedInput = {
+    create?: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutGenerosInput
+    upsert?: UsuarioUpsertWithoutGenerosInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutGenerosInput, UsuarioUpdateWithoutGenerosInput>, UsuarioUncheckedUpdateWithoutGenerosInput>
+  }
+
   export type UsuarioCreateNestedOneWithoutReseñasInput = {
     create?: XOR<UsuarioCreateWithoutReseñasInput, UsuarioUncheckedCreateWithoutReseñasInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutReseñasInput
     connect?: UsuarioWhereUniqueInput
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UsuarioUpdateOneRequiredWithoutReseñasNestedInput = {
@@ -8228,6 +8257,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8302,17 +8342,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8350,6 +8379,46 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ReseñaCreateWithoutUserInput = {
+    id?: string
+    contenido: string
+    album?: string | null
+    artist: string
+    coverUrl?: string | null
+    createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
+    updatedAt?: Date | string
+  }
+
+  export type ReseñaUncheckedCreateWithoutUserInput = {
+    id?: string
+    contenido: string
+    album?: string | null
+    artist: string
+    coverUrl?: string | null
+    createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
+    updatedAt?: Date | string
+  }
+
+  export type ReseñaCreateOrConnectWithoutUserInput = {
+    where: ReseñaWhereUniqueInput
+    create: XOR<ReseñaCreateWithoutUserInput, ReseñaUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReseñaCreateManyUserInputEnvelope = {
+    data: ReseñaCreateManyUserInput | ReseñaCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UsuarioGeneroCreateWithoutUsuarioInput = {
     tipo: string
     genero: GeneroCreateNestedOneWithoutUsuariosInput
@@ -8371,44 +8440,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ReseñaCreateWithoutUserInput = {
-    id?: string
-    titulo: string
-    contenido: string
-    estrellas: number
-    name: string
-    artist: string
-    album?: string | null
-    genre?: string | null
-    coverUrl?: string | null
-    tipo: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ReseñaUncheckedCreateWithoutUserInput = {
-    id?: string
-    titulo: string
-    contenido: string
-    estrellas: number
-    name: string
-    artist: string
-    album?: string | null
-    genre?: string | null
-    coverUrl?: string | null
-    tipo: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ReseñaCreateOrConnectWithoutUserInput = {
+  export type ReseñaUpsertWithWhereUniqueWithoutUserInput = {
     where: ReseñaWhereUniqueInput
+    update: XOR<ReseñaUpdateWithoutUserInput, ReseñaUncheckedUpdateWithoutUserInput>
     create: XOR<ReseñaCreateWithoutUserInput, ReseñaUncheckedCreateWithoutUserInput>
   }
 
-  export type ReseñaCreateManyUserInputEnvelope = {
-    data: ReseñaCreateManyUserInput | ReseñaCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type ReseñaUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReseñaWhereUniqueInput
+    data: XOR<ReseñaUpdateWithoutUserInput, ReseñaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ReseñaUpdateManyWithWhereWithoutUserInput = {
+    where: ReseñaScalarWhereInput
+    data: XOR<ReseñaUpdateManyMutationInput, ReseñaUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ReseñaScalarWhereInput = {
+    AND?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
+    OR?: ReseñaScalarWhereInput[]
+    NOT?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
+    id?: StringFilter<"Reseña"> | string
+    contenido?: StringFilter<"Reseña"> | string
+    album?: StringNullableFilter<"Reseña"> | string | null
+    artist?: StringFilter<"Reseña"> | string
+    coverUrl?: StringNullableFilter<"Reseña"> | string | null
+    createdAt?: DateTimeFilter<"Reseña"> | Date | string
+    estrellas?: IntFilter<"Reseña"> | number
+    genre?: StringNullableFilter<"Reseña"> | string | null
+    name?: StringFilter<"Reseña"> | string
+    tipo?: StringFilter<"Reseña"> | string
+    titulo?: StringFilter<"Reseña"> | string
+    updatedAt?: DateTimeFilter<"Reseña"> | Date | string
+    userId?: IntFilter<"Reseña"> | number
   }
 
   export type UsuarioGeneroUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -8435,41 +8499,6 @@ export namespace Prisma {
     usuarioId?: IntFilter<"UsuarioGenero"> | number
     generoId?: IntFilter<"UsuarioGenero"> | number
     tipo?: StringFilter<"UsuarioGenero"> | string
-  }
-
-  export type ReseñaUpsertWithWhereUniqueWithoutUserInput = {
-    where: ReseñaWhereUniqueInput
-    update: XOR<ReseñaUpdateWithoutUserInput, ReseñaUncheckedUpdateWithoutUserInput>
-    create: XOR<ReseñaCreateWithoutUserInput, ReseñaUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReseñaUpdateWithWhereUniqueWithoutUserInput = {
-    where: ReseñaWhereUniqueInput
-    data: XOR<ReseñaUpdateWithoutUserInput, ReseñaUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ReseñaUpdateManyWithWhereWithoutUserInput = {
-    where: ReseñaScalarWhereInput
-    data: XOR<ReseñaUpdateManyMutationInput, ReseñaUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ReseñaScalarWhereInput = {
-    AND?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
-    OR?: ReseñaScalarWhereInput[]
-    NOT?: ReseñaScalarWhereInput | ReseñaScalarWhereInput[]
-    id?: StringFilter<"Reseña"> | string
-    titulo?: StringFilter<"Reseña"> | string
-    contenido?: StringFilter<"Reseña"> | string
-    estrellas?: IntFilter<"Reseña"> | number
-    name?: StringFilter<"Reseña"> | string
-    artist?: StringFilter<"Reseña"> | string
-    album?: StringNullableFilter<"Reseña"> | string | null
-    genre?: StringNullableFilter<"Reseña"> | string | null
-    coverUrl?: StringNullableFilter<"Reseña"> | string | null
-    tipo?: StringFilter<"Reseña"> | string
-    userId?: IntFilter<"Reseña"> | number
-    createdAt?: DateTimeFilter<"Reseña"> | Date | string
-    updatedAt?: DateTimeFilter<"Reseña"> | Date | string
   }
 
   export type UsuarioGeneroCreateWithoutGeneroInput = {
@@ -8509,30 +8538,6 @@ export namespace Prisma {
     data: XOR<UsuarioGeneroUpdateManyMutationInput, UsuarioGeneroUncheckedUpdateManyWithoutGeneroInput>
   }
 
-  export type UsuarioCreateWithoutGenerosInput = {
-    correo: string
-    nombreUsuario: string
-    contraseña: string
-    nombre?: string | null
-    imagenPerfil?: string | null
-    reseñas?: ReseñaCreateNestedManyWithoutUserInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutGenerosInput = {
-    id?: number
-    correo: string
-    nombreUsuario: string
-    contraseña: string
-    nombre?: string | null
-    imagenPerfil?: string | null
-    reseñas?: ReseñaUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UsuarioCreateOrConnectWithoutGenerosInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
-  }
-
   export type GeneroCreateWithoutUsuariosInput = {
     nombre: string
   }
@@ -8547,34 +8552,30 @@ export namespace Prisma {
     create: XOR<GeneroCreateWithoutUsuariosInput, GeneroUncheckedCreateWithoutUsuariosInput>
   }
 
-  export type UsuarioUpsertWithoutGenerosInput = {
-    update: XOR<UsuarioUpdateWithoutGenerosInput, UsuarioUncheckedUpdateWithoutGenerosInput>
+  export type UsuarioCreateWithoutGenerosInput = {
+    correo: string
+    nombreUsuario: string
+    contraseña: string
+    nombre?: string | null
+    imagenPerfil?: string | null
+    createdAt?: Date | string
+    reseñas?: ReseñaCreateNestedManyWithoutUserInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutGenerosInput = {
+    id?: number
+    correo: string
+    nombreUsuario: string
+    contraseña: string
+    nombre?: string | null
+    imagenPerfil?: string | null
+    createdAt?: Date | string
+    reseñas?: ReseñaUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutGenerosInput = {
+    where: UsuarioWhereUniqueInput
     create: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
-    where?: UsuarioWhereInput
-  }
-
-  export type UsuarioUpdateToOneWithWhereWithoutGenerosInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutGenerosInput, UsuarioUncheckedUpdateWithoutGenerosInput>
-  }
-
-  export type UsuarioUpdateWithoutGenerosInput = {
-    correo?: StringFieldUpdateOperationsInput | string
-    nombreUsuario?: StringFieldUpdateOperationsInput | string
-    contraseña?: StringFieldUpdateOperationsInput | string
-    nombre?: NullableStringFieldUpdateOperationsInput | string | null
-    imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
-    reseñas?: ReseñaUpdateManyWithoutUserNestedInput
-  }
-
-  export type UsuarioUncheckedUpdateWithoutGenerosInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    correo?: StringFieldUpdateOperationsInput | string
-    nombreUsuario?: StringFieldUpdateOperationsInput | string
-    contraseña?: StringFieldUpdateOperationsInput | string
-    nombre?: NullableStringFieldUpdateOperationsInput | string | null
-    imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
-    reseñas?: ReseñaUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type GeneroUpsertWithoutUsuariosInput = {
@@ -8597,12 +8598,45 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UsuarioUpsertWithoutGenerosInput = {
+    update: XOR<UsuarioUpdateWithoutGenerosInput, UsuarioUncheckedUpdateWithoutGenerosInput>
+    create: XOR<UsuarioCreateWithoutGenerosInput, UsuarioUncheckedCreateWithoutGenerosInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutGenerosInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutGenerosInput, UsuarioUncheckedUpdateWithoutGenerosInput>
+  }
+
+  export type UsuarioUpdateWithoutGenerosInput = {
+    correo?: StringFieldUpdateOperationsInput | string
+    nombreUsuario?: StringFieldUpdateOperationsInput | string
+    contraseña?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reseñas?: ReseñaUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutGenerosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    correo?: StringFieldUpdateOperationsInput | string
+    nombreUsuario?: StringFieldUpdateOperationsInput | string
+    contraseña?: StringFieldUpdateOperationsInput | string
+    nombre?: NullableStringFieldUpdateOperationsInput | string | null
+    imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reseñas?: ReseñaUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UsuarioCreateWithoutReseñasInput = {
     correo: string
     nombreUsuario: string
     contraseña: string
     nombre?: string | null
     imagenPerfil?: string | null
+    createdAt?: Date | string
     generos?: UsuarioGeneroCreateNestedManyWithoutUsuarioInput
   }
 
@@ -8613,6 +8647,7 @@ export namespace Prisma {
     contraseña: string
     nombre?: string | null
     imagenPerfil?: string | null
+    createdAt?: Date | string
     generos?: UsuarioGeneroUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
@@ -8638,6 +8673,7 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     generos?: UsuarioGeneroUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -8648,7 +8684,23 @@ export namespace Prisma {
     contraseña?: StringFieldUpdateOperationsInput | string
     nombre?: NullableStringFieldUpdateOperationsInput | string | null
     imagenPerfil?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     generos?: UsuarioGeneroUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type ReseñaCreateManyUserInput = {
+    id?: string
+    contenido: string
+    album?: string | null
+    artist: string
+    coverUrl?: string | null
+    createdAt?: Date | string
+    estrellas: number
+    genre?: string | null
+    name: string
+    tipo: string
+    titulo: string
+    updatedAt?: Date | string
   }
 
   export type UsuarioGeneroCreateManyUsuarioInput = {
@@ -8657,19 +8709,49 @@ export namespace Prisma {
     tipo: string
   }
 
-  export type ReseñaCreateManyUserInput = {
-    id?: string
-    titulo: string
-    contenido: string
-    estrellas: number
-    name: string
-    artist: string
-    album?: string | null
-    genre?: string | null
-    coverUrl?: string | null
-    tipo: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type ReseñaUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    album?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReseñaUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    album?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReseñaUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contenido?: StringFieldUpdateOperationsInput | string
+    album?: NullableStringFieldUpdateOperationsInput | string | null
+    artist?: StringFieldUpdateOperationsInput | string
+    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    estrellas?: IntFieldUpdateOperationsInput | number
+    genre?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    titulo?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioGeneroUpdateWithoutUsuarioInput = {
@@ -8687,51 +8769,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     generoId?: IntFieldUpdateOperationsInput | number
     tipo?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ReseñaUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
-    album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
-    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReseñaUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
-    album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
-    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReseñaUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    contenido?: StringFieldUpdateOperationsInput | string
-    estrellas?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    artist?: StringFieldUpdateOperationsInput | string
-    album?: NullableStringFieldUpdateOperationsInput | string | null
-    genre?: NullableStringFieldUpdateOperationsInput | string | null
-    coverUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tipo?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsuarioGeneroCreateManyGeneroInput = {
