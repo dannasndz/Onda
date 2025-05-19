@@ -10,7 +10,21 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Configuración principal
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // Ignorar advertencias en archivos generados como wasm.js
+  {
+    files: ["src/generated/"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ];
 
-export default eslintConfig;
+// Aquí agregamos la propiedad ignores para que ESLint ignore la carpeta .next
+export default {
+  ignores: [".next/"],
+  overrides: eslintConfig,
+};

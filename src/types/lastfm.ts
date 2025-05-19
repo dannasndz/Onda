@@ -4,29 +4,55 @@ export interface LastFmImage {
 }
 
 export interface TopArtistaLastFm {
-    name: string;
-    mbid: string;
-    url: string;
-    streamable: string;
-    image: LastFmImage[];
+  name: string;
+  mbid: string;
+  url: string;
+  streamable: string;
+  image: LastFmImage[];
+  '@attr': {
+    rank: string;
+  };
+}
+
+export interface TopArtistasResponse {
+  topartists: {
+    artist: TopArtistaLastFm[];
     '@attr': {
-        rank: string;
+      tag: string;
+      page: string;
+      perPage: string;
+      totalPages: string;
+      total: string;
     };
+  };
 }
 
 export interface TopAlbumLastFm {
-    name: string;
-    mbid: string;
-    url: string;
-    artist: {
-        name: string;
-        mbid: string;
-        url: string;
-    };
-    image: LastFmImage[];
+  name: string;         // Nombre del álbum
+  mbid: string;         // MusicBrainz ID (puede estar vacío)
+  url: string;          // URL del álbum en Last.fm
+  artist: {
+    name: string;       // Nombre del artista
+    mbid: string;       // MusicBrainz ID del artista
+    url: string;        // URL del artista en Last.fm
+  };
+  image: LastFmImage[]; // Arreglo de imágenes con diferentes tamaños
+  '@attr': {
+    rank: string;       // Posición del álbum en el ranking (como string)
+  };
+}
+
+export interface TopAlbumesResponse {
+  albums: {
+    album: TopAlbumLastFm[];
     '@attr': {
-        rank: string;
+      tag: string;
+      page: string;
+      perPage: string;
+      totalPages: string;
+      total: string;
     };
+  };
 }
 
 export interface ArtistaInfo {

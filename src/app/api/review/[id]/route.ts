@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Record<string, string> }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -32,11 +32,7 @@ export async function PUT(
 
     const updatedReview = await prisma.reseña.update({
       where: { id },
-      data: {
-        titulo,
-        contenido,
-        estrellas,
-      },
+      data: { titulo, contenido, estrellas },
     });
 
     return NextResponse.json(updatedReview, { status: 200 });

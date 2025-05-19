@@ -9,6 +9,12 @@ interface Perfil {
   generosPreferidos: string[];
 }
 
+interface GeneroData {
+  genero: {
+    nombre: string;
+  };
+}
+
 export function usePerfil() {
   const [perfil, setPerfil] = useState<Perfil | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +33,7 @@ export function usePerfil() {
           correo: data.correo,
           miembroDesde: data.createdAt,
           totalResenas: data._count.reseñas,
-          generosPreferidos: data.generos.map((g: any) => g.genero.nombre),
+          generosPreferidos: data.generos.map((g: GeneroData) => g.genero.nombre),
         };
 
         setPerfil(perfilAdaptado);

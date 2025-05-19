@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form"
 import Link from "next/link"
 import { signIn } from 'next-auth/react'
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/authOptions"
 
 
 const formSchema = z.object({
