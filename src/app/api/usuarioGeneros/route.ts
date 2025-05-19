@@ -28,17 +28,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
     }
 
-    await prisma.usuarioGenero.deleteMany({
-      where: {
-        usuarioId: usuario.id,
-        OR: [
-          { tipo: 'actual' },
-          { tipo: 'gustaria' }
-        ]
-      },
-    });
+    // 🧼 Eliminar relaciones anteriores SOLO del tipo que se esté enviando
+    if (actuales.length > 0) {
+      await prisma.usuarioGenero.deleteMany({
+        where: {
+          usuarioId: usuario.id,
+          tipo: 'actual',
+        },
+      });
+    }
 
-    // Crear nuevas relaciones con tipo
+    if (gustaria.length > 0) {
+      await prisma.usuarioGenero.deleteMany({
+        where: {
+          usuarioId: usuario.id,
+          tipo: 'gustaria',
+        },
+      });
+    }
+
     const dataToCreate = [
       ...actuales.map((generoId) => ({
         usuarioId: usuario.id,
@@ -54,7 +62,7 @@ export async function POST(req: Request) {
 
     const created = await prisma.usuarioGenero.createMany({
       data: dataToCreate,
-    })
+    });
 
     return NextResponse.json({
       message: 'Géneros guardados correctamente',
@@ -65,6 +73,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
   }
 }
+
 
 export async function GET() {
   const session = await getServerSession(authOptions);

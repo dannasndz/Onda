@@ -11,7 +11,7 @@ interface ReviewsListProps {
 export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews, songs, onEditReview }) => {
   if (reviews.length === 0) {
     return (
-      <p className="text-gray-400 text-center py-10">No has reseñado ningún contenido todavía.</p>
+      <p className="text-gray-400 text-center py-10">Nada por aquí todavía... ¡Hazle un favor al mundo y comparte tu sabiduría sonora! </p>
     );
   }
 

@@ -113,9 +113,7 @@ export default function GenerosPage() {
             : "¿Qué géneros te gustaría escuchar más?"}
         </h1>
 
-        {/* Búsqueda + Chips seleccionados en una sola fila */}
         <div className="mb-3 flex flex-wrap justify-between items-center gap-4 w-full">
-          {/* 🔍 Input de búsqueda */}
           <input
             type="text"
             placeholder=" Buscar género..."
@@ -146,8 +144,6 @@ export default function GenerosPage() {
           </div>
         </div>
 
-
-        {/* Grid de géneros */}
         <div className="w-full flex justify-center">
           <div className="mb-4 bg-[#1A1D2E] rounded-2xl p-8 sm:p-5 shadow-lg max-w-7xl mx-auto w-full">
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-2 justify-items-center">
@@ -172,7 +168,6 @@ export default function GenerosPage() {
           </div>
         </div>
 
-        {/* Navegación solo si no hay búsqueda */}
         {!search.trim() && (
           <div className="flex items-center justify-center gap-4 mb-6">
             <button

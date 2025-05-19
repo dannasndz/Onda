@@ -94,6 +94,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
                   <div>
                     <h2 className="text-4xl font-semibold text-white mb-0.5">{song.name}</h2>
                     <p className="text-2xl text-gray-400 mb-3">{song.artist}</p>
+                    <p className='text-gray-500 text-sm text-center mt-5 mb-2'>El mundo necesita saber qué piensas de ese temazo. ¡Escribe tu reseña ya!</p>
                   </div>
 
                   <button
