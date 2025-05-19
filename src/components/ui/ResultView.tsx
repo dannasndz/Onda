@@ -24,12 +24,12 @@ export default function ResultsView({
         <>
             <button 
                 onClick={onVolver} 
-                className="absolute top-20 left-6 md:top-24 md:left-10 text-white hover:text-violet-400 transition flex items-center gap-2 bg-[#1f2236] hover:bg-[#2a2d4a] px-3 py-2 rounded-lg z-20"
+                className="absolute left-6  md:left-30 mt-2 bg-[#1f2236] text-gray-200 bg-gradient-to-r  from-[#6C63FF] to-[#A678F0] border-[#333955] hover:border-[#6C63FF] hover:text-white hover:scale-105 transition flex items-center gap-2 px-3 py-2 rounded-lg z-20"
             >
                 <ArrowLeft size={20} /> Volver
             </button>
 
-            <h1 className="text-3xl md:text-5xl font-medium mb-8 mt-12 md:mt-6 text-center">
+            <h1 className="text-3xl md:text-5xl font-medium mb-8  text-center">
                 Top de {nombreGenero || "Género"}
             </h1>
 
@@ -74,7 +74,7 @@ export default function ResultsView({
             
             <button 
                 onClick={onVolver} 
-                className="mt-12 mb-6 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-3 rounded-xl text-lg font-semibold hover:brightness-110 transition"
+                className="mt-12 mb-6  bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-8 py-3 rounded-xl text-lg font-semibold hover:brightness-110 transition"
             >
                 Seleccionar otro Género
             </button>
