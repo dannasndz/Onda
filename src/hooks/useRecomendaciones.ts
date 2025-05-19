@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Recomendacion {
   nombre: string;
-  artista?: string;
+  artista ?: string;
   imagen: string;
-  genero?: string;
+  genero ?: string;
   tipo: 'album' | 'cancion' | 'artista';
-  usaPlaceholder?: boolean;
+  usaPlaceholder ?: boolean;
 }
 
 export function useRecomendaciones(status: string) {
@@ -21,7 +21,36 @@ export function useRecomendaciones(status: string) {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const fetchRecomendaciones = useCallback(async (page: number) => {
+  useEffect(() => {
+    if (status === "authenticated" && !isSearching) {
+      fetchRecomendaciones(page);
+    }
+  }, [status, page, isSearching]);
+
+  useEffect(() => {
+    if (isSearching && searchPage > 1) {
+      handleSearch(searchQuery, searchPage);
+    }
+  }, [searchPage]);
+
+  useEffect(() => {
+    if (!hasMore || isLoading) return;
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        if (isSearching) {
+          setSearchPage((prev) => prev + 1);
+        } else {
+          setPage((prev) => prev + 1);
+        }
+      }
+    });
+
+    if (loaderRef.current) observer.current.observe(loaderRef.current);
+  }, [hasMore, isLoading, isSearching]);
+
+  const fetchRecomendaciones = async (page: number) => {
     if (isLoading) return;
     setIsLoading(true);
     try {
@@ -42,9 +71,8 @@ export function useRecomendaciones(status: string) {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading]);
-
-  const handleSearch = useCallback(async (query: string, page: number = 1) => {
+  };
+  const handleSearch = async (query: string, page: number = 1) => {
     if (isLoading) return;
 
     if (page === 1) {
@@ -80,37 +108,7 @@ export function useRecomendaciones(status: string) {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (status === "authenticated" && !isSearching) {
-      fetchRecomendaciones(page);
-    }
-  }, [status, page, isSearching, fetchRecomendaciones]);
-
-  useEffect(() => {
-    if (isSearching && searchPage > 1) {
-      handleSearch(searchQuery, searchPage);
-    }
-  }, [searchPage, isSearching, searchQuery, handleSearch]);
-
-  useEffect(() => {
-    if (!hasMore || isLoading) return;
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        if (isSearching) {
-          setSearchPage((prev) => prev + 1);
-        } else {
-          setPage((prev) => prev + 1);
-        }
-      }
-    });
-
-    if (loaderRef.current) observer.current.observe(loaderRef.current);
-  }, [hasMore, isLoading, isSearching]);
-
+  };
   const clearSearch = () => {
     setIsSearching(false);
     setRecomendaciones([]);

@@ -21,15 +21,15 @@ function isDefaultImage(url: string): boolean {
 async function getItunesCover(artist: string, track: string, album?: string): Promise<string | null> {
   try {
     const cacheKey = `${artist}-${track}-${album || ''}`.toLowerCase();
-    
+
     if (itunesCache.has(cacheKey)) {
       return itunesCache.get(cacheKey) || null;
     }
 
     const query = `${artist} ${track} ${album || ''}`.trim();
     const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=1`;
-    
-    const response = await fetch(url, { 
+
+    const response = await fetch(url, {
       signal: AbortSignal.timeout(7000)
     });
 
@@ -82,22 +82,22 @@ export async function GET(req: Request) {
 
     const generos = usuario.generos.map((g) => g.genero.nombre);
     const seenItems = new Set<string>();
-    
+
     const allRecomendaciones = await Promise.all(
       generos.map(async (genero) => {
         const [albums, tracks] = await Promise.all([
-          getTopAlbumsByGenre(genero, 100), 
-          getTopTracksByGenre(genero, 100)  
+          getTopAlbumsByGenre(genero, 100),
+          getTopTracksByGenre(genero, 100)
         ]);
-        
+
         const recomendacionesGenero: any[] = [];
 
         for (const album of albums) {
           const key = `album-${album.name}-${album.artist.name}`.toLowerCase();
           if (seenItems.has(key)) continue;
-          
+
           let imagen = album.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
-          
+
           if (isDefaultImage(imagen)) {
             const itunesCover = await getItunesCover(album.artist.name, '', album.name);
             imagen = itunesCover || PLACEHOLDER_IMAGE;
@@ -116,9 +116,9 @@ export async function GET(req: Request) {
         for (const track of tracks) {
           const key = `track-${track.name}-${track.artist.name}`.toLowerCase();
           if (seenItems.has(key)) continue;
-          
+
           let imagen = track.image?.find((img: any) => img.size === 'large')?.['#text'] || '';
-          
+
           if (isDefaultImage(imagen)) {
             const itunesCover = await getItunesCover(track.artist.name, track.name);
             imagen = itunesCover || PLACEHOLDER_IMAGE;
@@ -139,7 +139,7 @@ export async function GET(req: Request) {
     );
 
     const recomendaciones = allRecomendaciones.flat();
-    
+
     for (let i = recomendaciones.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [recomendaciones[i], recomendaciones[j]] = [recomendaciones[j], recomendaciones[i]];
@@ -149,12 +149,16 @@ export async function GET(req: Request) {
     const end = start + limit;
     const paginated = recomendaciones.slice(start, end);
 
-    return NextResponse.json({ 
+    const hasMore = end < recomendaciones.length;
+
+    return NextResponse.json({
       recomendaciones: paginated,
       totalItems: recomendaciones.length,
       totalPages: Math.ceil(recomendaciones.length / limit),
-      currentPage: page
+      currentPage: page,
+      hasMore,
     });
+
   } catch (error) {
     console.error('Error al obtener recomendaciones:', error);
     return NextResponse.json({ error: 'Error al procesar la solicitud' }, { status: 500 });
