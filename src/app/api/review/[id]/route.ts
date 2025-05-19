@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/lib/authOptions';
 import { prisma } from "@/lib/db";
 
-export async function PUT( // actualizar resenia
-  req: Request,
+export async function PUT(
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
