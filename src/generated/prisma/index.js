@@ -214,7 +214,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://nanna:123@localhost:5432/onda_db"
+        "value": "postgresql://postgres:XeVcgKSaYwBXioJSHhwqarNBtBWwyadL@hopper.proxy.rlwy.net:29516/railway"
       }
     }
   },
