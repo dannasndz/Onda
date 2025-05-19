@@ -16,7 +16,7 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews, songs, onEdit
   }
 
   return (
-    <div className="flex flex-col gap-6 "> 
+    <div className="flex flex-col gap-6 mb-10"> 
       {reviews.map((review) => {
         const song = {
           name: String(review.name),
