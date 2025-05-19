@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 
 export async function POST() {
     const apiKey = process.env.LASTFM_API_KEY;
-    const url = `http://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key=${apiKey}&format=json`;
+    const url = `https://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key=${apiKey}&format=json`;
 
     try {
         const res = await fetch(url);

@@ -56,7 +56,7 @@ export default function GenerosPage() {
 
   const handleNextStep = () => {
     if (step === 1) {
-      if (actuales.length === 0) return alert("Selecciona al menos un género actual");
+      if (actuales.length === 0) return  <p>Selecciona al menos un género </p>;
       setStep(2);
       setPagina(0);
     } else {
@@ -66,7 +66,6 @@ export default function GenerosPage() {
 
   const handleSubmit = async () => {
     if (gustaria.length === 0) {
-      alert('Selecciona al menos un género que te gustaría escuchar');
       return;
     }
 
@@ -80,14 +79,10 @@ export default function GenerosPage() {
       const data = await res.json();
 
       if (res.ok) {
-        alert('¡Géneros guardados correctamente!');
         router.push('/extras/agradecimiento');
-      } else {
-        alert(`Error: ${data?.error || 'No se pudieron guardar los géneros'}`);
-      }
+      } 
     } catch (error) {
       console.error('Error al guardar géneros:', error);
-      alert('Error al procesar tu solicitud');
     }
   };
 

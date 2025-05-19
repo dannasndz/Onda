@@ -55,7 +55,6 @@ export default function ProfileForm() {
     });
 
     if (res.ok) {
-      alert('¡Registro exitoso!');
 
       const result = await signIn("credentials", {
         redirect: false,

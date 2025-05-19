@@ -1,7 +1,7 @@
 import '../styles/global.css';
 import { Providers } from './providers';
+import Image from "next/image"
 
-// import { ReactNode } from 'react';
 
 export const metadata = {
   title: 'Onda',
@@ -11,6 +11,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <body>
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/ONDAS.png"
+            alt="ondaSup"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        </div>
         <Providers>
           {children}
         </Providers>
@@ -18,5 +27,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 
-} 
+}
 
