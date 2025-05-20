@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Review, Song } from './types';
 
 interface ReviewReadOnlyProps {
@@ -8,38 +8,64 @@ interface ReviewReadOnlyProps {
 }
 
 export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, onEdit }) => {
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => setExpanded(!expanded);
+
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-      <div className="md:w-2/5 lg:w-1/3 flex flex-col items-center space-y-4 flex-shrink-0">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-screen-xl mx-auto bg-[#232736ad] p-6 rounded-2xl ">
+      
+      {/* Imagen */}
+      <div className="w-full md:w-2/5 lg:w-1/3 flex justify-center md:justify-start">
         <img
           src={song.coverUrl || '/no-cover.png'}
           alt={`Cover for ${song.name}`}
-          className="w-full h-auto object-cover rounded-lg shadow-lg aspect-square max-w-xs mx-auto md:max-w-full"
+          className="w-40 sm:w-48 md:w-full max-w-xs aspect-square object-cover rounded-lg shadow-lg"
         />
       </div>
 
-      <div className="md:w-3/5 lg:w-2/3 flex flex-col space-y-4  justify-center">
+      {/* Contenido */}
+      <div className="w-full md:w-3/5 lg:w-2/3 flex flex-col justify-between space-y-4">
+        {/* Info de la canción */}
         <div>
-          <h2 className="text-4xl font-semibold text-white mb-0.5">{song.name}</h2>
-          <p className="text-2xl text-gray-400 mb-3">{song.artist}</p>
-          {song.album && <p className="text-lg text-gray-400 mb-3">Álbum: {song.album}</p>}
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-white">{song.name}</h2>
+          <p className="text-base sm:text-xl text-gray-400">{song.artist}</p>
+          {song.album && (
+            <p className="text-sm sm:text-lg text-gray-400">Álbum: {song.album}</p>
+          )}
         </div>
 
-        <div className="text-[#6C63FF]  text-3xl -mt-4">
+        {/* Estrellas */}
+        <div className="text-[#6C63FF] text-2xl sm:text-3xl">
           {'★'.repeat(review.estrellas)}{'☆'.repeat(5 - review.estrellas)}
         </div>
-        
+
+        {/* Contenido de la reseña */}
         <div>
-          <p className="text-white text-lg whitespace-pre-wrap">{review.contenido}</p>
+          <p
+            className={`text-white text-sm sm:text-base break-words whitespace-pre-wrap ${!expanded ? 'line-clamp-3' : ''}`}
+          >
+            {review.contenido}
+          </p>
+
+          {review.contenido.length > 200 && (
+            <button
+              onClick={toggleExpanded}
+              className="text-sm text-cyan-400 mt-1 hover:underline"
+            >
+              {expanded ? 'Mostrar menos' : 'Mostrar más'}
+            </button>
+          )}
         </div>
 
-
-        <button
-          onClick={onEdit}
-          className="mt-4 text-center px-8 py-2.5 rounded-lg text-2xl font-medium text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity max-w-max"
-        >
-          Editar
-        </button>
+        {/* Botón de editar */}
+        <div>
+          <button
+            onClick={onEdit}
+            className="w-full sm:w-auto px-6 py-2 rounded-lg text-white text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity"
+          >
+            Editar
+          </button>
+        </div>
       </div>
     </div>
   );

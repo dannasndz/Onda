@@ -11,12 +11,14 @@ interface ReviewsListProps {
 export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews, songs, onEditReview }) => {
   if (reviews.length === 0) {
     return (
-      <p className="text-gray-400 text-center py-10">Nada por aquí todavía... ¡Hazle un favor al mundo y comparte tu sabiduría sonora! </p>
+      <p className="text-gray-400 text-center py-10 px-4 sm:px-6 md:px-8">
+        Nada por aquí todavía... ¡Hazle un favor al mundo y comparte tu sabiduría sonora!
+      </p>
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 mb-10"> 
+    <div className="flex flex-col gap-6 mb-10 px-2 sm:px-4 md:px-6 items-center">
       {reviews.map((review) => {
         const song = {
           name: String(review.name),
@@ -39,4 +41,3 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews, songs, onEdit
     </div>
   );
 };
-

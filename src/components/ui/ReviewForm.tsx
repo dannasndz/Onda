@@ -15,6 +15,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
   const [content, setContent] = useState(existingReview?.contenido || '');
   const [rating, setRating] = useState(existingReview?.estrellas || 0);
   const [charCount, setCharCount] = useState(existingReview?.contenido.length || 0);
+  const [titleCharCount, setTitleCharCount] = useState(existingReview?.titulo.length || 0);
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
@@ -24,12 +25,20 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
     }
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value;
+    if (text.length <= 50) {
+      setTitle(text);
+      setTitleCharCount(text.length);
+    }
+  };
+
   const handleSubmit = () => {
     onSubmit({ title, content, rating });
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:gap-8 ">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8">
       <div className="md:w-2/5 lg:w-1/3 flex flex-col items-center space-y-4 flex-shrink-0">
         <img
           src={song.coverUrl || '/no-cover.png'}
@@ -54,10 +63,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
               id="reviewTitle"
               type="text"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={handleTitleChange}
               placeholder="Escribe un título..."
               className="w-full p-2.5 rounded-md bg-[#353B52] border border-gray-700 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
             />
+            <div className="text-right text-xs text-gray-500 mt-1">{titleCharCount}/50</div>
           </div>
           <div className="flex-grow flex flex-col">
             <textarea
