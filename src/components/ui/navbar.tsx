@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
 import { Compass, Home, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 
-const Sidebar = () => {
+const Navbar = () => {
   return (
-    <aside className="hidden md:flex fixed left-0 top-0 h-screen w-24 bg-[#0d0d1a] border-r border-[#171C2E] flex-col items-center py-4 z-50">
+    <aside className="fixed left-0 top-0 h-screen w-24 bg-[#0d0d1a] border-r border-[#171C2E] flex flex-col items-center py-4 z-50">
       <div className="mb-8">
-        <Image src="/logo.svg" alt="logo" width={70} height={70} />
+        <Image src="/logo.svg" alt="logo" width={50} height={50} />
       </div>
 
       <nav className="flex flex-col gap-6">
@@ -34,4 +34,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Navbar;

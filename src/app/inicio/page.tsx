@@ -11,7 +11,7 @@ import RecomendacionCard from "@/components/ui/RecomendacionCard";
 import SkeletonCard from "@/components/ui/SkeletonCard";
 import Loader from "@/components/ui/Loader";
 import { useState } from "react";
-import {ReviewModal} from "@/components/ui/ReviewModal";
+import { ReviewModal } from "@/components/ui/ReviewModal";
 
 export default function Inicio() {
   const { data: session, status } = useSession();
@@ -63,10 +63,10 @@ export default function Inicio() {
   } = useRecomendaciones(status);
 
   const breakpointColumnsObj = {
-    default: 5,
-    1100: 3,
-    700: 2,
-    500: 1,
+    default: 5,   // Pantallas grandes (lg+): 4 columnas
+    1280: 3,      // Pantallas medianas (xl o md): 3 columnas
+    1024: 2,      // Tablets (lg): 2 columnas
+    640: 1,       // Móviles (sm): 1 columna
   };
 
   if (status === "loading") {
@@ -79,8 +79,9 @@ export default function Inicio() {
   }
 
   return (
-    <div className="p-6 min-h-screen text-white bg-transparent overflow-x-hidden">
-      <div className="ml-[80px] px-6 max-w-full">
+    <div className="p-4 sm:p-6 min-h-screen text-white bg-transparent overflow-x-hidden">
+      {/* Search Bar */}
+      <div className="px-4 sm:px-6 lg:ml-[80px] lg:mr-[70px] max-w-full">
         <SearchBar
           onSearch={handleSearch}
           query={searchQuery}
@@ -88,20 +89,23 @@ export default function Inicio() {
         />
       </div>
 
+      {/* Navbar */}
       <Navbar />
 
-      <div className="ml-[80px]">
-        {isSearching && (
+      {/* Botón volver (cuando hay búsqueda) */}
+      {isSearching && (
+        <div className="px-4 sm:px-6 mt-4 lg:ml-[80px]">
           <button
             onClick={clearSearch}
             className="mb-4 px-3 py-1 bg-violet-700 text-sm text-white rounded-full hover:bg-violet-800 transition"
           >
             Volver
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      <div className="ml-[80px] mr-[70px] px-6 max-w-full">
+      {/* Grid principal */}
+      <div className="px-4 sm:px-6 lg:ml-[80px] lg:mr-[70px] max-w-full">
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="flex gap-5"
@@ -123,5 +127,6 @@ export default function Inicio() {
         <Loader loaderRef={loaderRef} hasMore={hasMore} />
       </div>
     </div>
+
   );
 }

@@ -55,7 +55,8 @@ export default function PerfilUsuario() {
 
   return (
     <>
-      <div className="flex flex-col gap-10  items-center w-full px-4 sm:px-6 md:px-10">
+     <div className="flex flex-col gap-10 items-center w-full px-4 sm:px-6 md:px-10  pb-16">
+
         {/* Perfil */}
         <div className="w-full max-w-6xl bg-[#1A1D2E] p-4 sm:p-6 md:p-8 rounded-2xl shadow-[0_0px_15px_rgba(72,80,111,0.50)] border border-[#191c2c8d] flex flex-col md:flex-row items-center md:items-start gap-6">
           {/* Avatar */}
