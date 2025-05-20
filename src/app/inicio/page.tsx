@@ -63,10 +63,10 @@ export default function Inicio() {
   } = useRecomendaciones(status);
 
   const breakpointColumnsObj = {
-    default: 5,   // Pantallas grandes (lg+): 4 columnas
-    1280: 3,      // Pantallas medianas (xl o md): 3 columnas
-    1024: 2,      // Tablets (lg): 2 columnas
-    640: 1,       // Móviles (sm): 1 columna
+    default: 5,   
+    1280: 3,      
+    1024: 2,      
+    640: 1,       
   };
 
   if (status === "loading") {
@@ -79,9 +79,9 @@ export default function Inicio() {
   }
 
   return (
-    <div className="p-4 sm:p-6 min-h-screen text-white bg-transparent overflow-x-hidden">
+    <div className="p-4 sm:p-6 min-h-screen text-white bg-transparent overflow-x-hidden ml-20">
       {/* Search Bar */}
-      <div className="px-4 sm:px-6 lg:ml-[80px] lg:mr-[70px] max-w-full">
+      <div className="px-4 sm:px-6  lg:mr-[70px] max-w-full">
         <SearchBar
           onSearch={handleSearch}
           query={searchQuery}
@@ -92,7 +92,6 @@ export default function Inicio() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Botón volver (cuando hay búsqueda) */}
       {isSearching && (
         <div className="px-4 sm:px-6 mt-4 lg:ml-[80px]">
           <button
@@ -105,7 +104,7 @@ export default function Inicio() {
       )}
 
       {/* Grid principal */}
-      <div className="px-4 sm:px-6 lg:ml-[80px] lg:mr-[70px] max-w-full">
+      <div className="px-4 sm:px-6  lg:mr-[70px] max-w-full">
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="flex gap-5"
