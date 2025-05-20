@@ -95,9 +95,9 @@ export default function PerfilUsuario() {
             </div>
           </div>
         </div>
-          <h2 className="w-full max-w-6xl  text-white text-xl font-bold sm:text-2xl md:text-3xl flex flex-col md:flex-row items-center md:items-start gap-6">
-            Mis Reseñas
-          </h2>
+        <h2 className="w-full max-w-6xl  text-white text-xl font-bold sm:text-2xl md:text-3xl flex flex-col md:flex-row items-center md:items-start gap-6">
+          Mis Reseñas
+        </h2>
 
 
         {/* Reseñas */}
@@ -112,7 +112,12 @@ export default function PerfilUsuario() {
           />
         </div>
       </div>
-
+      {mostrarModal && (
+        <ModalGeneros
+          generosUsuario={perfil.generosPreferidos}
+          onClose={() => setMostrarModal(false)}
+          onGuardar={handleGuardarGeneros} tipo={"actual"} />
+      )}
 
     </>
   );
