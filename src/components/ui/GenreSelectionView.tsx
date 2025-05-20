@@ -51,7 +51,7 @@ export default function GenreSelectionView({
     };
 
     return (
-        <>
+        <div className="w-full px-4 sm:px-6 md:px-8 ml-24 flex flex-col items-center justify-start ">
             <h1 className="text-3xl md:text-6xl font-medium mb-3">
                 Hola, {session?.user?.name ?? "usuario"}!
             </h1>
@@ -77,45 +77,52 @@ export default function GenreSelectionView({
 
             {/* Carrusel de géneros */}
             {generosFiltrados.length > 0 ? (
-                <div className="flex items-center bg-[#1A1D2E] rounded-2xl gap-4 w-full max-w-5xl mb-8 px-6 py-6 min-h-[100px] shadow-lg">
-                    <button
-                        onClick={() => scroll("left")}
-                        className="text-white hover:scale-110 transition p-2 rounded-full hover:bg-[#1f2236]"
-                    >
-                        <ChevronLeft size={32} />
-                    </button>
+  <div className="flex items-center bg-[#1A1D2E] rounded-2xl gap-2 sm:gap-4 w-full max-w-5xl mb-8 px-4 sm:px-6 py-4 sm:py-6 min-h-[100px] shadow-lg">
+    
+    {/* Botón izquierda */}
+    <button
+      onClick={() => scroll("left")}
+      className="text-white hover:scale-110 transition p-1 sm:p-2 rounded-full hover:bg-[#1f2236]"
+    >
+      <ChevronLeft size={24} className="sm:size-8" />
+    </button>
 
-                    <div
-                        ref={contenedorRef}
-                        className="flex gap-4 flex-1 overflow-x-auto no-scrollbar"
-                    >
-                        {generosFiltrados.map((genero) => (
-                            <button
-                                key={genero.id}
-                                onClick={() => onSelectGenre(genero.nombre)}
-                                className={`whitespace-nowrap rounded-full px-6 py-3 text-base font-semibold border transition-all
-                                ${generoSeleccionado === genero.nombre
-                                    ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white border-transparent ring-2 ring-white"
-                                    : "bg-[#1f2236] border-[#333955] text-gray-300 hover:border-violet-500 hover:text-white"
-                                }`}
-                            >
-                                {genero.nombre}
-                            </button>
-                        ))}
-                    </div>
+    {/* Lista scrollable */}
+    <div
+      ref={contenedorRef}
+      className="flex gap-3 sm:gap-4 flex-1 overflow-x-auto no-scrollbar"
+    >
+      {generosFiltrados.map((genero) => (
+        <button
+          key={genero.id}
+          onClick={() => onSelectGenre(genero.nombre)}
+          className={`whitespace-nowrap rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold border transition-all
+            ${generoSeleccionado === genero.nombre
+              ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white border-transparent ring-2 ring-white"
+              : "bg-[#1f2236] border-[#333955] text-gray-300 hover:border-violet-500 hover:text-white"
+            }`}
+        >
+          {genero.nombre}
+        </button>
+      ))}
+    </div>
 
-                    <button
-                        onClick={() => scroll("right")}
-                        className="text-white hover:scale-110 transition p-2 rounded-full hover:bg-[#1f2236]"
-                    >
-                        <ChevronRight size={32} />
-                    </button>
-                </div>
-            ) : (
-                <div className="bg-[#1A1D2E] rounded-2xl w-full max-w-5xl mb-8 p-6 min-h-[100px] shadow-lg flex justify-center items-center">
-                    <p className="text-gray-400">{busqueda ? "No se encontraron géneros." : "Cargando géneros..."}</p>
-                </div>
-            )}
+    {/* Botón derecha */}
+    <button
+      onClick={() => scroll("right")}
+      className="text-white hover:scale-110 transition p-1 sm:p-2 rounded-full hover:bg-[#1f2236]"
+    >
+      <ChevronRight size={24} className="sm:size-8" />
+    </button>
+  </div>
+) : (
+  <div className="bg-[#1A1D2E] rounded-2xl w-full max-w-5xl mb-8 p-4 sm:p-6 min-h-[100px] shadow-lg flex justify-center items-center">
+    <p className="text-gray-400 text-sm sm:text-base">
+      {busqueda ? "No se encontraron géneros." : "Cargando géneros..."}
+    </p>
+  </div>
+)}
+
 
             {/* Botón de continuar */}
             <button
@@ -125,6 +132,6 @@ export default function GenreSelectionView({
             >
                 Continuar
             </button>
-        </>
+        </div>
     );
 }

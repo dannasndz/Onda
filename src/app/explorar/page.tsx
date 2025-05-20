@@ -96,7 +96,7 @@ export default function ExplorarGeneros() {
     }
 
     return (
-        <div className="text-white px-6 pt-10 flex flex-col items-center w-full">
+        <div className="text-white px-6 pt-20 flex flex-col items-center w-full ">
             <Navbar />
 
             {vista === 'generos' ? (
