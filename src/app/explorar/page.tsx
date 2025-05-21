@@ -96,26 +96,33 @@ export default function ExplorarGeneros() {
     }
 
     return (
-        <div className="text-white px-6 pt-20 flex flex-col items-center w-full ">
-            <Navbar />
+        <div className="flex min-h-screen  text-white">
+            <nav
+                className="fixed top-0 left-0 h-screen w-64  overflow-y-auto z-20"
+            >
+                <Navbar />
+            </nav>
 
-            {vista === 'generos' ? (
-                <GenreSelectionView
-                    session={session}
-                    generoSeleccionado={generoSeleccionado}
-                    onSelectGenre={handleSeleccionarGenero}
-                    onContinue={handleContinuar}
-                />
-            ) : (
-                <ResultsView
-                    nombreGenero={nombreGeneroParaTitulo}
-                    topArtistas={topArtistas}
-                    topAlbumes={topAlbumes}
-                    cargando={cargandoResultados}
-                    error={errorResultados}
-                    onVolver={handleVolverSeleccionGenero}
-                />
-            )}
+            <main className="flex-1 px-6 pt-20 flex flex-col items-center w-full">
+                {vista === 'generos' ? (
+                    <GenreSelectionView
+                        session={session}
+                        generoSeleccionado={generoSeleccionado}
+                        onSelectGenre={handleSeleccionarGenero}
+                        onContinue={handleContinuar}
+                    />
+                ) : (
+                    <ResultsView
+                        nombreGenero={nombreGeneroParaTitulo}
+                        topArtistas={topArtistas}
+                        topAlbumes={topAlbumes}
+                        cargando={cargandoResultados}
+                        error={errorResultados}
+                        onVolver={handleVolverSeleccionGenero}
+                    />
+                )}
+            </main>
         </div>
+
     );
 }

@@ -55,8 +55,7 @@ export default function PerfilUsuario() {
 
   return (
     <>
-     <div className="flex flex-col gap-10 items-center w-full px-4 sm:px-6 md:px-10  pb-16">
-
+      <div className="flex flex-col gap-10 items-center w-full px-4 sm:px-6 md:px-10 pb-16">
         {/* Perfil */}
         <div className="w-full max-w-6xl bg-[#1A1D2E] p-4 sm:p-6 md:p-8 rounded-2xl shadow-[0_0px_15px_rgba(72,80,111,0.50)] border border-[#191c2c8d] flex flex-col md:flex-row items-center md:items-start gap-6">
           {/* Avatar */}
@@ -71,6 +70,7 @@ export default function PerfilUsuario() {
               Miembro desde {fecha} · {perfil.totalResenas} reseñas
             </p>
 
+            {/* Sección de géneros */}
             <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 md:gap-4 mt-4 mb-3 flex-wrap">
               <p className="text-gray-300 font-normal text-base sm:text-lg md:text-xl">
                 Géneros preferidos
@@ -96,14 +96,14 @@ export default function PerfilUsuario() {
             </div>
           </div>
         </div>
-        <h2 className="w-full max-w-6xl  text-white text-xl font-bold sm:text-2xl md:text-3xl flex flex-col md:flex-row items-center md:items-start gap-6">
+
+        {/* Título de sección */}
+        <h2 className="w-full max-w-6xl text-white text-xl sm:text-2xl md:text-3xl font-bold text-center md:text-left">
           Mis Reseñas
         </h2>
 
-
         {/* Reseñas */}
-        <div className="w-full">
-
+        <div className="w-full max-w-6xl">
           <ReviewsList
             reviews={reviews}
             songs={songs}
@@ -113,6 +113,7 @@ export default function PerfilUsuario() {
           />
         </div>
       </div>
+
       {mostrarModal && (
         <ModalGeneros
           generosUsuario={perfil.generosPreferidos}

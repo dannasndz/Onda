@@ -12,7 +12,10 @@ export default function RecomendacionCard({ item, onClick }: RecomendacionCardPr
   };
 
   return (
-    <div onClick={() => onClick(item)} className="mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer w-[100%] max-w-[240px]">
+    <div
+      onClick={() => onClick(item)}
+      className="w-full sm:w-[48%] md:w-[31%] lg:w-[230px] mb-4 bg-[#1f1f2bcc] backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:scale-105 transition cursor-pointer"
+    >
       <Image
         src={item.imagen || '/placeholder-music.png'}
         alt={item.nombre}
@@ -29,7 +32,7 @@ export default function RecomendacionCard({ item, onClick }: RecomendacionCardPr
         )}
         <div className="flex justify-between items-center mt-2">
           {item.genero && (
-            <span className="text-xs text-gray-400">{item.genero}</span>
+            <span className="text-xs text-gray-400 truncate">{item.genero}</span>
           )}
           <span className="text-xs px-2 py-1 bg-violet-900 rounded-full">
             {item.tipo === 'album' ? 'Álbum' : item.tipo === 'cancion' ? 'Canción' : 'Artista'}
@@ -37,5 +40,6 @@ export default function RecomendacionCard({ item, onClick }: RecomendacionCardPr
         </div>
       </div>
     </div>
+
   );
 }

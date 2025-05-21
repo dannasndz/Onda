@@ -13,7 +13,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
 
   return (
     <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-screen-xl mx-auto bg-[#232736ad] p-6 rounded-2xl ">
-      
+
       {/* Imagen */}
       <div className="w-full md:w-2/5 lg:w-1/3 flex justify-center md:justify-start">
         <img
@@ -40,9 +40,10 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
         </div>
 
         {/* Contenido de la reseña */}
-        <div>
+        <div className="w-full">
           <p
-            className={`text-white text-sm sm:text-base break-words whitespace-pre-wrap ${!expanded ? 'line-clamp-3' : ''}`}
+            className={`text-white text-sm sm:text-base md:text-lg break-words whitespace-pre-wrap transition-all duration-200 ease-in-out ${!expanded ? 'line-clamp-3' : ''
+              }`}
           >
             {review.contenido}
           </p>
@@ -50,12 +51,13 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
           {review.contenido.length > 200 && (
             <button
               onClick={toggleExpanded}
-              className="text-sm text-cyan-400 mt-1 hover:underline"
+              className="text-sm sm:text-base text-cyan-400 mt-2 hover:underline focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded transition"
             >
               {expanded ? 'Mostrar menos' : 'Mostrar más'}
             </button>
           )}
         </div>
+
 
         {/* Botón de editar */}
         <div>
