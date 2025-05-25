@@ -39,7 +39,7 @@ export default function SearchBar({ onSearch, query = "", onClear }: SearchBarPr
             <button
               type="button"
               onClick={handleClear}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer"
             >
               ✕
             </button>
@@ -47,7 +47,7 @@ export default function SearchBar({ onSearch, query = "", onClear }: SearchBarPr
         </div>
         <button
           type="submit"
-          className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
+          className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition cursor-pointer"
         >
           Buscar
         </button>

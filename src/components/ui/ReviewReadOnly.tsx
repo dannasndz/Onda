@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Review, Song } from './types';
+import { RatingProm } from './ratingProm';
+import ReviewListModal from './ReviewListModal';
 
 interface ReviewReadOnlyProps {
   review: Review;
@@ -10,14 +12,40 @@ interface ReviewReadOnlyProps {
 export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, onEdit }) => {
   const [expanded, setExpanded] = useState(false);
   const toggleExpanded = () => setExpanded(!expanded);
+  const [ranking, setRanking] = useState<{ promedio: number | null; cantidad?: number; mensaje?: string } | null>(null);
+  const [isReviewListOpen, setReviewListOpen] = useState(false); // NUEVO
+
+
+  useEffect(() => {
+    async function fetchRanking() {
+      if (!song) return;
+      try {
+        const res = await fetch(
+          `/api/review/ranking?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
+        );
+        if (!res.ok) return setRanking(null);
+        const data = await res.json();
+        setRanking(data);
+      } catch {
+        setRanking(null);
+      }
+    }
+
+    if (song) {
+      fetchRanking();
+    } else {
+      setRanking(null);
+    }
+
+  }, [song,]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-screen-xl mx-auto bg-[#232736ad] p-6 rounded-2xl ">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8 w-full max-w-screen-xl mx-auto  p-6 rounded-2xl ">
 
       {/* Imagen */}
-      <div className="w-full md:w-2/5 lg:w-1/3 flex justify-center md:justify-start">
+      <div className="w-full md:w-2/5 justify-center md:justify-start">
         <img
-          src={song.coverUrl || '/no-cover.png'}
+          src={song.coverUrl || '/placeholder-music.png'}
           alt={`Cover for ${song.name}`}
           className="w-40 sm:w-48 md:w-full max-w-xs aspect-square object-cover rounded-lg shadow-lg"
         />
@@ -34,13 +62,40 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
           )}
         </div>
 
-        {/* Estrellas */}
-        <div className="text-[#6C63FF] text-2xl sm:text-3xl">
-          {'★'.repeat(review.estrellas)}{'☆'.repeat(5 - review.estrellas)}
-        </div>
 
+        {ranking && (
+          <div className="mb-4 text-center md:text-left">
+            {ranking.promedio !== null ? (
+              <>
+                <div className="flex items-center gap-2 justify-center md:justify-start ">
+                  <p className="text-sm text-zinc-300">
+                    La comunidad califica esta obra con:
+                  </p>
+                  <RatingProm value={ranking.promedio} />
+                </div>
+
+                <span
+                  className="text-indigo-400 text-sm cursor-pointer underline"
+                  onClick={() => setReviewListOpen(true)}
+                >
+                  ({ranking.cantidad} reseñas)
+                </span>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">{ranking.mensaje}</p>
+            )}
+          </div>
+        )}
         {/* Contenido de la reseña */}
-        <div className="w-full">
+        <div className="w-full bg-[#232736ad] p-4 rounded-2xl ">
+          <p className={`text-white font-bold text-sm sm:text-base md:text-lg break-words whitespace-pre-wrap transition-all duration-200 ease-in-out ${!expanded ? 'line-clamp-3' : ''
+            }`}>{review.titulo}</p>
+          {/* Estrellas */}
+          <div className="text-[#6C63FF] text-sm sm:text-3xl">
+            <p className="text-lg text-gray-500 mt-1">Tú calificación: {'★'.repeat(review.estrellas)}{'☆'.repeat(5 - review.estrellas)}
+            </p>
+          </div>
+
           <p
             className={`text-white text-sm sm:text-base md:text-lg break-words whitespace-pre-wrap transition-all duration-200 ease-in-out ${!expanded ? 'line-clamp-3' : ''
               }`}
@@ -63,11 +118,20 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
         <div>
           <button
             onClick={onEdit}
-            className="w-full sm:w-auto px-6 py-2 rounded-lg text-white text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity"
+            className="w-full sm:w-auto px-6 py-2 rounded-lg text-white text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity cursor-pointer"
           >
             Editar
           </button>
         </div>
+        {song?.name && (
+          <ReviewListModal
+            isOpen={isReviewListOpen}
+            onClose={() => setReviewListOpen(false)}
+            name={song.name}
+            artist={song.artist}
+            tipo={song.tipo}
+          />
+        )}
       </div>
     </div>
   );

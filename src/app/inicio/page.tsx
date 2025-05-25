@@ -81,7 +81,7 @@ export default function Inicio() {
   }
 
   if (status === "unauthenticated") {
-    return null; // Evita renderizar hasta que el redirect ocurra
+    return null; 
   }
 
   return (
@@ -105,17 +105,17 @@ export default function Inicio() {
             onClear={clearSearch}
           />
         </div>
-
+{/* 
         {isSearching && (
           <div className="mb-4">
             <button
               onClick={clearSearch}
-              className="px-3 py-1 bg-violet-700 text-sm text-white rounded-full hover:bg-violet-800 transition"
+              className="px-3 py-1 bg-violet-700 text-sm text-white rounded-full hover:bg-violet-800 transition cursor-pointer"
             >
               Volver
             </button>
           </div>
-        )}
+        )} */}
 
         {/* Grid principal tipo masonry */}
         <div>

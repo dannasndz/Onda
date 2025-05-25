@@ -46,7 +46,7 @@ export default function Sidebar() {
 
         <button
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="mt-auto mb-4 text-gray-400 hover:text-white transition"
+          className="mt-auto mb-4 text-gray-400 hover:text-white transition cursor-pointer"
         >
           <LogOut className="w-6 h-6" />
         </button>

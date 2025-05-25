@@ -95,14 +95,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3">
           <button
             onClick={onCancel}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-gray-600 text-sm font-medium text-gray-300 hover:bg-gray-700/50 transition-colors"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-gray-600 text-sm font-medium text-gray-300 hover:bg-gray-700/50 transition-colors cursor-pointer"
           >
             Cancelar
           </button>
           <button
             onClick={handleSubmit}
             disabled={!content.trim() || !title.trim() || rating === 0}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer "
           >
             {existingReview ? 'Actualizar' : 'Publicar'}
           </button>

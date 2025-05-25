@@ -13,7 +13,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ rating, onRate }) => (
         type="button"
         onClick={() => onRate(index)}
         className={`text-7xl md:text-7xl transition-colors 
-                    ${index <= rating ? 'text-[#6C63FF]' : 'text-[#6C63FF] hover:text-[#6b63ff83]'}`}
+                    ${index <= rating ? 'text-[#6C63FF]' : 'text-[#6C63FF] hover:text-[#6b63ff83]'} cursor-pointer`}
         aria-label={`Rate ${index} out of 5 stars`}
       >
         {index <= rating ? '★' : '☆'}
