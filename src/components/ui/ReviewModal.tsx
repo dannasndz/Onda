@@ -7,6 +7,7 @@ import { ReviewReadOnly } from './ReviewReadOnly';
 import { Song, Review } from './types';
 import { RatingProm } from '@/components/ui/ratingProm';
 import ReviewListModal from '@/components/ui/ReviewListModal';
+import { SongInfo } from './SongInfo';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -90,79 +91,38 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
   if (!isOpen || !song) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 flex items-center justify-center p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 bg-black/70 flex items-start justify-center pt-4 pb-4" onClick={onClose}>
       <div
-        className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-4xl p-4 sm:p-6 md:p-8 transform transition-all"
+        className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-4xl mx-4 my-auto transform transition-all max-h-[calc(100vh-2rem)] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-white transition-colors z-10"
-        >
-          <IconClose />
-        </button>
+        <div className="p- sm:p-6 md:p-10">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-white transition-colors z-10"
+          >
+            <IconClose />
+          </button>
 
-        {existingReview && !isEditingReview ? (
-          <ReviewReadOnly review={existingReview} song={song} onEdit={() => setIsEditingReview(true)} />
-        ) : (
-          <>
-            {!existingReview && !isEditingReview && (
-              <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col items-center space-y-4 flex-shrink-0">
-                  <img
-                    src={song.coverUrl || '/no-cover.png'}
-                    alt={`Cover for ${song.name}`}
-                    className="w-full h-auto object-cover rounded-lg shadow-lg aspect-square max-w-xs md:max-w-full"
-                  />
-                </div>
+          {existingReview && !isEditingReview ? (
+            <ReviewReadOnly review={existingReview} song={song} onEdit={() => setIsEditingReview(true)} />
+          ) : (
+            <>
+              {!existingReview && !isEditingReview && (
+                <SongInfo 
+                  song={song}
+                  ranking={ranking}
+                  onCreateReview={() => setIsEditingReview(true)}
+                  onShowReviews={() => setReviewListOpen(true)}
+                />
+              )}
 
-                <div className="w-full md:w-3/5 lg:w-2/3 flex flex-col space-y-6 justify-center text-center md:text-left">
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-1">{song.name}</h2>
-                    <p className="text-lg sm:text-xl md:text-2xl text-gray-400 mb-3">{song.artist}</p>
-                    {ranking && (
-                      <div className="mb-4 text-center md:text-left">
-                        {ranking.promedio !== null ? (
-                          <>
-                            <div className="flex items-center gap-2 justify-center md:justify-start ">
-                              <p className="text-sm text-zinc-300">
-                                La comunidad califica esta obra con:
-                              </p>
-                              <RatingProm value={ranking.promedio} />
-                            </div>
-
-                            <span
-                              className="text-indigo-400 text-sm cursor-pointer underline"
-                              onClick={() => setReviewListOpen(true)}
-                            >
-                              ({ranking.cantidad} reseñas)
-                            </span>
-                          </>
-                        ) : (
-                          <p className="text-sm text-gray-500">{ranking.mensaje}</p>
-                        )}
-                      </div>
-                    )}
-                    <p className="text-gray-500 text-sm mt-5 mb-2">
-                      El mundo necesita saber qué piensas. ¡Escribe tu reseña ya!
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => setIsEditingReview(true)}
-                    className="text-center cursor-pointer px-5 py-2.5 rounded-lg text-lg sm:text-xl md:text-2xl font-medium text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity"
-                  >
-                    Crear reseña
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {(isEditingReview || (!existingReview && isEditingReview)) && (
-              <ReviewForm song={song} existingReview={existingReview} onSubmit={handleSave} onCancel={() => setIsEditingReview(false)} />
-            )}
-          </>
-        )}
+              {(isEditingReview || (!existingReview && isEditingReview)) && (
+                <ReviewForm song={song} existingReview={existingReview} onSubmit={handleSave} onCancel={() => setIsEditingReview(false)} />
+              )}
+            </>
+          )}
+        </div>
 
         {/* MODAL de lista de reseñas */}
         {song?.name && (
