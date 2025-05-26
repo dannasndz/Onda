@@ -19,8 +19,9 @@ export async function GET(req: NextRequest) {
   if (reseñas.length === 0) {
     return new Response(
       JSON.stringify({
-        promedio: null,
-        mensaje: 'Aún no hay calificación para esta obra. ¡Sé el primero en dejar tu opinión!',
+        promedio: 0,
+
+        mensaje: null,
       }),
       { status: 200 }
     );

@@ -21,52 +21,65 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
   const [isEditingReview, setIsEditingReview] = useState(false);
   const [ranking, setRanking] = useState<{ promedio: number | null; cantidad?: number; mensaje?: string } | null>(null);
   const [isReviewListOpen, setReviewListOpen] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false);
 
   useEffect(() => {
     const reset = () => {
       setExistingReview(null);
       setIsEditingReview(false);
+      setRanking(null);
+      setIsLoadingData(false);
     };
 
-    async function fetchReview() {
-      if (!song || !session?.user) return reset();
+    async function fetchData() {
+      if (!song) return reset();
+      
+      setIsLoadingData(true);
+      
       try {
-        const res = await fetch(
-          `/api/review?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
-        );
-        if (!res.ok) return reset();
-        const data = await res.json();
-        if (data?.id) {
-          setExistingReview(data);
-          setIsEditingReview(false);
-        } else {
-          reset();
+        // Ejecutar ambas peticiones en paralelo
+        const [reviewPromise, rankingPromise] = await Promise.allSettled([
+          // Fetch review solo si hay sesión
+          session?.user ? fetch(
+            `/api/review?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
+          ) : Promise.resolve(null),
+          // Fetch ranking siempre
+          fetch(
+            `/api/review/ranking?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
+          )
+        ]);
+
+        // Procesar resultado de review
+        if (reviewPromise.status === 'fulfilled' && reviewPromise.value && session?.user) {
+          const reviewRes = reviewPromise.value;
+          if (reviewRes.ok) {
+            const reviewData = await reviewRes.json();
+            if (reviewData?.id) {
+              setExistingReview(reviewData);
+              setIsEditingReview(false);
+            }
+          }
         }
-      } catch {
-        reset();
+
+        // Procesar resultado de ranking
+        if (rankingPromise.status === 'fulfilled') {
+          const rankingRes = rankingPromise.value;
+          if (rankingRes.ok) {
+            const rankingData = await rankingRes.json();
+            setRanking(rankingData);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoadingData(false);
       }
     }
 
-    async function fetchRanking() {
-      if (!song) return;
-      try {
-        const res = await fetch(
-          `/api/review/ranking?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
-        );
-        if (!res.ok) return setRanking(null);
-        const data = await res.json();
-        setRanking(data);
-      } catch {
-        setRanking(null);
-      }
-    }
-
-    if (isOpen) {
-      fetchReview();
-      fetchRanking();
+    if (isOpen && song) {
+      fetchData();
     } else {
       reset();
-      setRanking(null);
     }
   }, [isOpen, song, session]);
 
@@ -88,6 +101,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
     onClose();
   };
 
+  // Determinar qué vista mostrar
+  const showReviewReadOnly = existingReview && !isEditingReview;
+  const showSongInfo = !existingReview && !isEditingReview;
+  const showReviewForm = isEditingReview;
+
   if (!isOpen || !song) return null;
 
   return (
@@ -96,7 +114,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
         className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-4xl mx-4 my-auto transform transition-all max-h-[calc(100vh-2rem)] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p- sm:p-6 md:p-10">
+        <div className="p-4 sm:p-6 md:p-10">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-white transition-colors z-10"
@@ -104,36 +122,56 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
             <IconClose />
           </button>
 
-          {existingReview && !isEditingReview ? (
-            <ReviewReadOnly review={existingReview} song={song} onEdit={() => setIsEditingReview(true)} />
-          ) : (
-            <>
-              {!existingReview && !isEditingReview && (
-                <SongInfo 
-                  song={song}
-                  ranking={ranking}
-                  onCreateReview={() => setIsEditingReview(true)}
-                  onShowReviews={() => setReviewListOpen(true)}
-                />
-              )}
-
-              {(isEditingReview || (!existingReview && isEditingReview)) && (
-                <ReviewForm song={song} existingReview={existingReview} onSubmit={handleSave} onCancel={() => setIsEditingReview(false)} />
-              )}
-            </>
+          {/* Estado de carga inicial */}
+          {isLoadingData && (
+            <div className="flex items-center justify-center py-12">
+              <div className="flex items-center space-x-3">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400"></div>
+                <span className="text-gray-300 text-lg">Cargando información...</span>
+              </div>
+            </div>
           )}
+
+          {/* ReviewReadOnly - Siempre renderizado, mostrado condicionalmente */}
+          <div className={`${showReviewReadOnly && !isLoadingData ? 'block' : 'hidden'}`}>
+            {existingReview && (
+              <ReviewReadOnly 
+                review={existingReview} 
+                song={song} 
+                onEdit={() => setIsEditingReview(true)} 
+              />
+            )}
+          </div>
+
+          {/* SongInfo - Siempre renderizado, mostrado condicionalmente */}
+          <div className={`${showSongInfo && !isLoadingData ? 'block' : 'hidden'}`}>
+            <SongInfo 
+              song={song}
+              ranking={ranking}
+              onCreateReview={() => setIsEditingReview(true)}
+              onShowReviews={() => setReviewListOpen(true)}
+            />
+          </div>
+
+          {/* ReviewForm - Siempre renderizado, mostrado condicionalmente */}
+          <div className={`${showReviewForm && !isLoadingData ? 'block' : 'hidden'}`}>
+            <ReviewForm 
+              song={song} 
+              existingReview={existingReview} 
+              onSubmit={handleSave} 
+              onCancel={() => setIsEditingReview(false)} 
+            />
+          </div>
         </div>
 
-        {/* MODAL de lista de reseñas */}
-        {song?.name && (
-          <ReviewListModal
-            isOpen={isReviewListOpen}
-            onClose={() => setReviewListOpen(false)}
-            name={song.name}
-            artist={song.artist}
-            tipo={song.tipo}
-          />
-        )}
+        {/* MODAL de lista de reseñas - Siempre renderizado */}
+        <ReviewListModal
+          isOpen={isReviewListOpen}
+          onClose={() => setReviewListOpen(false)}
+          name={song?.name || ''}
+          artist={song?.artist || ''}
+          tipo={song?.tipo || 'otro'}
+        />
       </div>
     </div>
   );

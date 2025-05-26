@@ -16,6 +16,12 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
   const [ranking, setRanking] = useState<{ promedio: number | null; cantidad?: number; mensaje?: string } | null>(null);
   const [isReviewListOpen, setReviewListOpen] = useState(false); 
 
+  // Resetear estados cuando cambia la canción o reseña
+  useEffect(() => {
+    setExpanded(false);
+    setReviewListOpen(false);
+  }, [song, review]);
+
   useEffect(() => {
     async function fetchRanking() {
       if (!song) return;
@@ -32,6 +38,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
     }
 
     if (song) {
+      setRanking(null); // Resetear ranking primero
       fetchRanking();
     } else {
       setRanking(null);
@@ -68,9 +75,23 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
           {review.contenido.length > 200 && (
             <button
               onClick={toggleExpanded}
-              className="text-sm sm:text-base text-cyan-400 mt-2 hover:underline focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded transition"
+              className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors duration-200 flex items-center gap-1"
             >
-              {expanded ? 'Mostrar menos' : 'Mostrar más'}
+              {expanded ? (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                  </svg>
+                  Mostrar menos
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  Mostrar más
+                </>
+              )}
             </button>
           )}
         </div>

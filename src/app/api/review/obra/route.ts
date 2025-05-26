@@ -20,7 +20,7 @@ export async function GET(req: Request) {
     },
     include: {
       user: {
-        select: { nombre: true },
+        select: { nombreUsuario: true },
       },
     },
     orderBy: {
@@ -29,14 +29,14 @@ export async function GET(req: Request) {
   });
   const mapped = reviews.map(r => ({
     id: r.id,
+    titulo: r.titulo,
     estrellas: r.estrellas,
     contenido: r.contenido,
+    createdAt: r.createdAt,
     user: {
-      name: r.user.nombre 
+      name: r.user.nombreUsuario 
     },
   }));
 
   return NextResponse.json(mapped);
-
-  return NextResponse.json(reviews);
 }

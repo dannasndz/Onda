@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StarRating } from './StarRating';
 import { Review, Song } from './types';
 
@@ -16,6 +16,23 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
   const [rating, setRating] = useState(existingReview?.estrellas || 0);
   const [charCount, setCharCount] = useState(existingReview?.contenido.length || 0);
   const [titleCharCount, setTitleCharCount] = useState(existingReview?.titulo.length || 0);
+
+  // Actualizar campos cuando existingReview cambie
+  useEffect(() => {
+    if (existingReview) {
+      setTitle(existingReview.titulo || '');
+      setContent(existingReview.contenido || '');
+      setRating(existingReview.estrellas || 0);
+      setCharCount(existingReview.contenido?.length || 0);
+      setTitleCharCount(existingReview.titulo?.length || 0);
+    } else {
+      setTitle('');
+      setContent('');
+      setRating(0);
+      setCharCount(0);
+      setTitleCharCount(0);
+    }
+  }, [existingReview]);
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
@@ -42,7 +59,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
       {/* Imagen + estrellas */}
       <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col items-center space-y-4 flex-shrink-0">
         <img
-          src={song.coverUrl || '/no-cover.png'}
+          src={song.coverUrl || '/placeholder-music.png'}
           alt={`Cover for ${song.name}`}
           className="w-full max-w-[250px] sm:max-w-xs md:max-w-full aspect-square object-cover rounded-lg shadow-lg"
         />

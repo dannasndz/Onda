@@ -43,7 +43,7 @@ export const SongInfo: React.FC<SongInfoProps> = ({
           )}
           
           {ranking && (
-            <div className="mb-6 ">
+            <div className="mb-6">
               {ranking.promedio !== null ? (
                 <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
                   <div className="flex flex-col space-y-3">
@@ -59,7 +59,7 @@ export const SongInfo: React.FC<SongInfoProps> = ({
                       </div>
                     </div>
                     
-                    {onShowReviews && (
+                    {onShowReviews && ranking.cantidad && ranking.cantidad > 0 && (
                       <button
                         onClick={onShowReviews}
                         className="group flex items-center gap-2 justify-center md:justify-start text-indigo-400 hover:text-indigo-300 transition-colors duration-200"
@@ -84,6 +84,14 @@ export const SongInfo: React.FC<SongInfoProps> = ({
                         </svg>
                       </button>
                     )}
+
+                    {/* {ranking.cantidad === 0 && (
+                      <div className="text-center md:text-left">
+                        <p className="text-sm text-gray-400">
+                          {ranking.cantidad} calificaciones
+                        </p>
+                      </div>
+                    )} */}
                   </div>
                 </div>
               ) : (
@@ -100,9 +108,9 @@ export const SongInfo: React.FC<SongInfoProps> = ({
           )}
           
           {showMotivationalMessage && (
-            <div className="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 backdrop-blur-sm rounded-lg p-4 border border-purple-600/30">
+            <div className=" bg-gray-600/40  backdrop-blur-sm rounded-lg p-4 border border-black/5">
               <p className="text-slate-300 text-sm leading-relaxed">
-                💭 <span className="font-medium">¡Tu opinión importa!</span> Comparte tu experiencia con esta obra y ayuda a otros a descubrir música increíble.
+                 <span className="font-medium">¡Tu opinión importa!</span> Comparte tu experiencia y ayuda a otros a descubrir música increíble.
               </p>
             </div>
           )}
@@ -114,15 +122,12 @@ export const SongInfo: React.FC<SongInfoProps> = ({
         {showCreateButton && onCreateReview && (
           <button
             onClick={onCreateReview}
-            className="group relative overflow-hidden text-center cursor-pointer px-6 py-3 rounded-xl text-lg sm:text-xl md:text-2xl font-semibold text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+            className="group relative overflow-hidden text-center cursor-pointer px-6 py-3 rounded-xl text-lg sm:text-xl md:text-2xl font-semibold text-white bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 hover:shadow-lg hover:shadow-black/20"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
-              <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
               Crear reseña
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <div className="absolute bg-gradient-to-r from-white/0 via-white/80 to-white/0 "></div>
           </button>
         )}
       </div>
