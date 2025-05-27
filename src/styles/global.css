@@ -133,3 +133,47 @@
   }
 
 }
+
+@layer utilities {
+  /* Utilidades para manejo de texto largo y word-break */
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  .text-safe {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+  }
+  
+  .text-force-break {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  
+  /* Contenedor flexible que maneja overflow */
+  .review-container {
+    min-width: 0;
+    flex: 1;
+    overflow-wrap: anywhere;
+  }
+  
+  /* Específico para las reseñas */
+  .review-content {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  .review-content * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+}

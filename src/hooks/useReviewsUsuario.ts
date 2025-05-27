@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Review, Song } from '@/components/ui/types';
 
 interface ResenasConCanciones {
@@ -10,27 +10,32 @@ export function useResenasUsuario() {
   const [data, setData] = useState<ResenasConCanciones>({ reviews: [], songs: {} });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchResenas = async () => {
-      try {
-        const res = await fetch('/api/review/me');
-        if (!res.ok) throw new Error('Error al obtener reseñas');
+  const fetchResenas = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/review/me');
+      if (!res.ok) throw new Error('Error al obtener reseñas');
 
-        const json = await res.json();
+      const json = await res.json();
 
-        const reviews = Array.isArray(json) ? json : json.reviews ?? [];
-        const songs = json.songs ?? {};
+      const reviews = Array.isArray(json) ? json : json.reviews ?? [];
+      const songs = json.songs ?? {};
 
-        setData({ reviews, songs });
-      } catch (err) {
-        console.error('Error cargando reseñas del usuario:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchResenas();
+      setData({ reviews, songs });
+    } catch (err) {
+      console.error('Error cargando reseñas del usuario:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { ...data, loading };
+  useEffect(() => {
+    fetchResenas();
+  }, [fetchResenas]);
+
+  const refreshReviews = useCallback(() => {
+    return fetchResenas();
+  }, [fetchResenas]);
+
+  return { ...data, loading, refreshReviews };
 }

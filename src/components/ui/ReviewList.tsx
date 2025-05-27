@@ -1,41 +1,63 @@
 import React from 'react';
-import { Review, Song } from './types';
 import { ReviewReadOnly } from './ContenidoResenado';
+import { Review, Song } from './types';
 
 interface ReviewsListProps {
   reviews: Review[];
-  songs: Record<string, Song>;
+  songs: Song[];
   onEditReview: (reviewId: string) => void;
+  onDeleteReview?: (reviewId: string) => Promise<void>;
 }
 
-export const ReviewsList: React.FC<ReviewsListProps> = ({ reviews, songs, onEditReview }) => {
+export const ReviewsList: React.FC<ReviewsListProps> = ({
+  reviews,
+  songs,
+  onEditReview,
+  onDeleteReview
+}) => {
   if (reviews.length === 0) {
     return (
-      <p className="text-gray-400 text-center py-10 px-4 sm:px-6 md:px-8">
-        Nada por aquí todavía... ¡Hazle un favor al mundo y comparte tu sabiduría sonora!
-      </p>
+      <div className="text-center py-8 sm:py-12 lg:py-16">
+        <div className="relative max-w-md mx-auto">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
+          <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-6 sm:p-8">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-gray-400 text-2xl sm:text-3xl">📝</span>
+            </div>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-300 mb-2">
+              No hay reseñas aún
+            </h3>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Cuando escribas tu primera reseña, aparecerá aquí.
+            </p>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 mb-10 px-4 sm:px-6 md:px-8 w-full max-w-6xl mx-auto">
+    <div className="space-y-4 sm:space-y-6 review-container">
       {reviews.map((review) => {
-        const song = {
-          name: String(review.name),
-          artist: String(review.artist),
+        // Crear objeto Song a partir de los datos de la review
+        const song: Song = {
+          name: String(review.name || ''),
+          artist: String(review.artist || ''),
           album: String(review.album || ''),
           coverUrl: String(review.coverUrl || ''),
           genre: String(review.genre || ''),
-          tipo: review.tipo as 'cancion' | 'album' | 'otro',
+          tipo: (review.tipo as 'cancion' | 'album' | 'otro') || 'cancion',
         };
 
         return (
-          <ReviewReadOnly
-            key={review.id}
-            review={review}
-            song={song}
-            onEdit={() => onEditReview(review.id)}
-          />
+          <div key={review.id} className="review-content">
+            <ReviewReadOnly
+              review={review}
+              song={song}
+              onEdit={() => onEditReview(review.id)}
+              onDelete={onDeleteReview ? (reviewId) => onDeleteReview(reviewId) : undefined}
+            />
+          </div>
         );
       })}
     </div>
