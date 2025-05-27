@@ -1,21 +1,70 @@
 import type { AlbumInfo } from '@/types/lastfm';
+import { Disc3, User, Crown, TrendingUp, Music } from 'lucide-react';
 
 interface AlbumCardProps {
     album: AlbumInfo;
 }
 
 export default function AlbumCard({ album }: AlbumCardProps) {
+    const getRankColor = (rank: number) => {
+        if (rank <= 3) return 'from-yellow-400 to-orange-500';
+        if (rank <= 10) return 'from-purple-400 to-pink-500';
+        return 'from-cyan-400 to-blue-500';
+    };
+
+    const getRankIcon = (rank: number) => {
+        if (rank <= 3) return <Crown className="w-4 h-4" />;
+        return <TrendingUp className="w-4 h-4" />;
+    };
+
     return (
-        <div className="bg-[#1A1D2E] shadow-[0_0px_8px_rgba(72,80,111,0.50)] p-5 rounded-xl flex flex-col items-center text-center ">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden bg-[#0D0D19] mb-4 flex items-center justify-center">
-                {album.imageUrl ? (
-                    <img src={album.imageUrl} alt={album.name} className="w-full h-full object-cover" />
-                ) : (
-                    <span className="text-gray-500 text-4xl">?</span>
-                )}
+        <div className="group relative">
+            {/* Main card */}
+            <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-purple-400/40 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
+                {/* Rank badge */}
+                <div className="absolute -top-2 -right-2 z-10">
+                    <div className={`bg-gradient-to-r ${getRankColor(album.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-md`}>
+                        {getRankIcon(album.rank)}
+                        <span className="text-white text-xs font-bold">#{album.rank}</span>
+                    </div>
+                </div>
+
+                {/* Album cover */}
+                <div className="relative mb-4">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-[#2a2d4a] to-[#1A1D2E] border-2 border-[#2a2d4a]/50 group-hover:border-purple-400/30 transition-colors duration-200 shadow-md">
+                        {album.imageUrl ? (
+                            <img 
+                                src={album.imageUrl} 
+                                alt={album.name} 
+                                className="w-full h-full object-cover" 
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <Disc3 className="w-8 h-8 sm:w-10 sm:h-10 text-gray-500 group-hover:text-purple-400 transition-colors duration-200" />
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Album info */}
+                <div className="text-center space-y-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 line-clamp-2" title={album.name}>
+                        {album.name}
+                    </h3>
+                    
+                    <div className="flex items-center justify-center gap-2 text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-200">
+                        <User className="w-4 h-4" />
+                        <span className="line-clamp-1" title={album.artistName}>
+                            {album.artistName}
+                        </span>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                        <Music className="w-3 h-3" />
+                        <span>Album</span>
+                    </div>
+                </div>
             </div>
-            <h3 className="text-xl font-semibold mb-1 truncate w-full" title={album.name}>{album.name}</h3>
-            <p className="text-sm text-gray-400 mb-2 truncate w-full" title={album.artistName}>{album.artistName}</p>
         </div>
     );
 }

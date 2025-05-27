@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server';
-import type { TopArtistasResponse } from '@/types/lastfm'; // Ajusta la ruta si es necesario
+import type { TopArtistasResponse } from '@/types/lastfm'; 
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const genero = searchParams.get('genero');
+    const limit = searchParams.get('limit') || '3'; 
+    const page = searchParams.get('page') || '1'; 
     const apiKey = process.env.LASTFM_API_KEY;
+    
     if (!genero) {
         return NextResponse.json({ error: 'Género no especificado' }, { status: 400 });
     }
@@ -13,9 +16,9 @@ export async function GET(request: Request) {
     }
 
     try {
-        const lastFmUrl = `http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=${encodeURIComponent(genero)}&api_key=${apiKey}&format=json&limit=3`;
+        const lastFmUrl = `http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=${encodeURIComponent(genero)}&api_key=${apiKey}&format=json&limit=${limit}&page=${page}`;
 
-        const response = await fetch(lastFmUrl, { cache: 'no-store' }); // Puedes ajustar la caché según necesites
+        const response = await fetch(lastFmUrl, { cache: 'no-store' }); 
 
         if (!response.ok) {
             console.error('Error Last.fm (Top Artists):', response.status, await response.text());
@@ -27,7 +30,6 @@ export async function GET(request: Request) {
         if (data.topartists && data.topartists.artist) {
             return NextResponse.json(data.topartists.artist);
         } else {
-            // Esto puede pasar si el tag no existe o no tiene artistas
             console.warn('No se encontraron artistas para el género:', genero, data);
             return NextResponse.json([]);
         }

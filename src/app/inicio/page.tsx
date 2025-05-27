@@ -85,18 +85,14 @@ export default function Inicio() {
   }
 
   return (
-    <div className="flex min-h-screen  text-white">
-      <nav
-        className="fixed top-0 left-0 h-screen w-64  overflow-y-auto z-20"
-      >
+    <div className="flex min-h-screen text-white">
+      {/* Navbar - Hidden on mobile, visible on desktop */}
+      <nav className="hidden lg:block fixed top-0 left-0 h-screen w-20 overflow-y-auto z-20">
         <Navbar />
       </nav>
 
       {/* Contenedor del contenido principal */}
-      <main className="  flex-1 flex flex-col pt-6 px-4 sm:px-6 max-w-full
-      overflow-y-auto min-h-screen
-      md:ml-25
-      mt-16 md:mt-0">
+      <main className="flex-1 flex flex-col pt-6 px-4 sm:px-6 max-w-full overflow-y-auto min-h-screen lg:ml-20 mt-16 lg:mt-0 pb-20 lg:pb-6">
         {/* Search bar */}
         <div className="mb-6">
           <SearchBar
@@ -143,6 +139,13 @@ export default function Inicio() {
         {/* Loader infinito */}
         <Loader loaderRef={loaderRef} hasMore={hasMore} />
       </main>
+
+      {/* Mobile navbar - Show on small screens */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#1A1D2E]/95 backdrop-blur-sm border-t border-[#2a2d4a]/50">
+        <div className="px-4 py-2">
+          <Navbar />
+        </div>
+      </div>
     </div>
 
   );

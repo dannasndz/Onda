@@ -4,6 +4,8 @@ import type { TopAlbumesResponse } from '@/types/lastfm'; // Ajusta la ruta si e
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const genero = searchParams.get('genero');
+    const limit = searchParams.get('limit') || '3'; // Default a 3
+    const page = searchParams.get('page') || '1'; // Default a página 1
     const apiKey = process.env.LASTFM_API_KEY;
 
     if (!genero) {
@@ -14,7 +16,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const lastFmUrl = `https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=${encodeURIComponent(genero)}&api_key=${apiKey}&format=json&limit=3`;
+        const lastFmUrl = `https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=${encodeURIComponent(genero)}&api_key=${apiKey}&format=json&limit=${limit}&page=${page}`;
         const response = await fetch(lastFmUrl, { cache: 'no-store' }); // Puedes ajustar la caché
 
         if (!response.ok) {
