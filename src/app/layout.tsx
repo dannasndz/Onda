@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/ONDAS.png"
+            src="/ONDASI.png"
             alt="ondaSup"
             fill
             style={{ objectFit: 'cover' }}

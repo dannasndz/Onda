@@ -97,8 +97,8 @@ export default function PerfilUsuario() {
         throw new Error(error.message || 'Error al eliminar la reseña');
       }
     } catch (error) {
-      console.error('Error eliminando reseña:', error);
-      alert('Error al eliminar la reseña. Intenta de nuevo.');
+      // console.error('Error eliminando reseña:', error);
+      // alert('Error al eliminar la reseña. Intenta de nuevo.');
       throw error;
     }
   };
