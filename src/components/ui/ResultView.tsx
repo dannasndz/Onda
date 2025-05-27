@@ -33,11 +33,11 @@ export default function ResultsView({
 
             <div className="relative z-10 flex-shrink-0 w-full p-4 sm:p-6 lg:p-8">
                 <div className="flex items-center justify-between max-w-7xl mx-auto">
-                    <button 
-                        onClick={onVolver} 
-                        className="group bg-gradient-to-r from-[#1A1D2E]/80 to-[#2a2d4a]/80 backdrop-blur-sm border border-[#2a2d4a]/50 text-white hover:from-cyan-500/20 hover:to-purple-500/20 hover:border-cyan-400/50 transition-all duration-300 flex items-center gap-3 px-4 py-3 sm:px-6 sm:py-3 rounded-2xl text-sm sm:text-base font-medium shadow-lg hover:shadow-cyan-500/20 cursor-pointer"
+                    <button
+                        onClick={onVolver}
+                        className="group bg-[#1A1D2E] border border-[#2a2d4a]/50 text-white hover:bg-[#2a2d4a] hover:border-black/40 transition-all duration-300 flex items-center gap-3 px-4 py-3 sm:px-6 sm:py-3 rounded-2xl text-sm sm:text-base font-medium shadow-md hover:shadow-cyan-500/10 cursor-pointer"
                     >
-                        <ArrowLeft size={20} className="group-hover:text-cyan-400 transition-colors duration-300" /> 
+                        <ArrowLeft size={20} />
                         <span className="hidden sm:inline">Volver a géneros</span>
                         <span className="sm:hidden">Volver</span>
                     </button>
@@ -48,7 +48,7 @@ export default function ResultsView({
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-8 lg:mb-12">
                         <div className="relative inline-block">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/15 to-purple-500/15 rounded-3xl blur-2xl"></div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/15 to-purple-500/15 rounded-3xl blur-md"></div>
                             <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-6 sm:p-8 lg:p-10">
                                 <div className="flex items-center justify-center gap-3 mb-4">
                                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white bg-clip-text">
@@ -74,9 +74,6 @@ export default function ResultsView({
                                 <div className="relative bg-[#1A1D2E]/80 backdrop-blur-sm border border-[#2a2d4a]/50 rounded-full p-8">
                                     <div className="flex items-center justify-center space-x-4">
                                         <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-400/30 border-t-cyan-400"></div>
-                                        <div className="animate-pulse">
-                                            <Play className="w-8 h-8 text-purple-400" />
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +83,7 @@ export default function ResultsView({
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Error */}
                     {error && (
                         <div className="flex items-center justify-center py-16">
@@ -98,7 +95,7 @@ export default function ResultsView({
                                     </div>
                                     <h3 className="text-xl font-semibold text-red-400 mb-2">Error al cargar</h3>
                                     <p className="text-gray-300 text-sm leading-relaxed">{error}</p>
-                                    <button 
+                                    <button
                                         onClick={onVolver}
                                         className="mt-6 px-6 py-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 hover:from-red-500/30 hover:to-orange-500/30 border border-red-500/30 text-red-400 rounded-xl transition-all duration-200 text-sm font-medium"
                                     >
@@ -116,11 +113,11 @@ export default function ResultsView({
                             {topArtistas.length > 0 && (
                                 <section className="animate-fade-in">
                                     <div className="relative mb-8">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10 rounded-3xl "></div>
                                         <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-6 lg:p-8">
                                             <div className="flex items-center justify-between flex-wrap gap-4">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center">
+                                                    <div className="w-12 h-12  rounded-2xl flex items-center justify-center">
                                                         <Users className="w-6 h-6 text-white" />
                                                     </div>
                                                     <div>
@@ -132,16 +129,16 @@ export default function ResultsView({
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 rounded-full">
-                                                    <span className="text-cyan-400 text-sm font-medium">{topArtistas.length} artistas</span>
+                                                <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/10 rounded-full">
+                                                    <span className="text-gray-400 text-sm font-medium">{topArtistas.length} artistas</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
                                         {topArtistas.map((artista, index) => (
-                                            <div 
+                                            <div
                                                 key={`artist-${artista.name}-${artista.rank}-${index}-${artista.mbid || 'no-mbid'}`}
                                                 className="animate-slide-up"
                                                 style={{ animationDelay: `${index * 100}ms` }}
@@ -159,11 +156,11 @@ export default function ResultsView({
                                                 <button
                                                     onClick={() => onCargarMas('artistas')}
                                                     disabled={cargandoMas !== null}
-                                                    className="group relative cursor-pointer bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-400/30 hover:border-cyan-400/50 text-cyan-400 hover:text-white px-8 py-4 rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 font-medium"
+                                                    className="group relative cursor-pointer bg-cyan-950/30 hover:bg-cyan-950/50 border border-cyan-400/30 hover:border-cyan-400 text-gray-400 hover:text-white px-6 py-3 rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 font-medium"
                                                 >
                                                     {cargandoMas === 'artistas' ? (
                                                         <>
-                                                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-cyan-400/30 border-t-cyan-400"></div>
+                                                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-cyan-400/20 border-t-cyan-400"></div>
                                                             <span>Cargando más artistas...</span>
                                                         </>
                                                     ) : (
@@ -173,6 +170,7 @@ export default function ResultsView({
                                                         </>
                                                     )}
                                                 </button>
+
                                             </div>
                                         </div>
                                     )}
@@ -183,11 +181,11 @@ export default function ResultsView({
                             {topAlbumes.length > 0 && (
                                 <section className="animate-fade-in">
                                     <div className="relative mb-8">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-red-500/5 rounded-3xl blur-2xl"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-red-500/5 rounded-3xl"></div>
                                         <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-6 lg:p-8">
                                             <div className="flex items-center justify-between flex-wrap gap-4">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                                                    <div className="w-12 h-12  rounded-2xl flex items-center justify-center">
                                                         <Disc3 className="w-6 h-6 text-white" />
                                                     </div>
                                                     <div>
@@ -199,16 +197,16 @@ export default function ResultsView({
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full">
-                                                    <span className="text-purple-400 text-sm font-medium">{topAlbumes.length} álbumes</span>
+                                                <div className="flex items-center gap-2 px-4 py-2 bg-purple-500/10 rounded-full">
+                                                    <span className="text-gray-400 text-sm font-medium">{topAlbumes.length} álbumes</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
                                         {topAlbumes.map((album, index) => (
-                                            <div 
+                                            <div
                                                 key={`album-${album.name}-${album.artistName}-${album.rank}-${index}-${album.mbid || 'no-mbid'}`}
                                                 className="animate-slide-up"
                                                 style={{ animationDelay: `${index * 100}ms` }}
@@ -226,11 +224,11 @@ export default function ResultsView({
                                                 <button
                                                     onClick={() => onCargarMas('albumes')}
                                                     disabled={cargandoMas !== null}
-                                                    className="cursor-pointer group relative bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 border border-purple-400/30 hover:border-purple-400/50 text-purple-400 hover:text-white px-8 py-4 rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 font-medium"
+                                                    className="cursor-pointer group relative bg-purple-950/30 hover:bg-purple-950/50 border border-purple-400/30 hover:border-purple-400 text-gray-400 hover:text-white px-6 py-3 rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 font-medium"
                                                 >
                                                     {cargandoMas === 'albumes' ? (
                                                         <>
-                                                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-purple-400/30 border-t-purple-400"></div>
+                                                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-purple-400/20 border-t-purple-400"></div>
                                                             <span>Cargando más álbumes...</span>
                                                         </>
                                                     ) : (
@@ -240,6 +238,7 @@ export default function ResultsView({
                                                         </>
                                                     )}
                                                 </button>
+
                                             </div>
                                         </div>
                                     )}
@@ -265,15 +264,15 @@ export default function ResultsView({
                             )}
                         </div>
                     )}
-                    
+
                     {/* Bottom action button */}
                     {!cargando && (
                         <div className="w-full flex justify-center mt-12 lg:mt-16 mb-8 lg:mb-12">
                             <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 to-purple-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                                <button 
-                                    onClick={onVolver} 
-                                    className="cursor-pointer relative bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white px-8 sm:px-12 lg:px-16 py-4 sm:py-5 rounded-2xl text-base sm:text-lg lg:text-xl font-bold transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 flex items-center gap-3"
+                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 to-purple-500/30 rounded-2xl "></div>
+                                <button
+                                    onClick={onVolver}
+                                    className="cursor-pointer relative bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 hover:shadow-lg hover:shadow-black/20 text-white px-8 sm:px-12 lg:px-16 py-4 sm:py-5 rounded-2xl text-base sm:text-lg lg:text-xl font-bold  flex items-center gap-3"
                                 >
                                     <ArrowLeft size={20} />
                                     <span>Explorar otro género</span>

@@ -20,10 +20,10 @@ export default function ArtistCard({ artista }: ArtistCardProps) {
     return (
         <div className="group relative">
             {/* Main card */}
-            <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-cyan-400/40 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
+            <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-cyan-400/10 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
                 {/* Rank badge */}
                 <div className="absolute -top-2 -right-2 z-10">
-                    <div className={`bg-gradient-to-r ${getRankColor(artista.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-md`}>
+                    <div className={`bg-gradient-to-r ${getRankColor(artista.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5`}>
                         {getRankIcon(artista.rank)}
                         <span className="text-white text-xs font-bold">#{artista.rank}</span>
                     </div>
@@ -40,7 +40,7 @@ export default function ArtistCard({ artista }: ArtistCardProps) {
                             />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                                <User className="w-8 h-8 sm:w-10 sm:h-10 text-gray-500 group-hover:text-cyan-400 transition-colors duration-200" />
+                                <User className="w-8 h-8 sm:w-10 sm:h-10 text-gray-500 group-hover:text-cyan-00 transition-colors duration-200" />
                             </div>
                         )}
                     </div>
@@ -48,7 +48,7 @@ export default function ArtistCard({ artista }: ArtistCardProps) {
 
                 {/* Artist info */}
                 <div className="text-center space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-200 line-clamp-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-gray-400 transition-colors duration-200 line-clamp-2">
                         {artista.name}
                     </h3>
                     

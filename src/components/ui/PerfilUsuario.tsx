@@ -24,7 +24,7 @@ export default function PerfilUsuario() {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-sm"></div>
           <div className="relative bg-[#1A1D2E]/80 backdrop-blur-sm border border-[#2a2d4a]/50 rounded-full p-8">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-400/30 border-t-cyan-400"></div>
           </div>
@@ -38,7 +38,7 @@ export default function PerfilUsuario() {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-3xl blur-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-3xl blur-sm"></div>
           <div className="relative bg-[#1A1D2E]/80 backdrop-blur-sm border border-red-500/30 rounded-3xl p-8 text-center">
             <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-white text-2xl font-bold">!</span>
@@ -178,7 +178,7 @@ export default function PerfilUsuario() {
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 sm:gap-6 lg:gap-8">
                 {/* Avatar */}
                 <div className="relative group flex-shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                  <div className="absolute inset-0  rounded-full"></div>
                   <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-[#2a2d4a] to-[#1A1D2E] border-4 border-[#2a2d4a]/50 flex items-center justify-center shadow-2xl">
                     <User className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-gray-400" />
                   </div>
@@ -244,7 +244,7 @@ export default function PerfilUsuario() {
           {/* Sección de reseñas */}
           <div className="mb-6 sm:mb-8 lg:mb-12">
             <div className="relative mb-4 sm:mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl sm:rounded-3xl blur-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-2xl sm:rounded-3xl blur-sm"></div>
               <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                   <div className="flex items-center gap-3 sm:gap-4">

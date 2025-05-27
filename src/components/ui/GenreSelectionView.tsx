@@ -135,8 +135,8 @@ export default function GenreSelectionView({
                                                 onClick={() => onSelectGenre(genero.nombre)}
                                                 className={`relative flex-shrink-0 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer ${
                                                     generoSeleccionado === genero.nombre
-                                                        ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white shadow-[0_0px_20px_rgba(139,69,255,0.40)] ring-2 ring-white/20"
-                                                        : "bg-[#232736]/80 border border-[#2e3354]/50 text-gray-300 hover:border-cyan-400/50 hover:text-white hover:bg-[#2a2f47]/80 hover:shadow-[0_0px_15px_rgba(6,182,212,0.20)]"
+                                                        ? "bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white shadow-[0_0px_20px_rgba(139,69,255,0.40)] ring-2 ring-white/20"
+                                                        : "bg-[#232736]/80 border border-[#2e3354]/50 text-gray-300 hover:border-white  hover:text-white hover:bg-[#2a2f47]/80 hover:shadow-[0_0px_15px_rgba(6,182,212,0.20)]"
                                                 }`}
                                             >
                                                 <span className="relative z-10 whitespace-nowrap">
@@ -189,7 +189,7 @@ export default function GenreSelectionView({
                             disabled={!generoSeleccionado}
                             className={`relative px-8 sm:px-12 py-4 sm:py-3 rounded-2xl text-base sm:text-lg font-bold cursor-pointer ${
                                 generoSeleccionado
-                                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white hover:brightness-110 shadow-black"
+                                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 hover:shadow-lg hover:shadow-black/20  text-white hover:brightness-110 shadow-black"
                                     : "bg-gray-600/50 text-gray-400 cursor-not-allowed"
                             }`}
                         >

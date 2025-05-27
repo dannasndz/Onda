@@ -21,9 +21,6 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
         <div className="relative max-w-md mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
           <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-6 sm:p-8">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-gray-400 text-2xl sm:text-3xl">📝</span>
-            </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-300 mb-2">
               No hay reseñas aún
             </h3>

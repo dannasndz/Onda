@@ -20,10 +20,10 @@ export default function AlbumCard({ album }: AlbumCardProps) {
     return (
         <div className="group relative">
             {/* Main card */}
-            <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-purple-400/40 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
+            <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-purple-400/10 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
                 {/* Rank badge */}
                 <div className="absolute -top-2 -right-2 z-10">
-                    <div className={`bg-gradient-to-r ${getRankColor(album.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5 shadow-md`}>
+                    <div className={`bg-gradient-to-r ${getRankColor(album.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5`}>
                         {getRankIcon(album.rank)}
                         <span className="text-white text-xs font-bold">#{album.rank}</span>
                     </div>
@@ -31,7 +31,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 
                 {/* Album cover */}
                 <div className="relative mb-4">
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-[#2a2d4a] to-[#1A1D2E] border-2 border-[#2a2d4a]/50 group-hover:border-purple-400/30 transition-colors duration-200 shadow-md">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-[#2a2d4a] to-[#1A1D2E] border-2 border-[#2a2d4a]/50 group-hover:border-purple-400/30 transition-colors duration-200">
                         {album.imageUrl ? (
                             <img 
                                 src={album.imageUrl} 
@@ -48,7 +48,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
 
                 {/* Album info */}
                 <div className="text-center space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-200 line-clamp-2" title={album.name}>
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-200 transition-colors duration-200 line-clamp-2" title={album.name}>
                         {album.name}
                     </h3>
                     
