@@ -18,7 +18,6 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   const [key, setKey] = React.useState(0);
 
   useEffect(() => {
-    // Si la canción cambió, forzar re-render del modal
     if (song && previousSongRef.current && 
         (song.name !== previousSongRef.current.name || 
          song.artist !== previousSongRef.current.artist ||
@@ -29,7 +28,6 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   }, [song]);
 
   useEffect(() => {
-    // Resetear key cuando se cierra el modal
     if (!isOpen) {
       setKey(prev => prev + 1);
     }

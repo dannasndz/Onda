@@ -2,9 +2,19 @@ import '../styles/global.css';
 import { Providers } from './providers';
 import Image from "next/image"
 
-
 export const metadata = {
   title: 'Onda',
+  description: 'Tu plataforma musical',
+  icons: {
+    icon: [
+      {
+        url: '/logo.svg',
+        type: 'image/svg+xml',
+      }
+    ],
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,6 +36,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
-
 }
 

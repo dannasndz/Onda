@@ -37,13 +37,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
       setIsLoadingData(true);
       
       try {
-        // Ejecutar ambas peticiones en paralelo
         const [reviewPromise, rankingPromise] = await Promise.allSettled([
           // Fetch review solo si hay sesión
           session?.user ? fetch(
             `/api/review?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
           ) : Promise.resolve(null),
-          // Fetch ranking siempre
           fetch(
             `/api/review/ranking?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
           )
@@ -101,7 +99,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
     onClose();
   };
 
-  // Determinar qué vista mostrar
   const showReviewReadOnly = existingReview && !isEditingReview;
   const showSongInfo = !existingReview && !isEditingReview;
   const showReviewForm = isEditingReview;
@@ -132,7 +129,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
             </div>
           )}
 
-          {/* ReviewReadOnly - Siempre renderizado, mostrado condicionalmente */}
           <div className={`${showReviewReadOnly && !isLoadingData ? 'block' : 'hidden'}`}>
             {existingReview && (
               <ReviewReadOnly 
@@ -143,7 +139,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
             )}
           </div>
 
-          {/* SongInfo - Siempre renderizado, mostrado condicionalmente */}
           <div className={`${showSongInfo && !isLoadingData ? 'block' : 'hidden'}`}>
             <SongInfo 
               song={song}
@@ -153,7 +148,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
             />
           </div>
 
-          {/* ReviewForm - Siempre renderizado, mostrado condicionalmente */}
           <div className={`${showReviewForm && !isLoadingData ? 'block' : 'hidden'}`}>
             <ReviewForm 
               song={song} 
@@ -164,7 +158,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
           </div>
         </div>
 
-        {/* MODAL de lista de reseñas - Siempre renderizado */}
+        {/* MODAL de lista de reseñas -}}} */}
         <ReviewListModal
           isOpen={isReviewListOpen}
           onClose={() => setReviewListOpen(false)}

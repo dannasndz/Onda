@@ -29,13 +29,13 @@ export default function Home() {
       <div className="flex flex-col sm:flex-row items-center justify-center mt-12 gap-4">
         <button
           onClick={() => router.push('/auth/registro')}
-          className="w-full sm:w-auto px-8 sm:px-10 bg-gradient-to-r from-cyan-500 to-purple-500 text-white text-lg py-2 rounded-md font-medium hover:opacity-90 transition"
+          className="cursor-pointer w-full sm:w-auto px-8 sm:px-10 bg-gradient-to-r from-cyan-500 to-purple-500 text-white text-lg py-2 rounded-md font-medium hover:opacity-90 transition"
         >
           Registrarme
         </button>
         <button
           onClick={() => router.push('/auth/login')}
-          className="w-full sm:w-auto px-8 sm:px-10 bg-[#161926] border border-[#ffffff3d] text-white text-lg py-2 rounded-md font-medium hover:opacity-90 transition"
+          className="cursor-pointer w-full sm:w-auto px-8 sm:px-10 bg-[#161926] border border-[#ffffff3d] text-white text-lg py-2 rounded-md font-medium hover:opacity-90 transition"
         >
           Iniciar sesión
         </button>

@@ -288,12 +288,12 @@ export default function PerfilUsuario() {
 
       {/* Modal de edición de reseña */}
       {isEditModalOpen && reviewToEdit && songToEdit && (
-        <div className="fixed inset-0 z-50 bg-black/70 flex items-start justify-center pt-4 pb-4" onClick={handleCloseEditModal}>
+        <div className="modal-no-scroll fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" onClick={handleCloseEditModal}>
           <div
-            className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-4xl mx-4 my-auto transform transition-all max-h-[calc(100vh-2rem)] overflow-y-auto"
+            className="modal-no-scroll relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-4xl max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 sm:p-6 md:p-10">
+            <div className="modal-no-scroll p-4 sm:p-6 md:p-10 h-full">
               <button
                 onClick={handleCloseEditModal}
                 className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-white transition-colors z-10"

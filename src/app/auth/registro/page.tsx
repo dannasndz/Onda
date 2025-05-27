@@ -164,11 +164,11 @@ export default function ProfileForm() {
           <Button
             type="submit"
             size="lg"
-            className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
+            className="cursor-pointer bg-gradient-to-r from-cyan-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:opacity-90 transition"
           >
             Registrarse
           </Button>
-          <div className="text-center text-sm text-gray-400">
+          <div className="text-center text-sm text-gray-400 cursor-pointer">
             ¿Ya tienes una cuenta?{" "}
             <Link href="/auth/login" className="text-violet-400 hover:underline">
               Inicia sesión

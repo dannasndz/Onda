@@ -28,26 +28,46 @@ export function useRecomendaciones(status: string) {
   }, [status, page, isSearching]);
 
   useEffect(() => {
-    if (isSearching && searchPage > 1) {
-      handleSearch(searchQuery, searchPage);
+    if (isSearching && searchPage > 1 && searchQuery) {
+      loadMoreSearchResults();
     }
-  }, [searchPage]);
+  }, [searchPage, isSearching]);
 
   useEffect(() => {
-    if (!hasMore || isLoading) return;
+    if (!hasMore || isLoading) {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      return;
+    }
+
     if (observer.current) observer.current.disconnect();
 
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        if (isSearching) {
-          setSearchPage((prev) => prev + 1);
-        } else {
-          setPage((prev) => prev + 1);
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+          if (isSearching) {
+            setSearchPage((prev) => prev + 1);
+          } else {
+            setPage((prev) => prev + 1);
+          }
         }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
       }
-    });
+    );
 
-    if (loaderRef.current) observer.current.observe(loaderRef.current);
+    if (loaderRef.current) {
+      observer.current.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
   }, [hasMore, isLoading, isSearching]);
 
   const fetchRecomendaciones = async (page: number) => {
@@ -72,39 +92,90 @@ export function useRecomendaciones(status: string) {
       setIsLoading(false);
     }
   };
-  const handleSearch = async (query: string, page: number = 1) => {
-    if (isLoading) return;
-
-    if (page === 1) {
-      setRecomendaciones([]);
-      setHasMore(true);
-      setIsSearching(true);
-      setSearchPage(1);
-      setSearchQuery(query);
-    }
-
-    setIsLoading(true);
+  const performSearch = async (query: string, page: number, existingItems: Recomendacion[] = []) => {
     try {
       const [res1, res2, res3] = await Promise.all([
         fetch(`/api/busqueda?q=${encodeURIComponent(query)}&tipo=cancion&page=${page}`),
         fetch(`/api/busqueda?q=${encodeURIComponent(query)}&tipo=album&page=${page}`),
         fetch(`/api/busqueda?q=${encodeURIComponent(query)}&tipo=artista&page=${page}`),
       ]);
+      
+      if (!res1.ok || !res2.ok || !res3.ok) {
+        console.error('Error en alguna de las APIs de búsqueda');
+        return [];
+      }
+
       const [data1, data2, data3] = await Promise.all([res1.json(), res2.json(), res3.json()]);
 
-      const resultados = [...data1.resultados, ...data2.resultados, ...data3.resultados];
+      const resultados = [
+        ...(data1.resultados || []), 
+        ...(data2.resultados || []), 
+        ...(data3.resultados || [])
+      ];
+
+      // Crear set con elementos existentes para evitar duplicados
+      const existingKeys = new Set(
+        existingItems.map(item => `${item.tipo}-${item.nombre}-${item.artista || ''}`)
+      );
+
       const seen = new Set();
       const filtrados = resultados.filter(item => {
-        const key = `${item.tipo}-${item.nombre}-${item.artista}`;
-        if (seen.has(key)) return false;
+        const key = `${item.tipo}-${item.nombre}-${item.artista || ''}`;
+        if (seen.has(key) || existingKeys.has(key)) return false;
         seen.add(key);
         return true;
       });
 
-      if (filtrados.length === 0) setHasMore(false);
-      else setRecomendaciones(prev => [...prev, ...filtrados]);
+      return filtrados;
+    } catch (err) {
+      console.error('Error en performSearch:', err);
+      return [];
+    }
+  };
+
+  const handleSearch = async (query: string) => {
+    if (isLoading) return;
+
+    setRecomendaciones([]);
+    setHasMore(true);
+    setIsSearching(true);
+    setSearchPage(1);
+    setSearchQuery(query);
+    setIsLoading(true);
+
+    try {
+      const resultados = await performSearch(query, 1);
+      if (resultados.length === 0) {
+        setHasMore(false);
+      } else {
+        setRecomendaciones(resultados);
+      }
     } catch (err) {
       console.error(err);
+      setHasMore(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadMoreSearchResults = async () => {
+    if (isLoading || !searchQuery || !hasMore) return;
+
+    setIsLoading(true);
+    try {
+      const resultados = await performSearch(searchQuery, searchPage, recomendaciones);
+      if (resultados.length === 0) {
+        setHasMore(false);
+      } else {
+        setRecomendaciones(prev => [...prev, ...resultados]);
+        // Si obtenemos menos resultados de los esperados, probablemente no hay más
+        if (resultados.length < 10) {
+          setHasMore(false);
+        }
+      }
+    } catch (err) {
+      console.error('Error cargando más resultados de búsqueda:', err);
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
@@ -116,6 +187,12 @@ export function useRecomendaciones(status: string) {
     setSearchPage(1);
     setHasMore(true);
     setSearchQuery("");
+    setIsLoading(false);
+    
+    // Desconectar observer para evitar problemas
+    if (observer.current) {
+      observer.current.disconnect();
+    }
   };
 
   return {

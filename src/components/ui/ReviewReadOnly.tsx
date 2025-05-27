@@ -38,7 +38,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
     }
 
     if (song) {
-      setRanking(null); // Resetear ranking primero
+      setRanking(null); 
       fetchRanking();
     } else {
       setRanking(null);
