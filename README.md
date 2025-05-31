@@ -13,7 +13,7 @@ Una aplicación web para descubrir nueva música, escribir reseñas y obtener re
 ## 🛠️ Tecnologías Utilizadas
 
 - **Framework**: [Next.js](https://nextjs.org/) 
-- **Lenguaje**: TypeScript
+- **Lenguaje**: TypeScript/JavaScript
 - **Estilizado**: CSS Modules / Tailwind CSS
 
 ## 📋 Prerrequisitos
