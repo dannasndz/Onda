@@ -56,11 +56,17 @@ bun install
 Crea un archivo `.env` en la raíz del proyecto:
 
 ```bash
-DATABASE_URL= your_database_url
-LASTFM_API_KEY=your_last_key
-NEXT_PUBLIC_SITE_URL= your_publicsite_url
+DATABASE_URL="postgresql://usuario:password@localhost:5432/onda_db"
+
+# Last.fm API
+LASTFM_API_KEY="tu_lastfm_api_key"
+
+# NextAuth.js
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET=your_secret
+NEXTAUTH_SECRET="tu_secreto_aleatorio"
+
+# URL del sitio
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
 
 ## 🚀 Ejecutar en Desarrollo
@@ -82,6 +88,10 @@ bun dev
 ```
 
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
+
+## Configuración adicional
+Base de datos
+Necesitas una base de datos PostgreSQL.
 
 ## 👤 Autor
 
