@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Onda - App de Recomendaciones y Reseñas Musicales
 
-## Getting Started
+Una aplicación web para descubrir nueva música, escribir reseñas y obtener recomendaciones personalizadas basadas en tus gustos musicales.
 
-First, run the development server:
+## 🚀 Características
+
+- **Recomendaciones Personalizadas**: Algoritmo que sugiere música basada en tus preferencias
+- **Sistema de Reseñas**: Escribe y lee reseñas detalladas de álbumes y canciones
+- **Exploración Musical**: Descubre nuevos artistas y géneros musicales
+- **Interfaz Moderna**: Diseño responsivo y experiencia de usuario intuitiva
+- **Búsqueda Avanzada**: Encuentra música por artista, álbum, género o estado de ánimo
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Framework**: [Next.js](https://nextjs.org/) - React framework 
+- **Lenguaje**: TypeScript/JavaScript
+- **Estilizado**: CSS Modules / Tailwind CSS
+
+## 📋 Prerrequisitos
+
+Antes de ejecutar el proyecto, asegúrate de tener instalado:
+
+- **Node.js** (versión 18.0 o superior)
+- **npm**, **yarn**, **pnpm** o **bun** como gestor de paquetes
+- **Git** para clonar el repositorio
+
+## 🔧 Instalación
+
+### 1. Clonar el repositorio
 
 ```bash
+git clone https://github.com/dannasndz/Onda.git
+cd Onda
+```
+
+### 2. Instalar dependencias
+
+Elige uno de los siguientes comandos según tu gestor de paquetes preferido:
+
+```bash
+# Con npm
+npm install
+
+# Con yarn
+yarn install
+
+# Con pnpm
+pnpm install
+
+# Con bun
+bun install
+```
+
+### 3. Configurar variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```bash
+DATABASE_URL= your_database_url
+LASTFM_API_KEY=your_last_key
+NEXT_PUBLIC_SITE_URL= your_publicsite_url
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=your_secret
+```
+
+## 🚀 Ejecutar en Desarrollo
+
+Para ejecutar el servidor de desarrollo:
+
+```bash
+# Con npm
 npm run dev
-# or
+
+# Con yarn
 yarn dev
-# or
+
+# Con pnpm
 pnpm dev
-# or
+
+# Con bun
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 👤 Autor
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**[@dannasndz](https://github.com/dannasndz)**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+⭐ ¡Si te gusta este proyecto, dale una estrella en GitHub!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🎵 **¡Disfruta descubriendo nueva música con Onda!**
