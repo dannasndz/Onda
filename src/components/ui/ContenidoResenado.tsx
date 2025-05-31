@@ -47,17 +47,16 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
   };
 
   const handleEdit = () => {
-    console.log('Edit button clicked'); // Debug
+    console.log('Edit button clicked'); 
     onEdit();
     setShowMenu(false);
   };
 
   const toggleMenu = () => {
-    console.log('Menu toggle clicked, current state:', showMenu); // Debug
+    console.log('Menu toggle clicked, current state:', showMenu); 
     setShowMenu(!showMenu);
   };
 
-  // Función para truncar texto largo y manejar palabras sin espacios
   const truncateText = (text: string, maxLength: number = 300) => {
     if (!text) return '';
 
@@ -88,7 +87,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
             <MoreVertical className="w-4 h-4" />
           </button>
 
-          {/* Menú desplegable */}
+          {/* Menu */}
           {showMenu && (
             <>
               <div
@@ -127,7 +126,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
 
       <div className="p-3 sm:p-4 lg:p-6">
         <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
-          {/* Columna izquierda - Información de la canción */}
+          {/* Info de la canción */}
           <div className="flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-center gap-3 sm:gap-4 lg:w-72 xl:w-80 flex-shrink-0">
             <div className="relative group/image flex-shrink-0">
               <img
@@ -168,7 +167,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
             </div>
           </div>
 
-          {/* Columna derecha - Contenido de la reseña */}
+          {/*  Contenido de la reseña */}
           <div className="flex-1 bg-[#232736]/60 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 border border-[#2a2d4a]/30 min-w-0">
             <div className="mb-3 sm:mb-4">
               <h4 className={`text-white text-base sm:text-lg lg:text-xl font-semibold mb-2 ${hasLongWords(review.titulo) ? 'break-all' : 'break-words'} hyphens-auto`}>
@@ -184,7 +183,6 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
                 {contenidoTruncado}
               </p>
 
-              {/* Botón para expandir/contraer si el contenido es largo */}
               {needsExpansion && (
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
@@ -198,7 +196,6 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
         </div>
       </div>
 
-      {/* Modal de confirmación para eliminar */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-[#1A1D2E] border border-[#2a2d4a] rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">

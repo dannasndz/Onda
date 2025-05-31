@@ -128,7 +128,6 @@ export default function ReviewListModal({
     };
 
     const handleClose = () => {
-        // Limpiar estados antes de cerrar
         setExpandedReviews(new Set());
         onClose();
     };
@@ -137,17 +136,14 @@ export default function ReviewListModal({
 
     return (
         <Dialog open={isOpen} onClose={handleClose} className="relative z-50">
-            {/* Overlay */}
             <div 
                 className="fixed inset-0 bg-black/30 backdrop-blur-sm" 
                 aria-hidden="true" 
             />
             
-            {/* Container */}
             <div className="fixed inset-0 flex items-start justify-center pt-4 pb-4">
                 <Dialog.Panel className="relative bg-[#1A1D2E] text-white rounded-xl shadow-[0_0px_30px_rgba(72,80,111,0.50)] border border-[#191c2c8d] w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-4 my-auto max-h-[calc(100vh-2rem)] overflow-hidden">
                     
-                    {/* Header */}
                     <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[#191c2c8d]">
                         <div className="flex-1 pr-4">
                             <Dialog.Title className="text-xl sm:text-2xl font-semibold text-white mb-1">
@@ -166,7 +162,6 @@ export default function ReviewListModal({
                         </button>
                     </div>
 
-                    {/* Content */}
                     <div className="p-4 sm:p-6 overflow-y-auto max-h-[60vh]">
                         {loading ? (
                             <div className="flex items-center justify-center py-8">
@@ -234,14 +229,12 @@ export default function ReviewListModal({
                                             </div>
                                         </div>
 
-                                        {/* Review Title */}
                                         {review.titulo && review.titulo !== 'Sin información' && (
                                             <h4 className="text-white font-semibold text-sm sm:text-base mb-2 break-words">
                                                 {review.titulo}
                                             </h4>
                                         )}
 
-                                        {/* Review Content */}
                                         <div className="text-gray-300 text-sm sm:text-base leading-relaxed break-words whitespace-pre-wrap">
                                             {(() => {
                                                 const isExpanded = expandedReviews.has(review.id);
@@ -285,7 +278,6 @@ export default function ReviewListModal({
                         )}
                     </div>
 
-                    {/* Footer */}
                     <div className="flex items-center justify-between p-4 sm:p-6 border-t border-[#191c2c8d] bg-[#1A1D2E]/50">
                         <p className="text-gray-400 text-xs sm:text-sm">
                             {reviews.length > 0 ? `${reviews.length} reseña${reviews.length !== 1 ? 's' : ''} encontrada${reviews.length !== 1 ? 's' : ''}` : ''}

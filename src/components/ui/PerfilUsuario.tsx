@@ -15,7 +15,6 @@ export default function PerfilUsuario() {
   const { reviews, songs, loading: loadingResenas, refreshReviews } = useResenasUsuario();
   const [mostrarModal, setMostrarModal] = useState(false);
   
-  // Estados para el modal de edición
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [reviewToEdit, setReviewToEdit] = useState<Review | null>(null);
   const [songToEdit, setSongToEdit] = useState<Song | null>(null);
@@ -90,7 +89,6 @@ export default function PerfilUsuario() {
       });
 
       if (response.ok) {
-        // Refrescar las reseñas después de eliminar
         await refreshReviews();
       } else {
         const error = await response.json();
@@ -103,7 +101,6 @@ export default function PerfilUsuario() {
     }
   };
 
-  // Función para abrir el modal de edición
   const handleEditReview = (reviewId: string) => {
     const review = reviews.find(r => r.id === reviewId);
     if (!review) {
@@ -111,7 +108,6 @@ export default function PerfilUsuario() {
       return;
     }
 
-    // Crear objeto Song a partir de los datos de la review
     const song: Song = {
       name: String(review.name || ''),
       artist: String(review.artist || ''),
@@ -126,14 +122,14 @@ export default function PerfilUsuario() {
     setIsEditModalOpen(true);
   };
 
-  // Función para cerrar el modal de edición
+  //   cerrar el modal de edición
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
     setReviewToEdit(null);
     setSongToEdit(null);
   };
 
-  // Función para guardar la reseña editada
+  // guardar la reseña editada
   const handleSaveEditedReview = async ({ title, content, rating }: { title: string; content: string; rating: number }) => {
     if (!reviewToEdit) return;
 
@@ -152,7 +148,6 @@ export default function PerfilUsuario() {
 
       if (response.ok) {
         handleCloseEditModal();
-        // Refrescar las reseñas después de editar
         await refreshReviews();
       } else {
         const error = await response.json();
@@ -169,9 +164,7 @@ export default function PerfilUsuario() {
     <>
       <div className="min-h-screen w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto review-container">
-          {/* Hero Section */}
           <div className="relative mb-6 sm:mb-8 lg:mb-12">
-            {/* Background decorativo */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-purple-500/5 to-pink-500/5 rounded-2xl sm:rounded-3xl blur-3xl"></div>
             
             <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-10">

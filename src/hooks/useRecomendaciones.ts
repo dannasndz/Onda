@@ -113,7 +113,6 @@ export function useRecomendaciones(status: string) {
         ...(data3.resultados || [])
       ];
 
-      // Crear set con elementos existentes para evitar duplicados
       const existingKeys = new Set(
         existingItems.map(item => `${item.tipo}-${item.nombre}-${item.artista || ''}`)
       );
@@ -168,7 +167,6 @@ export function useRecomendaciones(status: string) {
         setHasMore(false);
       } else {
         setRecomendaciones(prev => [...prev, ...resultados]);
-        // Si obtenemos menos resultados de los esperados, probablemente no hay más
         if (resultados.length < 10) {
           setHasMore(false);
         }
@@ -189,7 +187,6 @@ export function useRecomendaciones(status: string) {
     setSearchQuery("");
     setIsLoading(false);
     
-    // Desconectar observer para evitar problemas
     if (observer.current) {
       observer.current.disconnect();
     }

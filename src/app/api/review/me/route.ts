@@ -37,7 +37,7 @@ export async function GET() {
         album: r.album || '',
         genre: r.genre || '',
         coverUrl: r.coverUrl || '',
-        tipo: r.tipo as "cancion" | "album" | "otro", // 🔥 Aquí forzamos el tipo correcto
+        tipo: r.tipo as "cancion" | "album" | "otro", 
       };
     });
 

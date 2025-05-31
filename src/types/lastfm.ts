@@ -28,17 +28,17 @@ export interface TopArtistasResponse {
 }
 
 export interface TopAlbumLastFm {
-  name: string;         // Nombre del álbum
-  mbid: string;         // MusicBrainz ID (puede estar vacío)
-  url: string;          // URL del álbum en Last.fm
+  name: string;         
+  mbid: string;        
+  url: string;         
   artist: {
-    name: string;       // Nombre del artista
-    mbid: string;       // MusicBrainz ID del artista
-    url: string;        // URL del artista en Last.fm
+    name: string;      
+    mbid: string;      
+    url: string;       
   };
-  image: LastFmImage[]; // Arreglo de imágenes con diferentes tamaños
+  image: LastFmImage[];
   '@attr': {
-    rank: string;       // Posición del álbum en el ranking (como string)
+    rank: string;      
   };
 }
 

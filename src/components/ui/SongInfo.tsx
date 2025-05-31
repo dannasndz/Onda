@@ -115,7 +115,6 @@ export const SongInfo: React.FC<SongInfoProps> = ({
             </div>
           )}
 
-          {/* Contenido personalizado */}
           {children}
         </div>
 

@@ -56,7 +56,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
 
   return (
     <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-full">
-      {/* Imagen + estrellas */}
       <div className="w-full md:w-2/5 lg:w-1/3 flex flex-col items-center space-y-3 flex-shrink-0">
         <img
           src={song.coverUrl || '/placeholder-music.png'}
@@ -68,7 +67,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
 
       {/* Contenido del formulario */}
       <div className="w-full md:w-3/5 lg:w-2/3 flex flex-col space-y-3 min-h-0">
-        {/* Título y artista */}
         <div className="text-center md:text-left">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white mb-1">
             {song.name}
@@ -78,7 +76,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ song, existingReview, on
 
         {/* Campos del formulario */}
         <div className="flex-grow flex flex-col space-y-3 min-h-0">
-          {/* Título */}
           <div>
             <label htmlFor="reviewTitle" className="block text-sm font-medium text-gray-300 mb-1">
               Título de la reseña

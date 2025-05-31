@@ -36,7 +36,6 @@ export const ReviewsList: React.FC<ReviewsListProps> = ({
   return (
     <div className="space-y-4 sm:space-y-6 review-container">
       {reviews.map((review) => {
-        // Crear objeto Song a partir de los datos de la review
         const song: Song = {
           name: String(review.name || ''),
           artist: String(review.artist || ''),

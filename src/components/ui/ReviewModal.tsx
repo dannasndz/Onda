@@ -38,7 +38,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
       
       try {
         const [reviewPromise, rankingPromise] = await Promise.allSettled([
-          // Fetch review solo si hay sesión
           session?.user ? fetch(
             `/api/review?name=${encodeURIComponent(song.name)}&artist=${encodeURIComponent(song.artist)}&tipo=${song.tipo}`
           ) : Promise.resolve(null),
@@ -158,7 +157,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, song 
           </div>
         </div>
 
-        {/* MODAL de lista de reseñas -}}} */}
+        {/* MODAL de lista de reseñas */}
         <ReviewListModal
           isOpen={isReviewListOpen}
           onClose={() => setReviewListOpen(false)}

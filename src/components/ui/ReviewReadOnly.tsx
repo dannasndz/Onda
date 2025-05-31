@@ -16,7 +16,7 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
   const [ranking, setRanking] = useState<{ promedio: number | null; cantidad?: number; mensaje?: string } | null>(null);
   const [isReviewListOpen, setReviewListOpen] = useState(false); 
 
-  // Resetear estados cuando cambia la canción o reseña
+  // Resetear estados cuando cambia 
   useEffect(() => {
     setExpanded(false);
     setReviewListOpen(false);
@@ -96,7 +96,6 @@ export const ReviewReadOnly: React.FC<ReviewReadOnlyProps> = ({ review, song, on
           )}
         </div>
 
-        {/* Botón de editar */}
         <div>
           <button
             onClick={onEdit}

@@ -54,10 +54,9 @@ export default function GenreSelectionView({
         });
     };
 
-        return (
+    return (
         <div className="w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 ">
             <div className="w-full max-w-7xl mx-auto">
-                {/* Header */}
                 <div className="text-center mb-4 sm:mb-8">
                     <div className="flex items-center justify-center gap-3 mb-3">
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
@@ -97,7 +96,6 @@ export default function GenreSelectionView({
                 {/* Genres Carousel */}
                 <div className="mb-6 sm:mb-8">
                     {cargandoGeneros ? (
-                        // Estado de carga inicial
                         <div className="bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-8 sm:p-12 shadow-[0_0px_30px_rgba(72,80,111,0.30)]">
                             <div className="text-center">
                                 <div className="flex items-center justify-center space-x-3 mb-4">
@@ -113,7 +111,7 @@ export default function GenreSelectionView({
                         // Géneros encontrados
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-2xl"></div>
-                            
+
                             <div className="relative bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-4 sm:p-6 shadow-[0_0px_30px_rgba(72,80,111,0.30)]">
                                 <div className="flex items-center gap-3 sm:gap-4">
                                     <button
@@ -133,11 +131,10 @@ export default function GenreSelectionView({
                                             <button
                                                 key={genero.id}
                                                 onClick={() => onSelectGenre(genero.nombre)}
-                                                className={`relative flex-shrink-0 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer ${
-                                                    generoSeleccionado === genero.nombre
+                                                className={`relative flex-shrink-0 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer ${generoSeleccionado === genero.nombre
                                                         ? "bg-gradient-to-r from-[#6C63FF] to-[#A678F0] text-white shadow-[0_0px_20px_rgba(139,69,255,0.40)] ring-2 ring-white/20"
                                                         : "bg-[#232736]/80 border border-[#2e3354]/50 text-gray-300 hover:border-white  hover:text-white hover:bg-[#2a2f47]/80 hover:shadow-[0_0px_15px_rgba(6,182,212,0.20)]"
-                                                }`}
+                                                    }`}
                                             >
                                                 <span className="relative z-10 whitespace-nowrap">
                                                     {genero.nombre}
@@ -159,26 +156,24 @@ export default function GenreSelectionView({
                             </div>
                         </div>
                     ) : (
-                        // No se encontraron géneros
                         <div className="bg-[#1A1D2E]/60 backdrop-blur-sm border border-[#2a2d4a]/30 rounded-3xl p-8 sm:p-12 shadow-[0_0px_30px_rgba(72,80,111,0.30)]">
                             <div className="text-center">
                                 <div className="flex items-center justify-center space-x-3 mb-4">
-                                    
+
                                     <span className="text-gray-300 text-lg">No se encontraron géneros</span>
                                 </div>
                                 <p className="text-gray-500 text-sm">
-                                    {busqueda 
+                                    {busqueda
                                         ? `No hay géneros que coincidan con "${busqueda}". Intenta con otro término.`
                                         : "No hay géneros disponibles en este momento."
                                     }
                                 </p>
-                            
+
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* Continue Button */}
                 <div className="text-center">
                     <div className="relative inline-block">
                         {generoSeleccionado && (
@@ -187,18 +182,17 @@ export default function GenreSelectionView({
                         <button
                             onClick={onContinue}
                             disabled={!generoSeleccionado}
-                            className={`relative px-8 sm:px-12 py-4 sm:py-3 rounded-2xl text-base sm:text-lg font-bold cursor-pointer ${
-                                generoSeleccionado
+                            className={`relative px-8 sm:px-12 py-4 sm:py-3 rounded-2xl text-base sm:text-lg font-bold cursor-pointer ${generoSeleccionado
                                     ? "bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 hover:shadow-lg hover:shadow-black/20  text-white hover:brightness-110 shadow-black"
                                     : "bg-gray-600/50 text-gray-400 cursor-not-allowed"
-                            }`}
+                                }`}
                         >
                             <span className="relative z-10">
                                 {generoSeleccionado ? `Explorar ${generoSeleccionado}` : "Selecciona un género"}
                             </span>
                         </button>
                     </div>
-                    
+
                     {generoSeleccionado && (
                         <p className="mt-4 text-sm text-gray-400 animate-fade-in">
                             ¡Perfecto! Descubre lo mejor de <span className="text-cyan-400 font-medium">{generoSeleccionado}</span>

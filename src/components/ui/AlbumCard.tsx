@@ -21,7 +21,6 @@ export default function AlbumCard({ album }: AlbumCardProps) {
         <div className="group relative">
             {/* Main card */}
             <div className="bg-[#1A1D2E]/90 border border-[#2a2d4a]/60 hover:border-purple-400/10 rounded-2xl p-6 transition-all duration-200 hover:bg-[#1A1D2E]">
-                {/* Rank badge */}
                 <div className="absolute -top-2 -right-2 z-10">
                     <div className={`bg-gradient-to-r ${getRankColor(album.rank)} rounded-full px-3 py-1.5 flex items-center gap-1.5`}>
                         {getRankIcon(album.rank)}

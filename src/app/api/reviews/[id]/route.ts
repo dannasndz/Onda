@@ -29,7 +29,6 @@ export async function DELETE(
       return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
     }
 
-    // Verificar que la reseña existe y pertenece al usuario
     const review = await prisma.reseña.findUnique({
       where: { id: reviewId },
     });
@@ -42,7 +41,6 @@ export async function DELETE(
       return NextResponse.json({ error: "No tienes permisos para eliminar esta reseña" }, { status: 403 });
     }
 
-    // Eliminar la reseña
     await prisma.reseña.delete({
       where: { id: reviewId },
     });

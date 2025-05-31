@@ -28,7 +28,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 404 });
     }
 
-    // 🧼 Eliminar relaciones anteriores SOLO del tipo que se esté enviando
     if (actuales.length > 0) {
       await prisma.usuarioGenero.deleteMany({
         where: {

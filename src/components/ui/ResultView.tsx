@@ -66,7 +66,6 @@ export default function ResultsView({
                         </div>
                     </div>
 
-                    {/* Loading */}
                     {cargando && (
                         <div className="flex flex-col items-center justify-center py-16 sm:py-24">
                             <div className="relative">
@@ -84,7 +83,6 @@ export default function ResultsView({
                         </div>
                     )}
 
-                    {/* Error */}
                     {error && (
                         <div className="flex items-center justify-center py-16">
                             <div className="relative max-w-md w-full">
@@ -106,10 +104,9 @@ export default function ResultsView({
                         </div>
                     )}
 
-                    {/* Results  */}
+                    {/* Resultados  */}
                     {!cargando && !error && (
                         <div className="space-y-12 lg:space-y-16">
-                            {/* Top Artists Section */}
                             {topArtistas.length > 0 && (
                                 <section className="animate-fade-in">
                                     <div className="relative mb-8">
@@ -148,7 +145,6 @@ export default function ResultsView({
                                         ))}
                                     </div>
 
-                                    {/* Botón Ver más artistas */}
                                     {hayMasArtistas && (
                                         <div className="flex justify-center mt-8">
                                             <div className="relative">
@@ -177,7 +173,6 @@ export default function ResultsView({
                                 </section>
                             )}
 
-                            {/* Top Albums Section */}
                             {topAlbumes.length > 0 && (
                                 <section className="animate-fade-in">
                                     <div className="relative mb-8">
@@ -216,7 +211,6 @@ export default function ResultsView({
                                         ))}
                                     </div>
 
-                                    {/* Botón Ver más álbumes */}
                                     {hayMasAlbumes && (
                                         <div className="flex justify-center mt-8">
                                             <div className="relative">
@@ -245,7 +239,6 @@ export default function ResultsView({
                                 </section>
                             )}
 
-                            {/* Empty states */}
                             {topArtistas.length === 0 && topAlbumes.length === 0 && (
                                 <div className="text-center py-16">
                                     <div className="relative inline-block">
@@ -265,7 +258,6 @@ export default function ResultsView({
                         </div>
                     )}
 
-                    {/* Bottom action button */}
                     {!cargando && (
                         <div className="w-full flex justify-center mt-12 lg:mt-16 mb-8 lg:mb-12">
                             <div className="relative group">

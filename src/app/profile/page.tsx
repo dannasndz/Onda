@@ -6,7 +6,6 @@ import Navbar from "@/components/ui/navbar";
 export default function PerfilPage() {
   return (
     <div className="flex min-h-screen text-white">
-      {/* desktop*/}
       <nav className="hidden lg:block fixed top-0 left-0 h-screen w-20 overflow-y-auto z-20">
         <Navbar />
       </nav>
