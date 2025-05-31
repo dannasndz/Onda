@@ -12,8 +12,8 @@ Una aplicación web para descubrir nueva música, escribir reseñas y obtener re
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Framework**: [Next.js](https://nextjs.org/) - React framework 
-- **Lenguaje**: TypeScript/JavaScript
+- **Framework**: [Next.js](https://nextjs.org/) 
+- **Lenguaje**: TypeScript
 - **Estilizado**: CSS Modules / Tailwind CSS
 
 ## 📋 Prerrequisitos
